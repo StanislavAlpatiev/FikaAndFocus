@@ -9,5 +9,4 @@ public class FikafocusApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FikafocusApplication.class, args);
 	}
-
 }

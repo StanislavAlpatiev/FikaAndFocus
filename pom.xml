@@ -36,6 +36,11 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>commons-chain</groupId>
+			<artifactId>commons-chain</artifactId>
+			<version>1.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -90,7 +95,7 @@
 		<repository>
 			<id>internal.repo</id>
 			<name>Internal repo</name>
-			<url>git@gitea.dsv.su.se/[auser]/[arepo].git</url>
+			<url>git@gitea.dsv.su.se/arso9914/FikaAndFocus.git</url>
 		</repository>
 	</distributionManagement>
 
