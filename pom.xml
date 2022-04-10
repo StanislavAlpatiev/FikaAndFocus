@@ -15,7 +15,9 @@
 	<name>fikafocus</name>
 	<description>PVT Project</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>18</maven.compiler.source>
+		<maven.compiler.target>18</maven.compiler.target>
 	</properties>
 	<dependencies>
 		<dependency>
