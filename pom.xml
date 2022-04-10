@@ -95,7 +95,7 @@
 		<repository>
 			<id>internal.repo</id>
 			<name>Internal repo</name>
-			<url>git@gitea.dsv.su.se/arso9914/FikaAndFocus.git</url>
+			<url>git@gitea.dsv.su.se:arso9914/FikaAndFocus.git</url>
 		</repository>
 	</distributionManagement>
 
