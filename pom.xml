@@ -12,10 +12,12 @@
 	<artifactId>fikafocus</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>demo</name>
-	<description>Fika and focus</description>
+	<name>fika and focus</name>
+	<description>fika and focus</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
+		<maven.compiler.source>18</maven.compiler.source>
+		<maven.compiler.target>18</maven.compiler.target>
 	</properties>
 	<dependencies>
 		<dependency>
