@@ -14,6 +14,6 @@ public class FikafocusApplication {
 
     @GetMapping
     public String hello(){
-        return "hi";
+        return "hii";
     }
 }
