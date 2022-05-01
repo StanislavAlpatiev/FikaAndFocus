@@ -65,9 +65,12 @@ public class Test_API_interaction {
                 //Get the first JSON object in the JSON array
                 System.out.println(dataObject.get(0));
 
-                JSONObject countryData = (JSONObject) dataObject.get(0);
+                JSONObject user = (JSONObject) dataObject.get(0);
 
-                System.out.println(countryData.get("woeid"));
+                System.out.println("--- dataObject.get(0) returns this ---");
+                System.out.println("id: " + user.get("id"));
+                System.out.println("name: " + user.get("name"));
+                System.out.println("email: " + user.get("email"));
 
             }
         } catch (Exception e) {
