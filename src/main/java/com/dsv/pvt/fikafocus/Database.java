@@ -4,7 +4,6 @@ import java.sql.*;
 
 public class Database {
 
-
     public static void main(String[] args) {
         try {
 
@@ -18,14 +17,14 @@ public class Database {
             ResultSet myRs = myStmt.executeQuery("select * from reviews");
 
             //show result
-            while (myRs.next()){
-                System.out.println(myRs.getString("name") + "   "  + myRs.getString("content"));
+            while (myRs.next()) {
+                System.out.println(myRs.getString("name") + "   " + myRs.getString("content"));
             }
 
         } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            throwables.printStackTrace();
         }
     }
- }
+}
 
 

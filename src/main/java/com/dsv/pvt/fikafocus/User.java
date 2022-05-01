@@ -1,9 +1,12 @@
 package com.dsv.pvt.fikafocus;
 
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 
 @Entity // This tells Hibernate to make a table out of this class
 public class User {
@@ -12,6 +15,14 @@ public class User {
     private Integer id;
     private String name;
     private String email;
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public User() {
+    }
 
     public Integer getId() {
         return id;
