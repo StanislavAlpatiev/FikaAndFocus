@@ -5,10 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path="/cafe")
+@RequestMapping(path="/cafes")
 public class CafeController {
 
     @Autowired
@@ -33,6 +34,23 @@ public class CafeController {
         return cafeRepository.findAll();
     }
 
+    /**
+     * alla reviews för ett visst cafe
+     * ex: http://localhost:8080/cafes/46/all
+     *
+     * @param id - för cafe som man vill ha alla reviews för
+     * @return alla cafeer för ett visst cafe,
+     */
+    @GetMapping("/{id}/all")
+    public Collection getAllReviewsforCafesById(@PathVariable("id") Integer id ){
+        Optional<Cafe2> optionalCafe2 = cafeRepository.findById(id);
+        if(optionalCafe2.isPresent())
+            return optionalCafe2.get().getReviewSet();
+        return null;
+    }
+
+
+    //hämta review med visst id
     @GetMapping("/{id}")
     public Cafe2 reviewById(@PathVariable("id") Integer id ){
         Optional<Cafe2> optionalCafe2 = cafeRepository.findById(id);
