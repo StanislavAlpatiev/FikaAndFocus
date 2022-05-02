@@ -1,27 +1,24 @@
-package com.dsv.pvt.fikafocus;
+package com.dsv.pvt.fikafocus.user;
 
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 
 @Entity // This tells Hibernate to make a table out of this class
-public class User {
-    @Id
+public class User2 {
+    @Id // primary key
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     private String name;
     private String email;
 
-    public User(String name, String email) {
+    public User2(String name, String email) {
         this.name = name;
         this.email = email;
     }
 
-    public User() {
+    public User2() {
     }
 
     public Integer getId() {

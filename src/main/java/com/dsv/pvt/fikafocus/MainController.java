@@ -1,13 +1,19 @@
 package com.dsv.pvt.fikafocus;
 
+import com.dsv.pvt.fikafocus.user.User2;
+import com.dsv.pvt.fikafocus.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * localhost:8080/demo/add?name=jane&email=jane@su.se
+ *
+ */
 
 @Controller // This means that this class is a Controller
 @RequestMapping(path="/demo") // This means URL's start with /demo (after Application path)
@@ -22,7 +28,7 @@ public class MainController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
-        User n = new User();
+        User2 n = new User2();
         n.setName(name);
         n.setEmail(email);
         userRepository.save(n);
@@ -30,7 +36,7 @@ public class MainController {
     }
 
         @GetMapping(path="/all")
-    public @ResponseBody Iterable<User> getAllUsers() {
+    public @ResponseBody Iterable<User2> getAllUsers() {
         // This returns a JSON or XML with the users
         return userRepository.findAll();
     }
