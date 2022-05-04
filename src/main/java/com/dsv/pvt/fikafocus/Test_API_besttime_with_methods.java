@@ -117,6 +117,11 @@ public class Test_API_besttime_with_methods {
      * Would like to create a method like this one, but which gets a
      * nested JSONObject / JSONArray. Because for example venue_name
      * is nested within venue.
+     *
+     * An Idea 220504 16:45:08:
+     * could have a method that returns an array of venue ID's (among other things)
+     * and then each venue ID can be used in "Query now" https://documentation.besttime.app/#query-now
+     * to get the current busyness of every venue one by one ..
      * @param informationString
      * @throws ParseException
      */
