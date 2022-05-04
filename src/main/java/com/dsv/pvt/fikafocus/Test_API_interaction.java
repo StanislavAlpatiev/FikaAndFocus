@@ -67,6 +67,7 @@ public class Test_API_interaction {
 
                 JSONObject user = (JSONObject) dataObject.get(0);
 
+                // use get method to fetch entry details // Anton
                 System.out.println("--- dataObject.get(0) returns this ---");
                 System.out.println("id: " + user.get("id"));
                 System.out.println("name: " + user.get("name"));
