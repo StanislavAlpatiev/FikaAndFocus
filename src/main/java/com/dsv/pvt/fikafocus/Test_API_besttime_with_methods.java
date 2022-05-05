@@ -1,5 +1,6 @@
 package com.dsv.pvt.fikafocus;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -62,8 +63,8 @@ public class Test_API_besttime_with_methods {
                 }
                 scanner.close();
 
-                printResponse(informationString);
-
+                //printResponse(informationString);
+                printResponse_jackson(informationString);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -136,6 +137,24 @@ public class Test_API_besttime_with_methods {
         // and why were not merely printing jsonMap // ant
         System.out.println("----- VENUES ----- \n" + jsonMap.get("venues"));
 
+    }
+
+    public static void printResponse_jackson(StringBuilder informationString) throws ParseException {
+        try {
+            // create object mapper instance
+            ObjectMapper mapper = new ObjectMapper();
+
+            // convert JSON file to map
+            Map<?, ?> map = mapper.readValue(String.valueOf(informationString), Map.class);
+
+            // print map entries
+            for (Map.Entry<?, ?> entry : map.entrySet()) {
+                System.out.println(entry.getKey() + "=" + entry.getValue());
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     /*
