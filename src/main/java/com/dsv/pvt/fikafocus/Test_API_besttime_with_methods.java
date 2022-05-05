@@ -67,8 +67,8 @@ public class Test_API_besttime_with_methods {
 
                 //printResponse(informationString);
                 //printResponse_jackson(informationString);
-                //printResponse_jackson_venuenames(informationString);
-                printResponse_jackson_venuenames_map(informationString);
+                printResponse_jackson_venuenames(informationString);
+                //printResponse_jackson_venuenames_map(informationString);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,19 +167,23 @@ public class Test_API_besttime_with_methods {
     public static void printResponse_jackson_venuenames(StringBuilder informationString) throws ParseException, JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(String.valueOf(informationString));
-        String sourceString0 = jsonNode.at("/venues/0/venue_name").toString();
-        String sourceString1 = jsonNode.at("/venues/1/venue_name").toString();
-        String sourceString2 = jsonNode.at("/venues/2/venue_name").toString();
-        String sourceString3 = jsonNode.at("/venues/3/venue_name").toString();
-
+        int venue_index = 0;
+        ArrayList<String> names = new ArrayList();
+        List<JsonNode> listOfNodes = jsonNode.findParents("venue_name");
+        for(int i = 0; i < listOfNodes.size(); i++) {
+            String sourceString0 = jsonNode.at("/venues/" + venue_index + "/venue_name").toString();
+            String sourceString1 = jsonNode.at("/venues/" + venue_index + "/venue_lat").toString();
+            String sourceString2 = jsonNode.at("/venues/" + venue_index + "/venue_lng").toString();
+            names.add(sourceString0);
+            names.add(sourceString1);
+            names.add(sourceString2);
+            venue_index++;
+        }
         //Map<?, ?> map = objectMapper.readValue(sourceString, Map.class);
 
         //System.out.println(map.toString());
 
-        System.out.println(sourceString0);
-        System.out.println(sourceString1);
-        System.out.println(sourceString2);
-        System.out.println(sourceString3);
+        System.out.println(names);
     }
 
     public static void printResponse_jackson_venuenames_map(StringBuilder informationString) throws ParseException, JsonProcessingException {
@@ -196,10 +200,10 @@ public class Test_API_besttime_with_methods {
         System.out.println(listOfNodes.size());
 
 
-        System.out.println(sourceString0);
-        System.out.println(sourceString1);
-        System.out.println(sourceString2);
-        System.out.println(sourceString3);
+//        System.out.println(sourceString0);
+//        System.out.println(sourceString1);
+//        System.out.println(sourceString2);
+//        System.out.println(sourceString3);
 
     
     }
