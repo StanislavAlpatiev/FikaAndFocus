@@ -168,15 +168,28 @@ public class Test_API_besttime_with_methods {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(String.valueOf(informationString));
         int venue_index = 0;
+
+        // dessa två rader kan tas ut till egen metod
         ArrayList<String> names = new ArrayList();
         List<JsonNode> listOfNodes = jsonNode.findParents("venue_name");
+
+
         for(int i = 0; i < listOfNodes.size(); i++) {
             String sourceString0 = jsonNode.at("/venues/" + venue_index + "/venue_name").toString();
             String sourceString1 = jsonNode.at("/venues/" + venue_index + "/venue_lat").toString();
             String sourceString2 = jsonNode.at("/venues/" + venue_index + "/venue_lng").toString();
+
+
+            JsonNode arrNode = jsonNode.at("/venues/" + venue_index).get("day_raw");
+            if (arrNode.isArray()) {
+                for (final JsonNode objNode : arrNode) {
+                    System.out.println(objNode);
+                }
+
             names.add(sourceString0);
             names.add(sourceString1);
             names.add(sourceString2);
+            names.add(arrNode.at("/3").toString());
             venue_index++;
         }
         //Map<?, ?> map = objectMapper.readValue(sourceString, Map.class);
@@ -186,27 +199,7 @@ public class Test_API_besttime_with_methods {
         System.out.println(names);
     }
 
-    public static void printResponse_jackson_venuenames_map(StringBuilder informationString) throws ParseException, JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree(String.valueOf(informationString));
-        String sourceString0 = jsonNode.at("/venues/0/venue_name").toString();
-        String sourceString1 = jsonNode.at("/venues/1/venue_name").toString();
-        String sourceString2 = jsonNode.at("/venues/2/venue_name").toString();
-        String sourceString3 = jsonNode.at("/venues/3/venue_name").toString();
 
-        //String[] venues = objectMapper.readValue(jsonNode.at("/venues").toString(), Map.class);
-
-        List<JsonNode> listOfNodes = jsonNode.findParents("venue_name");
-        System.out.println(listOfNodes.size());
-
-
-//        System.out.println(sourceString0);
-//        System.out.println(sourceString1);
-//        System.out.println(sourceString2);
-//        System.out.println(sourceString3);
-
-    
-    }
     /*
     a good thing would be to figure out
     how to return a list of venue names,
@@ -219,4 +212,5 @@ public class Test_API_besttime_with_methods {
 
 
 
+}
 }
