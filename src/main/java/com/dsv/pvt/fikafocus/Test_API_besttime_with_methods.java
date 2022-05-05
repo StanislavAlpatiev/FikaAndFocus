@@ -95,8 +95,8 @@ public class Test_API_besttime_with_methods {
 
     /**
      * PART 2
-     * What: creates get request if you give it a valid url. Some urls work with POST rather than get, those urls wont work here. // Ant
-     * Why: suspecting we might use this method (its code) a lot, so this should reduce code duplication. // Ant
+     * What: creates get request if you give it a valid url. Some urls work with POST rather than get, those urls wont work here.
+     * Why: suspecting we might use this method (its code) a lot, so this should reduce code duplication.
      *
      * // Ant
      * @param url
@@ -137,6 +137,17 @@ public class Test_API_besttime_with_methods {
         System.out.println("----- VENUES ----- \n" + jsonMap.get("venues"));
 
     }
+
+    /*
+    a good thing would be to figure out
+    how to return a list of venue names,
+    while excluding other parts of the response.
+    why? venues names are deeper nested within the json response.
+    And we need a good way to take out individual parts of the
+    json response. I think for now it's ok to just print out
+    the venue names to console.
+     */
+
 
 
 }
