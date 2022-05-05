@@ -67,7 +67,8 @@ public class Test_API_besttime_with_methods {
 
                 //printResponse(informationString);
                 //printResponse_jackson(informationString);
-                printResponse_jackson_venuenames(informationString);
+                //printResponse_jackson_venuenames(informationString);
+                printResponse_jackson_venuenames_map(informationString);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -181,6 +182,27 @@ public class Test_API_besttime_with_methods {
         System.out.println(sourceString3);
     }
 
+    public static void printResponse_jackson_venuenames_map(StringBuilder informationString) throws ParseException, JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(String.valueOf(informationString));
+        String sourceString0 = jsonNode.at("/venues/0/venue_name").toString();
+        String sourceString1 = jsonNode.at("/venues/1/venue_name").toString();
+        String sourceString2 = jsonNode.at("/venues/2/venue_name").toString();
+        String sourceString3 = jsonNode.at("/venues/3/venue_name").toString();
+
+        //String[] venues = objectMapper.readValue(jsonNode.at("/venues").toString(), Map.class);
+
+        List<JsonNode> listOfNodes = jsonNode.findParents("venue_name");
+        System.out.println(listOfNodes.size());
+
+
+        System.out.println(sourceString0);
+        System.out.println(sourceString1);
+        System.out.println(sourceString2);
+        System.out.println(sourceString3);
+
+    
+    }
     /*
     a good thing would be to figure out
     how to return a list of venue names,
