@@ -139,7 +139,10 @@ public class Test_API_besttime_with_methods {
 
     }
 
+
     public static void printResponse_jackson(StringBuilder informationString) throws ParseException {
+
+
         try {
             // create object mapper instance
             ObjectMapper mapper = new ObjectMapper();
