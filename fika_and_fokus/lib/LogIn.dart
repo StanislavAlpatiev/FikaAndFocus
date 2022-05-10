@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:fika_and_fokus/NavBar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'signup.dart';
@@ -161,7 +162,7 @@ class _LogInState extends State<LogIn> {
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(
-                        //     builder: (context) => SecondRoute(),
+                        //     builder: (context) => const NavBar(),
                         //   ),
                         // );
                       },

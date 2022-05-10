@@ -1,4 +1,4 @@
-package com.dsv.pvt.fikafocus;
+package com.dsv.pvt.fikafocus.user;//package com.dsv.pvt.fikafocus;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "User")

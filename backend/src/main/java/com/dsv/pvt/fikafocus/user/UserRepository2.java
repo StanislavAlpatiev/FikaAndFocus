@@ -1,4 +1,5 @@
-package com.dsv.pvt.fikafocus;
+//package com.dsv.pvt.fikafocus.user;
+package com.dsv.pvt.fikafocus.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Repository;
 // CRUD refers Create, Read, Update, Delete
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+public interface UserRepository2 extends JpaRepository<UserEntity, Integer> {
     public boolean existsByNameAndEmail(String name, String email);
     // public boolean existsById(long id);
     //public UserEntity findById(int id);
