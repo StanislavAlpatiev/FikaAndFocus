@@ -164,6 +164,12 @@ public class Test_API_besttime_with_methods {
         }
     }
 
+    /**
+     * Vad:
+     * @param informationString
+     * @throws ParseException
+     * @throws JsonProcessingException
+     */
     public static void printResponse_jackson_venuenames(StringBuilder informationString) throws ParseException, JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(String.valueOf(informationString));
@@ -183,7 +189,7 @@ public class Test_API_besttime_with_methods {
             JsonNode arrNode = jsonNode.at("/venues/" + venue_index).get("day_raw");
             if (arrNode.isArray()) {
                 for (final JsonNode objNode : arrNode) {
-                    System.out.println(objNode);
+                    //System.out.println(objNode);
                 }
 
             names.add(sourceString0);
