@@ -55,7 +55,7 @@ class _LogInState extends State<LogIn> {
                   Center(
                     child: Text(
                       "FIKA & FOCUS",
-                      style: GoogleFonts.oswald(fontSize: 60.00),
+                        style: GoogleFonts.oswald(fontSize: 60.00),
                     ),
                   ),
                   const SizedBox(
