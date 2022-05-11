@@ -13,10 +13,9 @@ class _SearchBarState extends State<SearchBar> {
     return TextField(
       decoration: InputDecoration(
         filled: true,
-        fillColor:
-        Color.fromARGB(255, 67, 71, 68).withOpacity(0.7),
-        contentPadding: const EdgeInsets.only(
-            left: 14.0, bottom: 8.0, top: 8.0),
+        fillColor: Color.fromARGB(255, 67, 71, 68).withOpacity(0.7),
+        contentPadding:
+            const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
         hintText: 'Search',
         hintStyle: TextStyle(
           color: Colors.white,
@@ -38,8 +37,6 @@ class _SearchBarState extends State<SearchBar> {
           color: Color.fromARGB(255, 255, 255, 255),
           fontSize: 20,
           fontWeight: FontWeight.bold),
-
     );
   }
 }
-

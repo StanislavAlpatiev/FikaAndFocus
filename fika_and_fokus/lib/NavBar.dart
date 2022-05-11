@@ -26,23 +26,32 @@ class _NavBarState extends State<NavBar> {
       //   title: const Text('Fika & Focus'),
       // ),
       body: Center(child: IndexedStack(index: _selectedIndex, children: screens)
-        // screens[_selectedIndex],
-      ),
+          // screens[_selectedIndex],
+          ),
       // )
       bottomNavigationBar: BottomNavigationBar(
+        // backgroundColor: Colors.black,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+            //backgroundColor: Colors.black,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark_outline_outlined),
-            label: 'Bookmarks',
+            icon: Icon(Icons.star),
+            label: 'Favorites',
+            // backgroundColor: Colors.black,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_rounded),
             label: 'Profile',
+            //  backgroundColor: Colors.black,
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.local_cafe_outlined),
+          //   label: 'My Cafés',
+          //   backgroundColor: Colors.black,
+          //  ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
@@ -52,4 +61,3 @@ class _NavBarState extends State<NavBar> {
     );
   }
 }
-
