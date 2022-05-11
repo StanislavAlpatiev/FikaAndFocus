@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fika_and_fokus/NavBar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'signup.dart';
 import 'User.dart';
@@ -34,33 +35,41 @@ class _LogInState extends State<LogIn> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: const AssetImage("images/bg_white.jpg"),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-                Colors.brown.withOpacity(0.9), BlendMode.dstATop),
-          ),
-        ),
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(
+        //     image: const AssetImage("images/bg_white.jpg"),
+        //     fit: BoxFit.cover,
+        //     colorFilter: ColorFilter.mode(
+        //         Colors.brown.withOpacity(0.9), BlendMode.dstATop),
+        //   ),
+        // ),
         child: SafeArea(
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+              padding: const EdgeInsets.fromLTRB(20, 150, 20, 20),
               child: ListView(
                 shrinkWrap: true,
                 // ignore: prefer_const_literals_to_create_immutables
                 children: <Widget>[
                   // ignore: prefer_const_constructors
+                  Image.asset('images/cafe3.jpg',width:300,height:100),
+                  //   Text(
+                  //     "FIKA & FOCUS",
+                  //     style: GoogleFonts.oswald(fontSize: 60.00, fontWeight: FontWeight.w300),
+                  //   ),
+                  // ),
                   Center(
                     child: Text(
-                      "FIKA & FOCUS",
-                      style: GoogleFonts.oswald(fontSize: 60.00),
+                      "account login",
+                      style: GoogleFonts.roboto(
+                          fontSize: 35.00,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
-                  const SizedBox(
-                    height: 12,
-                  ),
+                  // const SizedBox(
+                  //   height: 12,
+                  // ),
                   // CircleAvatar(
                   //   radius: 77,
                   //   child: ClipRRect(
@@ -74,24 +83,28 @@ class _LogInState extends State<LogIn> {
                     // ignore: prefer_const_constructors
                     child: TextFormField(
                       decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'User Name/Email',
-                        icon: Icon(
-                          Icons.person,
-                          color: Colors.white,
-                          size: 32,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
+                        border: InputBorder.none,
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: FaIcon(
+                            FontAwesomeIcons.solidUser,
+                            color: Colors.white,
+                          ),
                         ),
+                        labelText: 'Username or email',
                         labelStyle: TextStyle(
                           color: Colors.white,
-                          fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
                       ),
                       // ignore: prefer_const_constructors
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                      style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                          //   TextStyle(
+                          // color: Color.fromARGB(255, 255, 255, 255),
+                          // fontSize: 20,
+                          // fontWeight: FontWeight.bold),
                       //To check the input value.
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -112,23 +125,24 @@ class _LogInState extends State<LogIn> {
                   Card(
                     child: TextFormField(
                       obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        icon: Icon(
-                          Icons.lock,
-                          color: Colors.white,
-                          size: 30,
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
+                        border: InputBorder.none,
+                        prefixIcon: Align(
+                          widthFactor: 1.0,
+                          heightFactor: 1.0,
+                          child: FaIcon(
+                            FontAwesomeIcons.key,
+                            color: Colors.white,
+                          ),
                         ),
+                        labelText: 'Password',
                         labelStyle: TextStyle(
                           color: Colors.white,
-                          fontWeight: FontWeight.bold,
                           fontSize: 20,
                         ),
                       ),
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                      style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Password is empty';
@@ -150,8 +164,7 @@ class _LogInState extends State<LogIn> {
                   ),
                   Container(
                     height: 50,
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
+                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
                     child: ElevatedButton(
                       onPressed: () {
                         // save();
@@ -162,18 +175,22 @@ class _LogInState extends State<LogIn> {
                           ),
                         );
                       },
-                      child: const Text(
+                      child: Text(
                         'Log In',
-                        style: TextStyle(
-                          color: Colors.greenAccent,
+                        style: GoogleFonts.roboto(
                           fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Pacifico',
-                        ),
+                          fontWeight: FontWeight.normal
+                          ),
+                        //     TextStyle(
+                        //   color: Color.fromARGB(255, 255, 255, 255),
+                        //   fontSize: 28,
+                        //   fontWeight: FontWeight.bold,
+                        //   fontFamily: 'Pacifico',
+                        // ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(51, 161, 161, 165),
-                        side: BorderSide(color: Colors.green),
+                        primary: Color.fromARGB(255, 105, 105, 105),
+                        // side: BorderSide(color: Colors.green),
                       ),
                     ),
                   ),
@@ -212,8 +229,7 @@ class _LogInState extends State<LogIn> {
                       ),
                       Container(
                         height: 50,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 4),
+                        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(
