@@ -159,13 +159,13 @@ class _LogInState extends State<LogIn> {
                         const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
                     child: ElevatedButton(
                       onPressed: () {
-                        save();
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const NavBar(),
-                        //   ),
-                        // );
+                        // save();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const NavBar(),
+                          ),
+                        );
                       },
                       child: const Text(
                         'Log In',
