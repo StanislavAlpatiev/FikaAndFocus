@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'SignUp.dart';
 import 'Search.dart';
+import 'Popular.dart';
 
 class BookmarksPage extends StatefulWidget {
   const BookmarksPage({Key? key}) : super(key: key);
@@ -190,7 +191,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const SignUp(),
+                                  builder: (context) => const PopularCafes(),
                                 ),
                               ),
                         ),
