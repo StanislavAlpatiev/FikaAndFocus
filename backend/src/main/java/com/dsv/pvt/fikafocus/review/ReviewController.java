@@ -7,9 +7,7 @@ package com.dsv.pvt.fikafocus.review;
 
 import com.dsv.pvt.fikafocus.cafe.Cafe2;
 import com.dsv.pvt.fikafocus.cafe.CafeRepository;
-import com.dsv.pvt.fikafocus.user.User2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
