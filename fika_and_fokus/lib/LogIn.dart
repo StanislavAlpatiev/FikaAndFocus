@@ -47,21 +47,17 @@ class _LogInState extends State<LogIn> {
           child: Scaffold(
             backgroundColor: Colors.transparent,
             body: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 150, 20, 20),
+              padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
               child: ListView(
                 shrinkWrap: true,
                 // ignore: prefer_const_literals_to_create_immutables
                 children: <Widget>[
                   // ignore: prefer_const_constructors
-                  Image.asset('images/cafe3.jpg',width:300,height:100),
-                  //   Text(
-                  //     "FIKA & FOCUS",
-                  //     style: GoogleFonts.oswald(fontSize: 60.00, fontWeight: FontWeight.w300),
-                  //   ),
-                  // ),
+                  Image.asset('images/logo-black-2.png',width:600,height:200),
+                  Padding(padding: const EdgeInsets.fromLTRB(20, 5, 20, 5)),
                   Center(
                     child: Text(
-                      "account login",
+                      "ACCOUNT LOGIN",
                       style: GoogleFonts.roboto(
                           fontSize: 35.00,
                           fontWeight: FontWeight.w500),
@@ -79,6 +75,7 @@ class _LogInState extends State<LogIn> {
                   //     ),
                   //   ),
                   // ),
+                  Padding(padding: const EdgeInsets.fromLTRB(20, 10, 20, 10)),
                   Card(
                     // ignore: prefer_const_constructors
                     child: TextFormField(
