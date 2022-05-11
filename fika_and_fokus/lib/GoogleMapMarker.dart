@@ -3,6 +3,10 @@ import 'dart:convert';
 
 class GoogleMapMarker {
   final String venueName;
+  final String venueId;
+  final String venueAddress;
+  final double rating;
+  final int priceLevel;
   // final String title;
   // final String snippet;
   final double long;
@@ -10,6 +14,10 @@ class GoogleMapMarker {
 
   GoogleMapMarker({
     required this.venueName,
+    required this.venueId,
+    required this.venueAddress,
+    required this.rating,
+    required this.priceLevel,
     // required this.title,
     // required this.snippet,
     required this.long,
@@ -40,7 +48,7 @@ class GoogleMapMarker {
     //   position: LatLng(long, lat),
     // )
 
-    return GoogleMapMarker(venueName : json['venue_name'], long : json['venue_lng'], lat : json['venue_lat']);
+    return GoogleMapMarker(venueName : json['venue_name'], venueId : json['venue_id'], venueAddress : json['venue_address'], priceLevel : json['price_level'], rating : json['rating'], long : json['venue_lng'], lat : json['venue_lat']);
   }
 }
 
