@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:fika_and_fokus/NavBar.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'signup.dart';
 import 'User.dart';
@@ -35,7 +36,7 @@ class _LogInState extends State<LogIn> {
       home: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: const AssetImage("images/bg2.jpg"),
+            image: const AssetImage("images/bg_white.jpg"),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
                 Colors.brown.withOpacity(0.9), BlendMode.dstATop),
@@ -52,29 +53,23 @@ class _LogInState extends State<LogIn> {
                 children: <Widget>[
                   // ignore: prefer_const_constructors
                   Center(
-                    child: const Text(
-                      "Fika&Fokus",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 56,
-                        backgroundColor: Color.fromARGB(51, 183, 183, 186),
-                        fontFamily: 'Pacifico',
-                      ),
+                    child: Text(
+                      "FIKA & FOCUS",
+                      style: GoogleFonts.oswald(fontSize: 60.00),
                     ),
                   ),
                   const SizedBox(
                     height: 12,
                   ),
-                  CircleAvatar(
-                    radius: 77,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(80),
-                      child: Image.network(
-                        "https://img.freepik.com/free-vector/mysterious-mafia-man-wearing-hat_52683-34829.jpg?t=st=1648889842~exp=1648890442~hmac=6ff53459fbf62e0b08f8a44b8d1f71a84b693415923df79ea74a1c74e9d423a9&w=740",
-                      ),
-                    ),
-                  ),
+                  // CircleAvatar(
+                  //   radius: 77,
+                  //   child: ClipRRect(
+                  //     borderRadius: BorderRadius.circular(80),
+                  //     child: Image.network(
+                  //       "https://img.freepik.com/free-vector/mysterious-mafia-man-wearing-hat_52683-34829.jpg?t=st=1648889842~exp=1648890442~hmac=6ff53459fbf62e0b08f8a44b8d1f71a84b693415923df79ea74a1c74e9d423a9&w=740",
+                  //     ),
+                  //   ),
+                  // ),
                   Card(
                     // ignore: prefer_const_constructors
                     child: TextFormField(
