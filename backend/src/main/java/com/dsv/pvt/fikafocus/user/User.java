@@ -1,4 +1,4 @@
-package com.dsv.pvt.fikafocus;
+package com.dsv.pvt.fikafocus.user;
 
 public class User {
     private Integer id;

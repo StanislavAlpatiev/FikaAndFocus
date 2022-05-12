@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'GoogleMapMarker.dart';
@@ -139,26 +140,42 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     final response = await http.get(sampleFriendsURI);
     Map<String, dynamic> responseJson = json.decode(response.body);
     List data = responseJson['venues'];
-
     List<GoogleMapMarker> venues = data.map((dynamic item) => GoogleMapMarker.fromJson(item)).toList();
+    List<Marker> _markers = [];
     for(GoogleMapMarker venue in venues) {
-      print(venue.priceLevel);
-      setState(() {
-        allMarkers.add(Marker(
-          markerId: MarkerId(venue.venueName),
-          draggable: false,
-          infoWindow: InfoWindow(
-            title: venue.venueName,
-            snippet: venue.venueAddress,
+      // print(venue.priceLevel);
+      // setState(() {
+      //   allMarkers.add(Marker(
+      //     markerId: MarkerId(venue.venueName),
+      //     draggable: false,
+      //     infoWindow: InfoWindow(
+      //       title: venue.venueName,
+      //       snippet: venue.venueAddress,
+      //
+      //     ),
+      //     onTap: () {
+      //       print('Market Taped');
+      //     },
+      //     position: LatLng(venue.lat, venue.long),
+      //   ));
+      // });
+      _markers.add(Marker(
+        markerId: MarkerId(venue.venueName),
+        draggable: false,
+        infoWindow: InfoWindow(
+          title: venue.venueName,
+          snippet: venue.venueAddress,
 
-          ),
-          onTap: () {
-            print('Market Taped');
-          },
-          position: LatLng(venue.lat, venue.long),
-        ));
-      });
+        ),
+        onTap: () {
+          print('Market Taped');
+        },
+        position: LatLng(venue.lat, venue.long),
+      ));
     }
+    setState(() {
+      allMarkers = _markers;
+    });
   }
 
   _removeMarker() async {
