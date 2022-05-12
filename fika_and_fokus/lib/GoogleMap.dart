@@ -76,7 +76,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
                   child: Icon(Icons.pin_drop, color: Colors.white),
                   style: TextButton.styleFrom(backgroundColor: Colors.green),
                   // onPressed: _addMarker
-                onPressed: _createMarkers,
+                onPressed: _createMarkersFromBackend,
               )),
           Positioned(
               bottom: 11,
@@ -187,22 +187,6 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     List<GoogleMapMarker> venuesData = venues.map((dynamic item) => GoogleMapMarker.fromJson(item)).toList();
     List<Marker> _markers = [];
     for(GoogleMapMarker venue in venuesData) {
-      // print(venue.priceLevel);
-      // setState(() {
-      //   allMarkers.add(Marker(
-      //     markerId: MarkerId(venue.venueName),
-      //     draggable: false,
-      //     infoWindow: InfoWindow(
-      //       title: venue.venueName,
-      //       snippet: venue.venueAddress,
-      //
-      //     ),
-      //     onTap: () {
-      //       print('Market Taped');
-      //     },
-      //     position: LatLng(venue.lat, venue.long),
-      //   ));
-      // });
       _markers.add(Marker(
         markerId: MarkerId(venue.venueName),
         draggable: false,

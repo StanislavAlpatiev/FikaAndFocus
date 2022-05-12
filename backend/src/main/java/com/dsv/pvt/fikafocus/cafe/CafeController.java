@@ -103,7 +103,8 @@ public class CafeController {
                 JsonString.append(scanner.nextLine());
             }
             scanner.close();
-            return JsonString.toString();
+//            return JsonString.toString();
+            return "temp return";
         }
 
 //        RestTemplate template = new RestTemplate();
