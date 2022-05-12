@@ -178,6 +178,50 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     });
   }
 
+  Future _createMarkersFromBackend() async {
+    Uri sampleFriendsURI =
+    Uri.parse("http://localhost:8080/cafes/locations?busy_min=0&busy_max=100&radius=2000&lng=17.945222498470716&lat=59.406845369242845");
+    final response = await http.get(sampleFriendsURI);
+    Map<String, dynamic> responseJson = json.decode(response.body);
+    List venues = responseJson['venues'];
+    List<GoogleMapMarker> venuesData = venues.map((dynamic item) => GoogleMapMarker.fromJson(item)).toList();
+    List<Marker> _markers = [];
+    for(GoogleMapMarker venue in venuesData) {
+      // print(venue.priceLevel);
+      // setState(() {
+      //   allMarkers.add(Marker(
+      //     markerId: MarkerId(venue.venueName),
+      //     draggable: false,
+      //     infoWindow: InfoWindow(
+      //       title: venue.venueName,
+      //       snippet: venue.venueAddress,
+      //
+      //     ),
+      //     onTap: () {
+      //       print('Market Taped');
+      //     },
+      //     position: LatLng(venue.lat, venue.long),
+      //   ));
+      // });
+      _markers.add(Marker(
+        markerId: MarkerId(venue.venueName),
+        draggable: false,
+        infoWindow: InfoWindow(
+          title: venue.venueName,
+          snippet: venue.venueAddress,
+
+        ),
+        onTap: () {
+          print('Market Taped');
+        },
+        position: LatLng(venue.lat, venue.long),
+      ));
+    }
+    setState(() {
+      allMarkers = _markers;
+    });
+  }
+
   _removeMarker() async {
     setState(() {
       allMarkers.clear();

@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.*;
 
 @RestController
 @RequestMapping(path="/cafes")
@@ -87,20 +86,37 @@ public class CafeController {
 //                "foot_traffic=both&" +
 //                "limit=5&" +
 //                "page=0";
+        URL bestTimeUrl = new URL(sb.toString());
+        HttpURLConnection conn = (HttpURLConnection) bestTimeUrl.openConnection();
+        conn.setRequestMethod("GET");
+        conn.connect();
+
+        int responseCode = conn.getResponseCode();
+        // 200 OK
+        if (responseCode != 200) {
+            throw new RuntimeException("HttpResponseCode: " + responseCode);
+        } else {
+            StringBuilder JsonString = new StringBuilder();
+            Scanner scanner = new Scanner(bestTimeUrl.openStream());
+
+            while (scanner.hasNext()) {
+                JsonString.append(scanner.nextLine());
+            }
+            scanner.close();
+            return JsonString.toString();
+        }
+
+//        RestTemplate template = new RestTemplate();
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        HttpEntity requestEntity = new HttpEntity<>(headers);
+//
+//        Map<String, String> uriVariables = new HashMap<>();
+//
+//        ResponseEntity<Map> response = template.exchange(sb.toString(), HttpMethod.GET, requestEntity, Map.class, uriVariables);
 
 
-
-        RestTemplate template = new RestTemplate();
-
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity requestEntity = new HttpEntity<>(headers);
-
-        Map<String, String> uriVariables = new HashMap<>();
-
-        ResponseEntity<Map> response = template.exchange(sb.toString(), HttpMethod.GET, requestEntity, Map.class, uriVariables);
-
-
-        return response.getBody();
+//        return response.getBody();
 
     }
 
