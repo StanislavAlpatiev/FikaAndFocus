@@ -45,7 +45,7 @@ class _LogInState extends State<LogIn> {
         // ),
         child: SafeArea(
           child: Scaffold(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Color(0xFFE0DBCF),
             body: Padding(
               padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
               child: ListView(
@@ -53,15 +53,14 @@ class _LogInState extends State<LogIn> {
                 // ignore: prefer_const_literals_to_create_immutables
                 children: <Widget>[
                   // ignore: prefer_const_constructors
-                  Image.asset('images/logo-black-2.png',width:600,height:200),
+                  Image.asset('images/logo-white.png',width:600,height:200),
                   Padding(padding: const EdgeInsets.fromLTRB(20, 5, 20, 5)),
                   Center(
                     child: Text(
                       "ACCOUNT LOGIN",
                       style: GoogleFonts.roboto(
                           fontSize: 35.00,
-                          fontWeight: FontWeight.w500),
-
+                          fontWeight: FontWeight.w400),
                     ),
                   ),
                   // const SizedBox(
@@ -80,7 +79,7 @@ class _LogInState extends State<LogIn> {
                   Card(
                     // ignore: prefer_const_constructors
                     child: TextFormField(
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
                         border: InputBorder.none,
                         prefixIcon: Align(
@@ -88,22 +87,17 @@ class _LogInState extends State<LogIn> {
                           heightFactor: 1.0,
                           child: FaIcon(
                             FontAwesomeIcons.solidUser,
-                            color: Colors.white,
+                            color: Colors.black54,
                           ),
                         ),
                         labelText: 'Username or email',
                         labelStyle: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black54,
                           fontSize: 20,
                         ),
                       ),
                       // ignore: prefer_const_constructors
                       style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
-                          //   TextStyle(
-                          // color: Color.fromARGB(255, 255, 255, 255),
-                          // fontSize: 20,
-                          // fontWeight: FontWeight.bold),
-                      //To check the input value.
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Email is empty';
@@ -115,9 +109,9 @@ class _LogInState extends State<LogIn> {
                         user.email = val;
                       },
                     ),
-                    color: const Color.fromARGB(51, 183, 183, 185),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                   Card(
@@ -131,12 +125,12 @@ class _LogInState extends State<LogIn> {
                           heightFactor: 1.0,
                           child: FaIcon(
                             FontAwesomeIcons.key,
-                            color: Colors.white,
+                            color: Colors.black54,
                           ),
                         ),
                         labelText: 'Password',
                         labelStyle: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black54,
                           fontSize: 20,
                         ),
                       ),
@@ -152,9 +146,9 @@ class _LogInState extends State<LogIn> {
                         user.password = val;
                       },
                     ),
-                    color: Color.fromARGB(51, 183, 183, 185),
+                    color: const Color.fromARGB(255, 255, 255, 255),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
                   const SizedBox(
@@ -174,7 +168,7 @@ class _LogInState extends State<LogIn> {
                         );
                       },
                       child: Text(
-                        'Log In',
+                        'LOG IN',
                         style: GoogleFonts.roboto(
                           fontSize: 28,
                           fontWeight: FontWeight.normal
@@ -188,8 +182,12 @@ class _LogInState extends State<LogIn> {
                       ),
                       style: ElevatedButton.styleFrom(
                         primary: Color.fromARGB(255, 105, 105, 105),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                         // side: BorderSide(color: Colors.green),
                       ),
+
                     ),
                   ),
                   const SizedBox(
@@ -198,14 +196,11 @@ class _LogInState extends State<LogIn> {
                   ),
                   TextButton(
                     onPressed: () {},
-                    child: const Text(
-                      "Forgot your password?",
-                      style: TextStyle(
-                        color: Color.fromARGB(200, 219, 219, 223),
-                        decoration: TextDecoration.underline,
-                        fontSize: 20,
-                        fontStyle: FontStyle.italic,
-                      ),
+                    child: Text(
+                      "Forgotten password/username?",
+                      style: GoogleFonts.roboto(
+                          fontSize: 15.00,
+                          fontWeight: FontWeight.w300),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -214,17 +209,10 @@ class _LogInState extends State<LogIn> {
                   ),
                   Row(
                     // ignore: prefer_const_literals_to_create_immutables
-                    //crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      const Text(
-                        'No Account? ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                        ),
-                      ),
                       Container(
                         height: 50,
                         padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
@@ -237,22 +225,19 @@ class _LogInState extends State<LogIn> {
                               ),
                             );
                           },
-                          child: const Text(
-                            'Sign Up',
-                            style: TextStyle(
-                              color: Colors.teal,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Pacifico',
-                            ),
+                          child: Text(
+                            'SIGN UP',
+                            style: GoogleFonts.roboto(
+                                fontSize: 20.00,
+                                fontWeight: FontWeight.w500),
                           ),
                           style: ElevatedButton.styleFrom(
                             primary: Color.fromARGB(51, 161, 161, 165),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                              side: BorderSide(
-                                color: Colors.teal,
-                              ),
+                              borderRadius: BorderRadius.circular(30),
+                              // side: BorderSide(
+                              //   color: Colors.black,
+                              // ),
                             ),
                           ),
                         ),
