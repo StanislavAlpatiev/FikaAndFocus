@@ -27,47 +27,6 @@ class _MyHomePageState extends State<MyHomePage> {
             )
         )
     );
-    // appBar: AppBar(
-    //   title: customSearchBar,
-    //   actions: [
-    //     IconButton(
-    //         onPressed:() {
-    //           setState(() {
-    //             if (customIcon.icon == Icons.search) {
-    //               customIcon = const Icon(Icons.cancel);
-    //               customSearchBar = const ListTile(
-    //                 leading: Icon(
-    //                   Icons.search,
-    //                   color: Colors.white,
-    //                   size: 28,
-    //                 ),
-    //                 title: TextField(
-    //                   decoration: InputDecoration(
-    //                     hintText: 'Enter venue name...',
-    //                     hintStyle: TextStyle(
-    //                       color: Colors.white,
-    //                       fontSize: 18,
-    //                       // fontStyle: FontStyle.italic,
-    //                     ),
-    //                     border: InputBorder.none,
-    //                   ),
-    //                   style: TextStyle(
-    //                     color: Colors.white,
-    //                   ),
-    //                 ),
-    //               );
-    //             } else {
-    //               customIcon = const Icon(Icons.search);
-    //               customSearchBar = const Text('Search');
-    //             }
-    //           });
-    //         },
-    //         icon: customIcon
-    //     )
-    //   ],
-    // ),
-    // body: const Center(child: Text('Home Page', style: TextStyle(fontSize: 60))),
-    // );
   }
 }
 

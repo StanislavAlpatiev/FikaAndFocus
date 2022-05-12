@@ -139,10 +139,10 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
         'order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0');
     final response = await http.get(sampleFriendsURI);
     Map<String, dynamic> responseJson = json.decode(response.body);
-    List data = responseJson['venues'];
-    List<GoogleMapMarker> venues = data.map((dynamic item) => GoogleMapMarker.fromJson(item)).toList();
+    List venues = responseJson['venues'];
+    List<GoogleMapMarker> venuesData = venues.map((dynamic item) => GoogleMapMarker.fromJson(item)).toList();
     List<Marker> _markers = [];
-    for(GoogleMapMarker venue in venues) {
+    for(GoogleMapMarker venue in venuesData) {
       // print(venue.priceLevel);
       // setState(() {
       //   allMarkers.add(Marker(

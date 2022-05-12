@@ -2,10 +2,18 @@ package com.dsv.pvt.fikafocus.cafe;
 
 import com.dsv.pvt.fikafocus.review.Review;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -47,6 +55,29 @@ public class CafeController {
         if(optionalCafe2.isPresent())
             return optionalCafe2.get().getReviewSet();
         return null;
+    }
+
+    @GetMapping("/locations")
+    public Map<String, String> getLocations(@RequestParam String param, @PathVariable("busy_min") String busy_min,
+                                            @PathVariable("busy_max") String busy_max,
+                                            @PathVariable("radius") String radius) throws IOException {
+        String url = "http://localhost:8080/restService/busy_min={busy_min}&busy_max={busy_max}&radius={radius}";
+
+        RestTemplate template = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity requestEntity = new HttpEntity<>(headers);
+
+        Map<String, String> uriVariables = new HashMap<>();
+
+        uriVariables.put("urlParameter", "myURLParameter");
+        uriVariables.put("queryParameter", "myQueryParameter");
+
+        ResponseEntity<Map> response = template.exchange(url, HttpMethod.GET, requestEntity, Map.class, uriVariables);
+
+
+        return response.getBody();
+
     }
 
 
