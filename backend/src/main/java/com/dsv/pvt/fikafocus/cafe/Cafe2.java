@@ -22,7 +22,7 @@ public class Cafe2 {
         this.address = address;
     }
 
-    public Cafe2(int id,String name, String address, String lat,String lng){
+    public Cafe2(String id,String name, String address, String lat,String lng){
         this.id = id;
         this.name = name;
         this.address = address;
@@ -33,7 +33,7 @@ public class Cafe2 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private int id;
+    private String id;
     private String name;
     private String address;
     private String lat;
@@ -91,12 +91,12 @@ public class Cafe2 {
     }
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
