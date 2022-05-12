@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.*;
 
 @RestController
 @RequestMapping(path="/cafes")
@@ -27,11 +26,20 @@ public class CafeController {
     public @ResponseBody
     String addNewCafe (
             @RequestParam String name,
-            @RequestParam Integer location)
+            @RequestParam String address,
+            @RequestParam String lat,
+            @RequestParam String lng,
+            @RequestParam String rating,
+            @RequestParam String price
+    )
     {
         Cafe2 cafe = new Cafe2();
         cafe.setName(name);
-        cafe.setLocation(location);
+        cafe.setAddress(address);
+        cafe.setLat(lat);
+        cafe.setLng(lng);
+        cafe.setRating(rating);
+        cafe.setPrice(price);
         cafeRepository.save(cafe);
         return "Saved";
     }
@@ -59,13 +67,13 @@ public class CafeController {
 
     @GetMapping("/locations")
     public String getLocations(@RequestParam String busy_min, @RequestParam String busy_max, @RequestParam String radius, @RequestParam String lng, @RequestParam String lat/**, @PathVariable("busy_min") String busy_min,
-                                            @PathVariable("busy_max") String busy_max,
-                                            @PathVariable("radius") String radius**/) throws IOException {
+     @PathVariable("busy_max") String busy_max,
+     @PathVariable("radius") String radius**/) throws IOException {
 
         //Example url request http://localhost:8080/locations?busy_min=0&busy_max=40&radius=2000&lng=17.945222498470716&lat=59.406845369242845"
         StringBuilder sb = new StringBuilder();
         sb.append("https://besttime.app/api/v1/venues/filter?" +
-                        "api_key_private=pri_50709d58bc7444f3aa6739695d46050a&");
+                "api_key_private=pri_50709d58bc7444f3aa6739695d46050a&");
         sb.append("busy_min=" + busy_min + "&");
         sb.append("busy_max=" + busy_max + "&");
         sb.append("types=CAFE&" +
@@ -87,21 +95,37 @@ public class CafeController {
 //                "foot_traffic=both&" +
 //                "limit=5&" +
 //                "page=0";
+        URL bestTimeUrl = new URL(sb.toString());
+        HttpURLConnection conn = (HttpURLConnection) bestTimeUrl.openConnection();
+        conn.setRequestMethod("GET");
+        conn.connect();
 
+        int responseCode = conn.getResponseCode();
+        // 200 OK
+        if (responseCode != 200) {
+            throw new RuntimeException("HttpResponseCode: " + responseCode);
+        } else {
+            StringBuilder JsonString = new StringBuilder();
+            Scanner scanner = new Scanner(bestTimeUrl.openStream());
 
+            while (scanner.hasNext()) {
+                JsonString.append(scanner.nextLine());
+            }
+            scanner.close();
+//            return JsonString.toString();
+            return "temp return";
+        }
 
-        RestTemplate template = new RestTemplate();
+//        RestTemplate template = new RestTemplate();
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        HttpEntity requestEntity = new HttpEntity<>(headers);
+//
+//        Map<String, String> uriVariables = new HashMap<>();
+//
+//        ResponseEntity<Map> response = template.exchange(sb.toString(), HttpMethod.GET, requestEntity, Map.class, uriVariables);
 
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity requestEntity = new HttpEntity<>(headers);
-
-        Map<String, String> uriVariables = new HashMap<>();
-
-        ResponseEntity<Map> response = template.exchange(sb.toString(), HttpMethod.GET, requestEntity, Map.class, uriVariables);
-
-
-        return response.getBody();
-
+//        return response.getBody();
     }
 
 
