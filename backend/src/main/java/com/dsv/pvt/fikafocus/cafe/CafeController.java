@@ -1,16 +1,23 @@
 package com.dsv.pvt.fikafocus.cafe;
 
-import com.dsv.pvt.fikafocus.review.Review;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
-import java.util.Optional;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
 
 @RestController
 @RequestMapping(path="/cafes")
 public class CafeController {
+    private static final String PRIVATE_KEY = "pri_50709d58bc7444f3aa6739695d46050a";
+    private static final String PUBLIC_KEY = "pub_2f5ebfbf48c748338a26235c9d21fd53";
 
     @Autowired
     private CafeRepository cafeRepository;
@@ -19,11 +26,17 @@ public class CafeController {
     public @ResponseBody
     String addNewCafe (
             @RequestParam String name,
-            @RequestParam Integer location)
+            @RequestParam float lng,
+            @RequestParam float lat,
+            @RequestParam double rating,
+            @RequestParam int price)
     {
         Cafe2 cafe = new Cafe2();
         cafe.setName(name);
-        cafe.setLocation(location);
+        cafe.setLat(lat);
+        cafe.setLng(lng);
+        cafe.setRating(rating);
+        cafe.setPrice(price);
         cafeRepository.save(cafe);
         return "Saved";
     }
@@ -58,5 +71,6 @@ public class CafeController {
             return optionalCafe2.get();
         return null;
     }
+
 
 }

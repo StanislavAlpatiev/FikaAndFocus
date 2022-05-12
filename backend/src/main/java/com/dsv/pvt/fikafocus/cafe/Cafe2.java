@@ -10,13 +10,62 @@ import java.util.Set;
 @Entity
 public class Cafe2 {
 
+    public Cafe2(){
+    }
+
+
+    public Cafe2(int id,String name,float lat,float lng){
+        this.id = id;
+        this.name = name;
+        this.lat = lat;
+        this.lng = lng;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Integer id;
+    private int id;
     private String name;
-    private double location;
+    private float lat;
+    private float lng;
+    private double rating;
+    private int price;
 
+    public float getLat(){
+        return lat;
+    }
+
+    public float getLng(){
+        return lng;
+    }
+
+    public double getRating(){
+        return rating;
+    }
+
+    public int getPrice(){
+        return price;
+    }
+
+    public void setLat(float lat){
+        this.lat = lat;
+    }
+
+    public void setLng(float lng){
+        this.lng = lng;
+    }
+
+    public void setRating(double rating){
+        this.rating = rating;
+    }
+
+    public void setPrice(int price){
+        this.price = price;
+    }
+
+    public void setReviewSet(Set<Review> reviewSet){
+        this.reviewSet = reviewSet;
+    }
 
     @JsonIgnore // to avoid recursive problem in relationship
     @OneToMany(mappedBy = "cafe2")
@@ -47,13 +96,5 @@ public class Cafe2 {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public double getLocation() {
-        return location;
-    }
-
-    public void setLocation(double location) {
-        this.location = location;
     }
 }
