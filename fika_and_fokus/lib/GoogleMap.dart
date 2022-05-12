@@ -1,3 +1,6 @@
+//import 'dart:html';
+
+import 'package:fika_and_fokus/FilterWindow.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
@@ -22,6 +25,8 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   // final Geolocator geolocator = Geolocator();
   late Position _currentPosition;
   List<Marker> allMarkers = [];
+
+  bool isVisible = true;
 
   // late String _currentAddress;
 
@@ -81,12 +86,52 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
           Positioned(
               bottom: 11,
               right: 140,
-              child: ElevatedButton(
-                  child: Icon(Icons.search, color: Colors.white),
-                  style: TextButton.styleFrom(backgroundColor: Colors.blue),
-                  // onPressed: _removeMarker
-                  onPressed: _removeMarker,
+              child: Visibility(
+
+                visible: true,
+                maintainInteractivity: false,
+
+                child: ElevatedButton(
+                    child: Icon(Icons.search, color: Colors.white),
+                    style: TextButton.styleFrom(backgroundColor: Colors.blue),
+                    onPressed: _removeMarker
+                    //onPressed:
+                ),
               )),
+          Positioned(
+              bottom: 550,
+              right: 320,
+              child: Visibility(
+
+                visible: true,
+                maintainInteractivity: false,
+
+                child: ElevatedButton(
+                  child: Icon(Icons.info, color: Colors.white),
+                  style: TextButton.styleFrom(backgroundColor: Colors.red),
+                  // onPressed: _removeMarker
+                  onPressed: _changeVisibility,
+                ),
+              )),
+          Align(
+              alignment: Alignment.topRight,
+              child: Visibility(
+
+                visible: isVisible,
+                maintainInteractivity: false,
+
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0,40,5,0),
+                  child: FilterWindow(
+                    child: ElevatedButton(
+                          onPressed: _changeVisibility,
+                          child: Text("cancel")),
+
+                    )
+                  ),
+                ),
+              ),
+
         ]));
   }
 
@@ -175,4 +220,11 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
       zoom: 17.0,
     )));
   }
+
+  _changeVisibility() async {
+    setState(() {
+      isVisible = !isVisible;
+    });
+  }
 }
+
