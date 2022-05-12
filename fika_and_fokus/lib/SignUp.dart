@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 
 import 'UserModel.dart';
@@ -51,26 +53,26 @@ class _SignUpState extends State<SignUp> {
     TextStyle textStyle = const TextStyle(
         color: Color.fromARGB(255, 255, 255, 255),
         fontSize: 20,
-        fontWeight: FontWeight.bold);
+        fontWeight: FontWeight.normal);
     TextStyle labelStyle = const TextStyle(
       color: Colors.white,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.normal,
       fontSize: 20,
     );
 
     return MaterialApp(
       home: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: const AssetImage("images/bg1.jpg"),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-                Colors.brown.withOpacity(0.5), BlendMode.dstATop),
-          ),
-        ),
+        // decoration: BoxDecoration(
+        //   image: DecorationImage(
+        //     image: const AssetImage("images/bg1.jpg"),
+        //     fit: BoxFit.cover,
+        //     colorFilter: ColorFilter.mode(
+        //         Colors.brown.withOpacity(0.5), BlendMode.dstATop),
+        //   ),
+        // ),
         child: SafeArea(
           child: Scaffold(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Color(0xFF75AB98),
             body: Padding(
               padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 16),
               child: SingleChildScrollView(
@@ -79,28 +81,30 @@ class _SignUpState extends State<SignUp> {
                   children: <Widget>[
                     // ignore: prefer_const_constructors
                     Center(
-                      child: const Text(
-                        "Sign Up",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 46,
-                          backgroundColor: Color.fromARGB(51, 183, 183, 186),
-                          fontFamily: 'Pacifico',
-                        ),
-                      ),
+
+                      // child: const Text(
+                      //   "Sign Up",
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //     color: Colors.white,
+                      //     fontSize: 46,
+                      //     backgroundColor: Color.fromARGB(51, 183, 183, 186),
+                      //     fontFamily: 'Pacifico',
+                      //   ),
+                      // ),
                     ),
+                    Image.asset('images/logo-white.png',width:600,height:200),
                     const SizedBox(
                       height: 10,
                     ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.photo,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {},
-                      iconSize: 85,
-                    ),
+                    // IconButton(
+                    //   icon: Icon(
+                    //     Icons.photo,
+                    //     color: Colors.white,
+                    //   ),
+                    //   onPressed: () {},
+                    //   iconSize: 85,
+                    // ),
                     Card(
                       // ignore: prefer_const_constructors
                       child: Padding(
@@ -114,19 +118,27 @@ class _SignUpState extends State<SignUp> {
                             }
                             return null;
                           },
-                          decoration: InputDecoration(
-                            labelText: 'User Name',
-                            icon: Icon(
-                              Icons.person,
-                              color: Colors.white,
-                              size: 32,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
+                            border: InputBorder.none,
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: FaIcon(
+                                FontAwesomeIcons.solidUser,
+                                color: Color(0xFF696969),
+                              ),
                             ),
-                            labelStyle: labelStyle,
+                            labelText: 'Username',
+                            labelStyle: TextStyle(
+                              color: Color(0xFF696969),
+                              fontSize: 20,
+                            ),
                           ),
-                          style: textStyle,
+                          style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
                         ),
                       ),
-                      color: Color.fromARGB(51, 198, 198, 215),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -147,19 +159,27 @@ class _SignUpState extends State<SignUp> {
                             }
                             return null;
                           },
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            icon: Icon(
-                              Icons.email,
-                              color: Colors.white,
-                              size: 32,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
+                            border: InputBorder.none,
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: FaIcon(
+                                FontAwesomeIcons.at,
+                                color: Color(0xFF696969),
+                              ),
                             ),
-                            labelStyle: labelStyle,
+                            labelText: 'Email',
+                            labelStyle: TextStyle(
+                              color: Color(0xFF696969),
+                              fontSize: 20,
+                            ),
                           ),
-                          style: textStyle,
+                          style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
                         ),
                       ),
-                      color: const Color.fromARGB(51, 183, 183, 185),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -180,19 +200,27 @@ class _SignUpState extends State<SignUp> {
                             }
                             return null;
                           },
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            icon: const Icon(
-                              Icons.lock_sharp,
-                              color: Colors.white,
-                              size: 32,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
+                            border: InputBorder.none,
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: FaIcon(
+                                FontAwesomeIcons.lock,
+                                color: Color(0xFF696969),
+                              ),
                             ),
-                            labelStyle: labelStyle,
+                            labelText: 'Password',
+                            labelStyle: TextStyle(
+                              color: Color(0xFF696969),
+                              fontSize: 20,
+                            ),
                           ),
-                          style: textStyle,
+                          style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
                         ),
                       ),
-                      color: const Color.fromARGB(51, 183, 183, 185),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -213,25 +241,34 @@ class _SignUpState extends State<SignUp> {
                             }
                             return null;
                           },
-                          decoration: InputDecoration(
-                            labelText: 'Confirm Password',
-                            icon: Icon(
-                              Icons.lock_sharp,
-                              color: Colors.white,
-                              size: 32,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 100, vertical: 0),
+                            border: InputBorder.none,
+                            prefixIcon: Align(
+                              widthFactor: 1.0,
+                              heightFactor: 1.0,
+                              child: FaIcon(
+                                FontAwesomeIcons.lock,
+                                color: Color(0xFF696969),
+                              ),
                             ),
-                            labelStyle: labelStyle,
+                            labelText: 'Confirm password',
+                            labelStyle: TextStyle(
+                              color: Color(0xFF696969),
+                              fontSize: 20,
+                            ),
                           ),
-                          style: textStyle,
+                          style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
                         ),
                       ),
-                      color: const Color.fromARGB(51, 183, 183, 185),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 20,
                     ),
                     Container(
                       height: 50,
@@ -255,22 +292,17 @@ class _SignUpState extends State<SignUp> {
                           //   userModel = user;
                           // });
                         },
-                        child: const Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            color: Colors.teal,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Pacifico',
+                        child: Text(
+                          'SIGN UP',
+                          style: GoogleFonts.oswald(
+                              fontSize: 28,
+                              fontWeight: FontWeight.normal
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(51, 161, 161, 165),
+                          primary: const Color(0xFF871801),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                            side: BorderSide(
-                              color: Colors.teal,
-                            ),
+                            borderRadius: BorderRadius.circular(30),
                           ),
                         ),
                       ),
@@ -282,25 +314,27 @@ class _SignUpState extends State<SignUp> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       // ignore: prefer_const_literals_to_create_immutables
                       children: <Widget>[
-                        const Text(
-                          'Already have an account?',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            fontStyle: FontStyle.italic,
-                          ),
+                         Text(
+                          "Forgotten password/username?",
+                          style: GoogleFonts.roboto(
+                              textStyle: const TextStyle(color: Color(0xFFFFFFFF),
+                                  letterSpacing: .5),
+                              fontSize: 15.00,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.center,
                         ),
                         // ignore: prefer_const_constructors
                         InkWell(
-                          child: const Text(
-                            'Login here',
-                            style: TextStyle(
-                              color: Colors.orange,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              fontStyle: FontStyle.italic,
-                            ),
+
+                          child: Text(
+                            " Log in here",
+                            style: GoogleFonts.roboto(
+                                textStyle: const TextStyle(
+                                  color: Color(0xFF871801),
+                                ),
+                                fontSize: 15.00,
+                                fontWeight: FontWeight.w500),
+                            textAlign: TextAlign.center,
                           ),
                           onTap: () {
                             Navigator.pop(context);
