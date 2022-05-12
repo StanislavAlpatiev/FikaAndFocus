@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'AccountSettings.dart';
+import 'SignOut.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -14,17 +16,38 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: Colors.blue[100], //BACKGROUND COLOR
       appBar: AppBar(
         title: const Text('Profile'),
+        actions: [
+          PopupMenuButton<int>(
+              onSelected: (item) => onSelected(context, item),
+              itemBuilder: (context) => [
+                    const PopupMenuItem<int>(
+                      value: 0,
+                      child: Text(
+                          'Account'), //Account - account settings such as change name or phonenumber
+                    ),
+                    const PopupMenuDivider(),
+                    PopupMenuItem<int>(
+                        value: 1,
+                        child: Row(
+                          children: const [
+                            Icon(Icons.logout, color: Colors.amber),
+                            SizedBox(width: 8),
+                            Text('Sign out'),
+                          ],
+                        )),
+                  ])
+        ],
       ),
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 80,
-                backgroundImage: AssetImage('images/bg2.jpg'),
+                backgroundImage: AssetImage('images/profile_avatar.jpg'),
               ),
-              Text(
+              const Text(
                 //TODO get name of individual
                 '-NAME-',
                 style: TextStyle(
@@ -43,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 2,
                 ),
               ),
-              Text(
+              const Text(
                 //TODO get name of individual
                 'Visided cafés: -NUMBER-',
                 style: TextStyle(
@@ -54,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 4,
                 ),
               ),
-              Text(
+              const Text(
                 //TODO get name of individual
                 'Posted reviews: -NUMBER- ',
                 style: TextStyle(
@@ -70,7 +93,20 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+  }
 
-    // body: const Center(child: Text('Name: ', style: TextStyle(fontSize: 20))),
+  void onSelected(BuildContext context, int item) {
+    switch (item) {
+      case 0:
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const AccountSettings()),
+        );
+        break;
+      case 1:
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const SignOut()),
+        );
+        break;
+    }
   }
 }

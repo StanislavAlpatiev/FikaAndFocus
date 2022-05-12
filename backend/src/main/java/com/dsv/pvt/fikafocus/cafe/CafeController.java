@@ -29,11 +29,20 @@ public class CafeController {
     public @ResponseBody
     String addNewCafe (
             @RequestParam String name,
-            @RequestParam Integer location)
+            @RequestParam String address,
+            @RequestParam String lat,
+            @RequestParam String lng,
+            @RequestParam String rating,
+            @RequestParam String price
+    )
     {
         Cafe2 cafe = new Cafe2();
         cafe.setName(name);
-        cafe.setLocation(location);
+        cafe.setAddress(address);
+        cafe.setLat(lat);
+        cafe.setLng(lng);
+        cafe.setRating(rating);
+        cafe.setPrice(price);
         cafeRepository.save(cafe);
         return "Saved";
     }
@@ -65,7 +74,6 @@ public class CafeController {
         String urlHardCoded = "https://besttime.app/api/v1/venues/filter?api_key_private=pri_50709d58bc7444f3aa6739695d46050a&busy_min=" + busy_min + "&busy_max=" + busy_max + "&types=CAFE&lat=" + lat + "&lng=" + lng + "&radius=" + radius + "&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0";
         return sendAPIRequest(urlHardCoded);
     }
-
 
         //hämta review med visst id
         @GetMapping("/{id}")

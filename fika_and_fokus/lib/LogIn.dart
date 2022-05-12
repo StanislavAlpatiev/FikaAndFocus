@@ -54,13 +54,14 @@ class _LogInState extends State<LogIn> {
                 children: <Widget>[
                   // ignore: prefer_const_constructors
                   Image.asset('images/logo-white.png',width:600,height:200),
-                  Padding(padding: const EdgeInsets.fromLTRB(20, 5, 20, 5)),
+                  const SizedBox(height: 10),
                   Center(
                     child: Text(
                       "ACCOUNT LOGIN",
-                      style: GoogleFonts.roboto(
-                          fontSize: 35.00,
-                          fontWeight: FontWeight.w400),
+                      style: GoogleFonts.oswald(
+                          textStyle: const TextStyle(color: Color(0xFF75AB98)),
+                          fontSize: 45.00,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                   // const SizedBox(
@@ -75,7 +76,7 @@ class _LogInState extends State<LogIn> {
                   //     ),
                   //   ),
                   // ),
-                  Padding(padding: const EdgeInsets.fromLTRB(20, 10, 20, 10)),
+                  const SizedBox(height: 10),
                   Card(
                     // ignore: prefer_const_constructors
                     child: TextFormField(
@@ -87,12 +88,12 @@ class _LogInState extends State<LogIn> {
                           heightFactor: 1.0,
                           child: FaIcon(
                             FontAwesomeIcons.solidUser,
-                            color: Colors.black54,
+                            color: Color(0xFF696969),
                           ),
                         ),
                         labelText: 'Username or email',
                         labelStyle: TextStyle(
-                          color: Colors.black54,
+                          color: Color(0xFF696969),
                           fontSize: 20,
                         ),
                       ),
@@ -124,13 +125,13 @@ class _LogInState extends State<LogIn> {
                           widthFactor: 1.0,
                           heightFactor: 1.0,
                           child: FaIcon(
-                            FontAwesomeIcons.key,
-                            color: Colors.black54,
+                            FontAwesomeIcons.lock,
+                            color: Color(0xFF696969),
                           ),
                         ),
                         labelText: 'Password',
                         labelStyle: TextStyle(
-                          color: Colors.black54,
+                          color: Color(0xFF696969),
                           fontSize: 20,
                         ),
                       ),
@@ -169,7 +170,7 @@ class _LogInState extends State<LogIn> {
                       },
                       child: Text(
                         'LOG IN',
-                        style: GoogleFonts.roboto(
+                        style: GoogleFonts.oswald(
                           fontSize: 28,
                           fontWeight: FontWeight.normal
                           ),
@@ -187,7 +188,6 @@ class _LogInState extends State<LogIn> {
                         ),
                         // side: BorderSide(color: Colors.green),
                       ),
-
                     ),
                   ),
                   const SizedBox(
@@ -229,12 +229,12 @@ class _LogInState extends State<LogIn> {
                           },
                           child: Text(
                             'SIGN UP',
-                            style: GoogleFonts.roboto(
+                            style: GoogleFonts.oswald(
                                 fontSize: 20.00,
                                 fontWeight: FontWeight.w500),
                           ),
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF696969),
+                            primary: Color(0xFF75AB98),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                               // side: BorderSide(
