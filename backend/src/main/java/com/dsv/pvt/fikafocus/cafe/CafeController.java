@@ -58,10 +58,37 @@ public class CafeController {
     }
 
     @GetMapping("/locations")
-    public Map<String, String> getLocations(@RequestParam String param, @PathVariable("busy_min") String busy_min,
+    public String getLocations(@RequestParam String busy_min, @RequestParam String busy_max, @RequestParam String radius, @RequestParam String lng, @RequestParam String lat/**, @PathVariable("busy_min") String busy_min,
                                             @PathVariable("busy_max") String busy_max,
-                                            @PathVariable("radius") String radius) throws IOException {
-        String url = "http://localhost:8080/restService/busy_min={busy_min}&busy_max={busy_max}&radius={radius}";
+                                            @PathVariable("radius") String radius**/) throws IOException {
+
+        //Example url request http://localhost:8080/locations?busy_min=0&busy_max=40&radius=2000&lng=17.945222498470716&lat=59.406845369242845"
+        StringBuilder sb = new StringBuilder();
+        sb.append("https://besttime.app/api/v1/venues/filter?" +
+                        "api_key_private=pri_50709d58bc7444f3aa6739695d46050a&");
+        sb.append("busy_min=" + busy_min + "&");
+        sb.append("busy_max=" + busy_max + "&");
+        sb.append("types=CAFE&" +
+                "lat=" + lat + "&" +
+                "lng=" + lng + "&");
+        sb.append("radius=" + radius + "&");
+        sb.append("order_by=now%2Cnow&" + "order=asc%2Cdesc&" +
+                "foot_traffic=both&" + "limit=5&" + "page=0");
+//        String url = "https://besttime.app/api/v1/venues/filter?" +
+//                "api_key_private=pri_50709d58bc7444f3aa6739695d46050a&" +
+//                "busy_min={busy_min}&" +
+//                "busy_max={busy_max}&" +
+//                "types=CAFE&" +
+//                "lat=59.406845369242845&" +
+//                "lng=17.945222498470716&" +
+//                "radius={radius}&" +
+//                "order_by=now%2Cnow&" +
+//                "order=asc%2Cdesc&" +
+//                "foot_traffic=both&" +
+//                "limit=5&" +
+//                "page=0";
+
+
 
         RestTemplate template = new RestTemplate();
 
@@ -70,10 +97,7 @@ public class CafeController {
 
         Map<String, String> uriVariables = new HashMap<>();
 
-        uriVariables.put("urlParameter", "myURLParameter");
-        uriVariables.put("queryParameter", "myQueryParameter");
-
-        ResponseEntity<Map> response = template.exchange(url, HttpMethod.GET, requestEntity, Map.class, uriVariables);
+        ResponseEntity<Map> response = template.exchange(sb.toString(), HttpMethod.GET, requestEntity, Map.class, uriVariables);
 
 
         return response.getBody();
