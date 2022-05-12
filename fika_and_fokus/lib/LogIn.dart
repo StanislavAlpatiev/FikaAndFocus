@@ -181,7 +181,7 @@ class _LogInState extends State<LogIn> {
                         // ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 105, 105, 105),
+                        primary: Color(0xFF696969),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -199,6 +199,8 @@ class _LogInState extends State<LogIn> {
                     child: Text(
                       "Forgotten password/username?",
                       style: GoogleFonts.roboto(
+                          textStyle: const TextStyle(color: Color(0xFF871801),
+                              letterSpacing: .5),
                           fontSize: 15.00,
                           fontWeight: FontWeight.w300),
                       textAlign: TextAlign.center,
@@ -232,7 +234,7 @@ class _LogInState extends State<LogIn> {
                                 fontWeight: FontWeight.w500),
                           ),
                           style: ElevatedButton.styleFrom(
-                            primary: Color.fromARGB(51, 161, 161, 165),
+                            primary: Color(0xFF696969),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                               // side: BorderSide(
