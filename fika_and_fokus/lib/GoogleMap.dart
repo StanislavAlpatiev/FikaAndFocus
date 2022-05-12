@@ -197,7 +197,21 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
 
         ),
         onTap: () {
-          print('Market Taped');
+
+          // Tar dig till infosida (bör vara popup istället)
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) =>
+                  MarkerInfoWindow(markedDistance: "3km",
+                    markedRating: venue.rating,
+                    markedVenueId: venue.venueId,
+                  markedVenueName: venue.venueName,),
+
+            ),
+          );
+
+          print("--- my venue id is " + venue.venueId);
+          print("--- my venue name is " + venue.venueName);
         },
         position: LatLng(venue.lat, venue.long),
       ));
