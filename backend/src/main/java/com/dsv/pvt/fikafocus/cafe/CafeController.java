@@ -10,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.*;
 
 @RestController
@@ -57,78 +60,40 @@ public class CafeController {
     }
 
     @GetMapping("/locations")
-    public String getLocations(@RequestParam String busy_min, @RequestParam String busy_max, @RequestParam String radius, @RequestParam String lng, @RequestParam String lat/**, @PathVariable("busy_min") String busy_min,
-                                            @PathVariable("busy_max") String busy_max,
-                                            @PathVariable("radius") String radius**/) throws IOException {
+    public String getLocations(@RequestParam String busy_min, @RequestParam String busy_max, @RequestParam String radius, @RequestParam String lng, @RequestParam String lat) throws IOException {
+        String url = "https://besttime.app/api/v1/venues/filter?api_key_private=pri_50709d58bc7444f3aa6739695d46050a&busy_min=" + busy_min + "&busy_max=" + busy_max + "&types=CAFE&lat=" + lat + "&lng=" + lng + "&radius=" + radius + "&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0";
+        String urlHardCoded = "https://besttime.app/api/v1/venues/filter?api_key_private=pri_50709d58bc7444f3aa6739695d46050a&busy_min=" + busy_min + "&busy_max=" + busy_max + "&types=CAFE&lat=" + lat + "&lng=" + lng + "&radius=" + radius + "&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0";
+        return sendAPIRequest(urlHardCoded);
+    }
 
-        //Example url request http://localhost:8080/locations?busy_min=0&busy_max=40&radius=2000&lng=17.945222498470716&lat=59.406845369242845"
-        StringBuilder sb = new StringBuilder();
-        sb.append("https://besttime.app/api/v1/venues/filter?" +
-                        "api_key_private=pri_50709d58bc7444f3aa6739695d46050a&");
-        sb.append("busy_min=" + busy_min + "&");
-        sb.append("busy_max=" + busy_max + "&");
-        sb.append("types=CAFE&" +
-                "lat=" + lat + "&" +
-                "lng=" + lng + "&");
-        sb.append("radius=" + radius + "&");
-        sb.append("order_by=now%2Cnow&" + "order=asc%2Cdesc&" +
-                "foot_traffic=both&" + "limit=5&" + "page=0");
-//        String url = "https://besttime.app/api/v1/venues/filter?" +
-//                "api_key_private=pri_50709d58bc7444f3aa6739695d46050a&" +
-//                "busy_min={busy_min}&" +
-//                "busy_max={busy_max}&" +
-//                "types=CAFE&" +
-//                "lat=59.406845369242845&" +
-//                "lng=17.945222498470716&" +
-//                "radius={radius}&" +
-//                "order_by=now%2Cnow&" +
-//                "order=asc%2Cdesc&" +
-//                "foot_traffic=both&" +
-//                "limit=5&" +
-//                "page=0";
-        URL bestTimeUrl = new URL(sb.toString());
-        HttpURLConnection conn = (HttpURLConnection) bestTimeUrl.openConnection();
-        conn.setRequestMethod("GET");
-        conn.connect();
 
-        int responseCode = conn.getResponseCode();
-        // 200 OK
-        if (responseCode != 200) {
-            throw new RuntimeException("HttpResponseCode: " + responseCode);
-        } else {
-            StringBuilder JsonString = new StringBuilder();
-            Scanner scanner = new Scanner(bestTimeUrl.openStream());
-
-            while (scanner.hasNext()) {
-                JsonString.append(scanner.nextLine());
-            }
-            scanner.close();
-//            return JsonString.toString();
-            return "temp return";
+        //hämta review med visst id
+        @GetMapping("/{id}")
+        public Cafe2 reviewById (@PathVariable("id") Integer id ){
+            Optional<Cafe2> optionalCafe2 = cafeRepository.findById(id);
+            if (optionalCafe2.isPresent())
+                return optionalCafe2.get();
+            return null;
         }
 
-//        RestTemplate template = new RestTemplate();
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        HttpEntity requestEntity = new HttpEntity<>(headers);
-//
-//        Map<String, String> uriVariables = new HashMap<>();
-//
-//        ResponseEntity<Map> response = template.exchange(sb.toString(), HttpMethod.GET, requestEntity, Map.class, uriVariables);
+    private String sendAPIRequest(String url) {
+        try {
+            URL testUrl = new URL(url);
+            URLConnection urlConnection = testUrl.openConnection();
+            urlConnection.connect();
+            BufferedReader bf = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            String input = "";
 
+            StringBuilder line = new StringBuilder();
+            while((input = bf.readLine()) != null){
+                line.append(input);
+            }
+            bf.close();
+            return line.toString();
 
-//        return response.getBody();
-
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return e.getMessage();
+        }
     }
-
-
-    //hämta review med visst id
-    @GetMapping("/{id}")
-    public Cafe2 reviewById(@PathVariable("id") Integer id ){
-        Optional<Cafe2> optionalCafe2 = cafeRepository.findById(id);
-        if(optionalCafe2.isPresent())
-            return optionalCafe2.get();
-        return null;
-    }
-
 }
