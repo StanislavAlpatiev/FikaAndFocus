@@ -16,6 +16,7 @@ class _ProfilePageState extends State<ProfilePage> {
       backgroundColor: Colors.blue[100], //BACKGROUND COLOR
       appBar: AppBar(
         title: const Text('Profile'),
+        automaticallyImplyLeading: false,
         actions: [
           PopupMenuButton<int>(
               onSelected: (item) => onSelected(context, item),

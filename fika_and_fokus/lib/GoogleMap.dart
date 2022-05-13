@@ -150,12 +150,16 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
 
   _animateToUser() async {
     Position location = await GeolocatorPlatform.instance.getCurrentPosition();
-    mapController
-        .animateCamera(CameraUpdate.newCameraPosition(const CameraPosition(
+    // _currentPosition = location;
+    // mapController
+    //     .animateCamera(CameraUpdate.newCameraPosition(const CameraPosition(
       // target: LatLng(location.latitude, location.longitude),
-      target: LatLng(59.3247819, 18.0699477),
+      // target: LatLng(59.3247819, 18.0699477),
+    mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      target: LatLng(location.latitude, location.longitude),
       zoom: 17.0,
     )));
+    // print(_currentPosition.toString());
   }
 
   _addMarker() async {

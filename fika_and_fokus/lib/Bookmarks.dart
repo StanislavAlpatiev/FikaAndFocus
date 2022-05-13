@@ -66,6 +66,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
         backgroundColor: Colors.blue[100],
         appBar: AppBar(
           title: const Text('Favorites'),
+          automaticallyImplyLeading: false,
         ),
         body: SafeArea(
           child: Expanded(
