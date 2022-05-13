@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'Cafe.dart';
+//import 'Cafe.dart';
 
 class CafeItem {
   final String name;
@@ -67,6 +67,42 @@ class _BookmarksPageState extends State<BookmarksPage> {
         appBar: AppBar(
           title: const Text('Favorites'),
         ),
+        body: SafeArea(
+          child: Expanded(
+            child: RefreshIndicator(
+              onRefresh: refreshCafes,
+              child: ListView.builder(
+                itemCount: cafes.length,
+                itemBuilder: (context, index) => Card(
+                  elevation: 5,
+                  margin: EdgeInsets.all(5),
+                  child: ListTile(
+                    //leading: cafes[index].place,
+                    leading: Icon(Icons.coffee, size: 56.0),
+                    title: cafes[index].buildTitle(context),
+                    subtitle: Text('Here is a second line'),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        )
+    );
+  }
+
+
+  /*
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.blue[100],
+        appBar: AppBar(
+          title: const Text('Favorites'),
+        ),
       body: Column(
         children: [
           Expanded(
@@ -78,6 +114,10 @@ class _BookmarksPageState extends State<BookmarksPage> {
                   return ListTile(
                     leading: cafes[index].place,
                     title: cafes[index].buildTitle(context),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {},
+                    ),
                   );
                 },
               ),
@@ -87,4 +127,5 @@ class _BookmarksPageState extends State<BookmarksPage> {
       )
     );
   }
+   */
 }
