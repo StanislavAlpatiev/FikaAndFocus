@@ -30,32 +30,20 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
 
   bool isVisible = false;
 
-  // var businessLevel;
-  // var radius;
-
   // late String _currentAddress;
 
   @override
   void initState() {
     super.initState();
     _getCurrentLocation();
-    // allMarkers.add(
-    //     Marker(
-    //         markerId: MarkerId('Test Marker'),
-    //         draggable: false,
-    //         onTap: () {
-    //           print('Market Taped');
-    //         },
-    //         position: LatLng(_currentPosition.latitude, _currentPosition.longitude),
-    //     ));
   }
 
   //callback from FilterWindow Widget/Class
-  callback(businessLevel, radius) {
+  callback(businessLevel, radius, callbackStatus) {
     setState(() {
-      // this.businessLevel = businessLevel;
-      // this.radius = radius;
-      _requestLocationPermission(businessLevel, radius);
+      if(callbackStatus == "search") {
+        _requestLocationPermission(businessLevel, radius);
+      }
       _changeVisibility();
       //test för att se i konsollen
       print(businessLevel);
@@ -204,7 +192,6 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      // return Album.fromJson(jsonDecode(response.body));
       // print(response.body);
       _removeMarker();
       Map<String, dynamic> responseJson = json.decode(response.body);
