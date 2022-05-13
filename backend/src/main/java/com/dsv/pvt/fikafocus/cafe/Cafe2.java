@@ -1,6 +1,8 @@
 package com.dsv.pvt.fikafocus.cafe;
 
 import com.dsv.pvt.fikafocus.review.Review;
+import com.dsv.pvt.fikafocus.user.User;
+import com.dsv.pvt.fikafocus.user.UserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -80,6 +82,10 @@ public class Cafe2 {
     @JsonIgnore // to avoid recursive problem in relationship
     @OneToMany(mappedBy = "cafe2")
     private Set<Review> reviewSet = new HashSet<Review>();
+
+
+    @ManyToMany(mappedBy = "cafes", fetch = FetchType.LAZY)
+    private Set<UserEntity> users = new HashSet<>();
 
 
     public Set<Review> getReviewSet() {

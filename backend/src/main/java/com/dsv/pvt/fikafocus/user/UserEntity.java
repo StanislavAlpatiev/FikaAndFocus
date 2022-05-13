@@ -1,15 +1,13 @@
 package com.dsv.pvt.fikafocus.user;//package com.dsv.pvt.fikafocus;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.dsv.pvt.fikafocus.cafe.Cafe2;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.*;
 
 @Data
 //@NoArgsConstructor
@@ -29,7 +27,7 @@ public class UserEntity {
     private String pass;
     @Column(name = "ConfirmedPass")
     private String confirmedPass;
-    
+
     public UserEntity() {
     }
 
@@ -39,6 +37,16 @@ public class UserEntity {
         this.pass = passParam;
         this.confirmedPass = confirmPassParam;
     }
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "users_cafes",
+            joinColumns = {
+                    @JoinColumn(name = "user_id", referencedColumnName = "id",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "cafe_id", referencedColumnName = "id",
+                            nullable = false, updatable = false)})
+    private Set<Cafe2> cafes = new HashSet<>();
+
 
     public Integer getId() {
         return id;

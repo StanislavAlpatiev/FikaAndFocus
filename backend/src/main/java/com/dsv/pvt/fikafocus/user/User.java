@@ -1,12 +1,17 @@
 package com.dsv.pvt.fikafocus.user;
 
+import com.dsv.pvt.fikafocus.cafe.Cafe2;
+
+import javax.persistence.ManyToMany;
+import java.util.Set;
+
 public class User {
     private Integer id;
     private String name;
     private String email;
     private String pass;
     private String confirmPass;
-    
+
     public User() {
     }
 
