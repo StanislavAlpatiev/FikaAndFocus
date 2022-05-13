@@ -6,7 +6,8 @@ import 'GoogleMapMarkerInfoWindow.dart';
 void main() {
   runApp(
     const MaterialApp(
-      title: "Fika&Fokus",
+      debugShowCheckedModeBanner: false,
+      title: "Fika&Focus",
       home: LogIn(),
     ),
   );
