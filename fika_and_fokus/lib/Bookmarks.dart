@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-//import 'Cafe.dart';
 
 class CafeItem {
   final String name;
-  final Widget place;
-  //final String price;
-  //final String rating;
+  final String price;
+  final String rating;
 
-  CafeItem(this.name, this.place);
+  CafeItem(this.name, this.price, this.rating);
 
   Widget buildTitle(BuildContext context) {
     return Text(name);
   }
 
-  Widget returnIcon(BuildContext context) {
-    return place;
+  Widget buildPrice(BuildContext context) {
+    return Text(price);
+  }
+
+  Widget buildRating(BuildContext context) {
+    return Text(rating);
   }
 
   factory CafeItem.fromJson(Map<String, dynamic> json) {
-    Widget tempPlace = Icon(Icons.coffee);
+    String tempPrice;
 
-    return CafeItem(json['name'], tempPlace);
-    //return CafeItem(json['username'], tempPlace);
+    if (json['price'] == '0') {
+      tempPrice = '\$';
+    } else if (json['price'] == '1') {
+      tempPrice = '\$\$';
+    } else {
+      tempPrice = '\$\$\$';
+    }
+
+    return CafeItem(json['name'], tempPrice, json['rating']);
   }
 }
 
@@ -45,7 +54,6 @@ class _BookmarksPageState extends State<BookmarksPage> {
 
   Future refreshCafes() async {
     Uri favoriteCafesURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/cafes/all');
-    //Uri favoriteCafesURI = Uri.parse('https://chiseled-spotted-individual.glitch.me/rand');
 
     final response = await http.get(favoriteCafesURI);
     var data = json.decode(response.body);
@@ -78,10 +86,9 @@ class _BookmarksPageState extends State<BookmarksPage> {
                   elevation: 5,
                   margin: EdgeInsets.all(5),
                   child: ListTile(
-                    //leading: cafes[index].place,
-                    leading: Icon(Icons.coffee, size: 56.0),
+                    leading: const Icon(Icons.coffee, size: 56.0),
                     title: cafes[index].buildTitle(context),
-                    subtitle: Text('Here is a second line'),
+                    subtitle: cafes[index].buildPrice(context),
                     trailing: IconButton(
                       icon: Icon(Icons.delete),
                       onPressed: () {},
