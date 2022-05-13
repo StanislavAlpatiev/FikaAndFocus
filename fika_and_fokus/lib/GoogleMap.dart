@@ -12,6 +12,7 @@ import 'GoogleMapMarkerInfoWindow.dart';
 
 // import 'package:location/location.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MyGoogleMap extends StatefulWidget {
   const MyGoogleMap({Key? key}) : super(key: key);
@@ -82,7 +83,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
                   child: Icon(Icons.pin_drop, color: Colors.white),
                   style: TextButton.styleFrom(backgroundColor: Colors.green),
                   // onPressed: _addMarker
-                onPressed: _createMarkers,
+                onPressed: _requestLocationPermission,
               )),
           Positioned(
               bottom: 11,
@@ -246,6 +247,25 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     setState(() {
       isVisible = !isVisible;
     });
+  }
+
+  _requestLocationPermission() async {
+    final serviceStatusLocation = await Permission.locationWhenInUse.status;
+    final serviceStatusLocationAlways = await Permission.locationAlways.status;
+
+    // bool isLocation = serviceStatusLocation == ServiceStatus.enabled;
+
+    final status = await Permission.locationWhenInUse.request();
+
+    if (!serviceStatusLocationAlways.isGranted) {
+      await Permission.locationAlways.request();
+    }
+    if (serviceStatusLocationAlways.isGranted) {
+      _createMarkers();
+    } else {
+      // showToast("Camera needs to access your microphone, please provide permission", position: ToastPosition.bottom);
+      // await openAppSettings();
+    }
   }
 }
 

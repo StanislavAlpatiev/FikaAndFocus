@@ -2,6 +2,7 @@ import 'package:fika_and_fokus/GoogleMap.dart';
 import 'package:fika_and_fokus/SearchBar.dart';
 import 'package:flutter/material.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -21,12 +22,33 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Stack(
                 children: [
                   // SearchBar(),
+                  // requestLocationPermission(),
                   MyGoogleMap(),
                   // SearchBar(),
                 ]
             )
         )
     );
+  }
+
+  Future<Widget?> requestLocationPermission() async {
+    final serviceStatusLocation = await Permission.locationWhenInUse.status;
+    final serviceStatusLocationAlways = await Permission.locationAlways.status;
+
+    bool isLocation = serviceStatusLocation == ServiceStatus.enabled;
+
+    final status = await Permission.locationWhenInUse.request();
+
+    if (!serviceStatusLocationAlways.isGranted) {
+      await Permission.locationAlways.request();
+    }
+    if (serviceStatusLocationAlways.isGranted) {
+      return const MyGoogleMap();
+    } else {
+      // showToast("Camera needs to access your microphone, please provide permission", position: ToastPosition.bottom);
+      await openAppSettings();
+    }
+    return null;
   }
 }
 
