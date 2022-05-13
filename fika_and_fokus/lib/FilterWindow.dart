@@ -6,16 +6,19 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class FilterWindow extends StatefulWidget {
 
   final Widget child;
- 
+  final Function callback;
 
-  FilterWindow ({Key? key, required this.child}) :super(key: key);
+  FilterWindow ({Key? key, required this.child, required this.callback}) :super(key: key);
 
   @override
-  State<FilterWindow> createState() => _FilterWindowState();
+  State<FilterWindow> createState() => _FilterWindowState(callback: callback);
 
 }
 
-class _FilterWindowState extends State<FilterWindow>  {
+class _FilterWindowState extends State<FilterWindow> {
+
+
+  _FilterWindowState ({required this.callback});
 
   final items1 = ["1235325", "264364", "3346346", "4532553", "564363"];
   final items2 = ["1235325", "264364", "3346346", "4532553", "564363"];
@@ -26,13 +29,12 @@ class _FilterWindowState extends State<FilterWindow>  {
   String? menuValue3;
   String? menuValue4;
 
-  double _currentSliderValue = 20;
-  double _currentSliderValue2 = 20;
+  double distanceSliderValue = 20;
+  double businessSliderValue = 20;
 
   bool isVisable = true;
 
-
-
+  final Function callback;
 
 
   Widget build(BuildContext context) {
@@ -177,13 +179,13 @@ class _FilterWindowState extends State<FilterWindow>  {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:[
                   Slider(
-                    value: _currentSliderValue,
+                    value: distanceSliderValue,
                     max: 100,
                     divisions: 5,
-                    label: _currentSliderValue.round().toString(),
+                    label: distanceSliderValue.round().toString(),
                     onChanged: (double value) {
                     setState(() {
-                      _currentSliderValue = value;
+                      distanceSliderValue = value;
                     });
                     },
                   )
@@ -202,13 +204,13 @@ class _FilterWindowState extends State<FilterWindow>  {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children:[
                     Slider(
-                      value: _currentSliderValue2,
+                      value: businessSliderValue,
                       max: 100,
                       divisions: 10,
-                      label: _currentSliderValue2.round().toString(),
+                      label: businessSliderValue.round().toString(),
                       onChanged: (double value) {
                         setState(() {
-                          _currentSliderValue2 = value;
+                          businessSliderValue = value;
                         });
                       },
                     )
@@ -221,7 +223,9 @@ class _FilterWindowState extends State<FilterWindow>  {
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: ElevatedButton(
-                        onPressed: _searchForCafes,
+                        onPressed: () {
+                          callback(businessSliderValue,distanceSliderValue);
+                        },
                         child: Text("ok")
                     ),
 
