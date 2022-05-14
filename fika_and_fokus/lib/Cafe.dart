@@ -35,8 +35,7 @@ class Cafe extends StatelessWidget {
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20)
-                      ),
+                          topRight: Radius.circular(20)),
                       color: Colors.green,
                       // .all(Radius.circular(20))
                     ),
