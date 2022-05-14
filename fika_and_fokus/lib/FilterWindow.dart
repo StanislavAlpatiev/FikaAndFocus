@@ -49,9 +49,10 @@ class _FilterWindowState extends State<FilterWindow> {
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 5,
                   blurRadius: 7,
-                  offset: Offset(2, 3))
-            ]),
-
+                  offset: Offset(2, 3)
+              )
+            ]
+        ),
         //huvudkolumn
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
