@@ -8,91 +8,63 @@ class Cafe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("cafeName"),
-        ),
-        backgroundColor: const Color(0xFF75AB98),
-        body: Stack(
+      appBar: AppBar(
+        title: Text("cafeName"),
+      ),
+      // backgroundColor: const Color(0xFF75AB98),
+      body: Stack(
+        children: [
+          Column(
             children: [
-              Container(
-                  // color: Colors.white,
-                  child: Column(
+              Flexible(
+                  flex: 4,
+                  child: Container(
+                    // color: Colors.amberAccent,
+                    child: Column(
                       children: [
-                        Flexible(
-                            flex: 4,
-                            child: Container(
-                              color: Colors.amberAccent,
-                              child: Column(
-                                children: [
-                                  Text("cafeName"),
-                                  Row(
-
-                                  ),
-                                ],
-                              ),
-                            )
-                        ),
-                        Flexible(
-                            flex: 5,
-                            // child: Container(
-                            //   color: Colors.green,
-                            //   child: Column(
-                            //     children: [
-                            //       Text("Review Section"),
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                            child: ListView(
-                                // itemBuilder: (context, index) => Card(
-                                  // elevation: 30,
-                              children: [
-                                // Container(
-                                  // margin: EdgeInsets.all(5),
-                                Container(
-                                  // width: 400,
-                                  margin: EdgeInsets.all(10),
-                                  // color: Colors.amberAccent,
-                                  height: 150,
-                                  decoration: _getBoxStile(),
-                                ),
-                                Container(
-                                  // width: 400,
-                                  margin: EdgeInsets.all(10),
-                                  height: 150,
-                                  decoration: _getBoxStile(),
-                                ),
-                                Container(
-                                  // width: 400,
-                                  margin: EdgeInsets.all(10),
-                                  height: 150,
-                                  decoration: _getBoxStile(),
-                                ),
-                                Container(
-                                  // width: 400,
-                                  margin: EdgeInsets.all(10),
-                                  height: 150,
-                                  decoration: _getBoxStile(),
-                                ),
-                                Container(
-                                  // width: 400,
-                                  margin: EdgeInsets.all(10),
-                                  height: 150,
-                                  decoration: _getBoxStile(),
-                                ),
-                                Container(
-                                  // width: 400,
-                                  margin: EdgeInsets.all(10),
-                                  height: 150,
-                                  decoration: _getBoxStile(),
-                                ),
-                              ],
+                        Text("cafeName"),
+                        Row(),
+                      ],
+                    ),
+                  )),
+              Flexible(
+                flex: 5,
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20)
+                      ),
+                      color: Colors.green,
+                      // .all(Radius.circular(20))
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: ListView.builder(
+                        itemCount: 6,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            // width: 400,
+                            margin: EdgeInsets.all(5),
+                            // color: Colors.amberAccent,
+                            height: 150,
+                            decoration: _getBoxStile(),
+                            child: Center(
+                              child: Text(index.toString()),
                             ),
-                          )// ),
-                        ),
-                      ]
-                  )
-              )
-            ]
-        )
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -107,7 +79,6 @@ class Cafe extends StatelessWidget {
               spreadRadius: 5,
               blurRadius: 7,
               offset: Offset(2, 3))
-        ]
-    );
+        ]);
   }
 }
