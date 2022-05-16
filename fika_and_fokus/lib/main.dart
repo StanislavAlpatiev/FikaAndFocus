@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: title,
-        theme: ThemeData.dark().copyWith(),
+        // theme: ThemeData.dark().copyWith(),
         home: HomePageTutorial(),
       )
   );

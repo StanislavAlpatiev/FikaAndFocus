@@ -14,6 +14,7 @@ class _SignOutPageState extends State<SignOut> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[100],
       appBar: AppBar(
         title: const Text('Sign out'),
         automaticallyImplyLeading: true,
@@ -45,7 +46,7 @@ class _SignOutPageState extends State<SignOut> {
                 child: Column(children: const <Widget>[
                   Text('YES',
                       style:
-                          TextStyle(fontFamily: 'SourceSansPro', fontSize: 40)),
+                      TextStyle(fontFamily: 'SourceSansPro', fontSize: 40)),
                   Icon(Icons.thumb_up, color: Colors.amber, size: 40)
                 ]),
                 onPressed: () => Navigator.push(
