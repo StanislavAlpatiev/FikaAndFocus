@@ -84,7 +84,19 @@ public class Cafe2 {
     private Set<Review> reviewSet = new HashSet<Review>();
 
 
-    @ManyToMany(mappedBy = "cafes", fetch = FetchType.LAZY)
+    public Set<UserEntity> getUsers(){
+        return users;
+    }
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "favourites",
+            joinColumns = {
+                    @JoinColumn(name = "cafe_id", referencedColumnName = "id",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "user_id", referencedColumnName = "id",
+                            nullable = false, updatable = false)})
     private Set<UserEntity> users = new HashSet<>();
 
 

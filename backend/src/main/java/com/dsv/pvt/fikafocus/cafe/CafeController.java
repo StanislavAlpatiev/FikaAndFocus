@@ -1,6 +1,8 @@
 package com.dsv.pvt.fikafocus.cafe;
 
 import com.dsv.pvt.fikafocus.review.Review;
+import com.dsv.pvt.fikafocus.user.UserEntity;
+import com.dsv.pvt.fikafocus.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -19,23 +21,24 @@ import java.net.URLConnection;
 import java.util.*;
 
 @RestController
-@RequestMapping(path="/cafes")
+@RequestMapping(path = "/cafes")
 public class CafeController {
 
     @Autowired
     private CafeRepository cafeRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    @PostMapping(path="/add") // Map ONLY POST Requests
+    @PostMapping(path = "/add") // Map ONLY POST Requests
     public @ResponseBody
-    String addNewCafe (
+    String addNewCafe(
             @RequestParam String name,
             @RequestParam String address,
             @RequestParam String lat,
             @RequestParam String lng,
             @RequestParam String rating,
             @RequestParam String price
-    )
-    {
+    ){
         Cafe2 cafe = new Cafe2();
         cafe.setName(name);
         cafe.setAddress(address);
@@ -47,8 +50,9 @@ public class CafeController {
         return "Saved";
     }
 
-    @GetMapping(path="/all")
-    public @ResponseBody Iterable<Cafe2> getAllCafes() {
+    @GetMapping(path = "/all")
+    public @ResponseBody
+    Iterable<Cafe2> getAllCafes(){
         // This returns a JSON or XML with the users
         return cafeRepository.findAll();
     }
@@ -61,30 +65,38 @@ public class CafeController {
      * @return alla cafeer för ett visst cafe,
      */
     @GetMapping("/{id}/all")
-    public Collection getAllReviewsforCafesById(@PathVariable("id") Integer id ){
+    public Collection getAllReviewsforCafesById(@PathVariable("id") Integer id){
         Optional<Cafe2> optionalCafe2 = cafeRepository.findById(id);
-        if(optionalCafe2.isPresent())
+        if ( optionalCafe2.isPresent() )
             return optionalCafe2.get().getReviewSet();
         return null;
     }
 
+    @GetMapping("/{id}/allfavourites")
+    public Collection getAllFavouritesforCafesById(@PathVariable("id") Integer id){
+        Optional<UserEntity> optionalUser = userRepository.findById(id);
+        if ( optionalUser.isPresent() )
+            return optionalUser.get().getCafes();
+        return null;
+    }
+
     @GetMapping("/locations")
-    public String getLocations(@RequestParam String busy_min, @RequestParam String busy_max, @RequestParam String radius, @RequestParam String lng, @RequestParam String lat) throws IOException {
+    public String getLocations(@RequestParam String busy_min,@RequestParam String busy_max,@RequestParam String radius,@RequestParam String lng,@RequestParam String lat) throws IOException{
         String url = "https://besttime.app/api/v1/venues/filter?api_key_private=pri_c84fd82d775d442883228456f021f11b&busy_min=" + busy_min + "&busy_max=" + busy_max + "&types=CAFE&lat=" + lat + "&lng=" + lng + "&radius=" + radius + "&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0";
         String urlHardCoded = "https://besttime.app/api/v1/venues/filter?api_key_private=pri_1957561c46a644fdaff49985493a50dc&busy_min=" + busy_min + "&busy_max=" + busy_max + "&types=CAFE&lat=" + lat + "&lng=" + lng + "&radius=" + radius + "&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0";
         return sendAPIRequest(urlHardCoded);
     }
 
-        //hämta review med visst id
-        @GetMapping("/{id}")
-        public Cafe2 reviewById (@PathVariable("id") Integer id ){
-            Optional<Cafe2> optionalCafe2 = cafeRepository.findById(id);
-            if (optionalCafe2.isPresent())
-                return optionalCafe2.get();
-            return null;
-        }
+    //hämta review med visst id
+    @GetMapping("/{id}")
+    public Cafe2 reviewById(@PathVariable("id") Integer id){
+        Optional<Cafe2> optionalCafe2 = cafeRepository.findById(id);
+        if ( optionalCafe2.isPresent() )
+            return optionalCafe2.get();
+        return null;
+    }
 
-    private String sendAPIRequest(String url) {
+    private String sendAPIRequest(String url){
         try {
             URL testUrl = new URL(url);
             URLConnection urlConnection = testUrl.openConnection();
@@ -93,7 +105,7 @@ public class CafeController {
             String input = "";
 
             StringBuilder line = new StringBuilder();
-            while((input = bf.readLine()) != null){
+            while ((input = bf.readLine()) != null) {
                 line.append(input);
             }
             bf.close();

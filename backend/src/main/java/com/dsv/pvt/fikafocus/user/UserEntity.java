@@ -6,6 +6,7 @@ import com.dsv.pvt.fikafocus.cafe.Cafe2;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
@@ -37,16 +38,9 @@ public class UserEntity {
         this.pass = passParam;
         this.confirmedPass = confirmPassParam;
     }
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "users_cafes",
-            joinColumns = {
-                    @JoinColumn(name = "user_id", referencedColumnName = "id",
-                            nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "cafe_id", referencedColumnName = "id",
-                            nullable = false, updatable = false)})
-    private Set<Cafe2> cafes = new HashSet<>();
 
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    private Set<Cafe2> cafes = new HashSet<>();
 
     public Integer getId() {
         return id;

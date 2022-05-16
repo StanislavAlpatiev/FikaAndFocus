@@ -1,5 +1,7 @@
 package com.dsv.pvt.fikafocus.user;
 
+import com.dsv.pvt.fikafocus.cafe.Cafe2;
+
 import java.util.List;
 
 public interface UserService {
@@ -10,7 +12,6 @@ public interface UserService {
     UserEntity getUserById(int id);
 
     UserEntity updateUser(UserEntity user);
-
 
     String deleteUserById(int id);
     String deleteAll();

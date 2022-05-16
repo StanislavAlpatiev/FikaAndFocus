@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import com.dsv.pvt.fikafocus.cafe.Cafe2;
 import com.dsv.pvt.fikafocus.user.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,5 +86,8 @@ public class UserServiceImpl implements UserService {
         userRepo.deleteAll();
         return "Everything has deleted";
     }
+
+
+
 
 }
