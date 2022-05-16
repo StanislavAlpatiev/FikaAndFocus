@@ -67,7 +67,9 @@ class _BookmarksPageState extends State<BookmarksPage> {
     final response = await http.get(favoriteCafesURI);
 
     if (response.statusCode == 200) {
-      var data = json.decode(response.body);
+      String source = Utf8Decoder().convert(response.bodyBytes);
+      //var data = json.decode(response.body);
+      var data = json.decode(source);
 
       cafes = [];
       var _cafesTemp = [];
