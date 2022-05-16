@@ -162,7 +162,7 @@ class _FilterWindowState extends State<FilterWindow> {
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Slider(
               value: distanceSliderValue,
-              max: 1000,
+              max: 10000,
               divisions: 5,
               label: distanceSliderValue.round().toString(),
               onChanged: (double value) {

@@ -32,6 +32,11 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
 
   // late String _currentAddress;
 
+  bool isInfoVisible = false;
+  String venueN = "";
+  String venueI = "";
+  double venueR = 0.0;
+
   @override
   void initState() {
     super.initState();
@@ -130,7 +135,41 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
               )),
         ),
       ),
-    ]));
+
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Dismissible(
+              child: Visibility(
+                visible: isInfoVisible,
+                maintainInteractivity: false,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 40, 5, 0),
+                  child: GestureDetector(
+                      onDoubleTap: () => _disableInfoVisibility(),
+                      child: MarkerInfoWindow(markedVenueName: venueN, markedDistance: '', markedVenueId: venueI, markedRating: venueR,
+
+                      )),
+                ),
+              ),
+              direction: DismissDirection.vertical,
+              key: UniqueKey(),
+              onDismissed: (DismissDirection direction) {
+                print("dismissed");
+                // _disableInfoVisibility();
+              },
+            ),
+
+          ),
+
+
+
+
+
+
+          // Info window related - Anton
+
+
+        ]));
   }
 
   _onMapCreated(GoogleMapController controller) {
@@ -210,20 +249,23 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             snippet: venue.venueAddress,
           ),
           onTap: () {
-            // Tar dig till infosida (bör vara popup istället)
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => MarkerInfoWindow(
-                  markedDistance: "3km",
-                  markedRating: venue.rating,
-                  markedVenueId: venue.venueId,
-                  markedVenueName: venue.venueName,
-                ),
-              ),
-            );
+            // info-window related - Anton
+            setState(() {
+              venueN = venue.venueName;
 
-            print("--- my venue id is " + venue.venueId);
-            print("--- my venue name is " + venue.venueName);
+
+              venueR = venue.rating;
+              venueI = venue.venueId;
+            });
+
+
+
+
+            _enableInfoVisibility();
+            _updateInfoWindow(venueN);
+
+            // _resetInfoVisibility();
+            // _disableInfoVisibility();
           },
           position: LatLng(venue.lat, venue.long),
         ));
@@ -236,6 +278,39 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
       // then throw an exception.
       throw Exception('Failed to load album');
     }
+  }
+
+  // info window related - Anton
+  _enableInfoVisibility() async {
+    setState(() {
+      // isInfoVisible = !isInfoVisible;
+      if (!isInfoVisible){
+        isInfoVisible = true;
+      }
+    });
+  }
+
+  // info window related - Anton
+  _disableInfoVisibility() async {
+    setState(() {
+      isInfoVisible = false;
+    });
+  }
+
+  // info window related - Anton
+  _resetInfoVisibility() async {
+    setState(() {
+      isInfoVisible = false;
+    });
+    setState(() {
+      isInfoVisible = true;
+    });
+  }
+
+  _updateInfoWindow(String venueName) async {
+    this.venueN = venueName;
+    print(venueN);
+
   }
 
   _removeMarker() async {
