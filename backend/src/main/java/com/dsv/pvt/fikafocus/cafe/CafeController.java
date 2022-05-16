@@ -65,7 +65,7 @@ public class CafeController {
      * @return alla cafeer för ett visst cafe,
      */
     @GetMapping("/{id}/all")
-    public Collection getAllReviewsforCafesById(@PathVariable("id") Integer id){
+    public Collection getAllReviewsForCafesById(@PathVariable("id") String id){
         Optional<Cafe2> optionalCafe2 = cafeRepository.findById(id);
         if ( optionalCafe2.isPresent() )
             return optionalCafe2.get().getReviewSet();
@@ -73,10 +73,18 @@ public class CafeController {
     }
 
     @GetMapping("/{id}/allfavourites")
-    public Collection getAllFavouritesforCafesById(@PathVariable("id") Integer id){
+    public Collection getAllFavouritesForCafesByUserId(@PathVariable("id") Integer id){
         Optional<UserEntity> optionalUser = userRepository.findById(id);
         if ( optionalUser.isPresent() )
             return optionalUser.get().getCafes();
+        return null;
+    }
+
+    @GetMapping("/{id}/allfavouritesbycafe")
+    public Collection getAllFavouritesForCafesByCafeId(@PathVariable("id") String id){
+        Optional<Cafe2> optionalUser = cafeRepository.findById(id);
+        if ( optionalUser.isPresent() )
+            return optionalUser.get().getUsers();
         return null;
     }
 
@@ -89,7 +97,7 @@ public class CafeController {
 
     //hämta review med visst id
     @GetMapping("/{id}")
-    public Cafe2 reviewById(@PathVariable("id") Integer id){
+    public Cafe2 reviewById(@PathVariable("id") String id){
         Optional<Cafe2> optionalCafe2 = cafeRepository.findById(id);
         if ( optionalCafe2.isPresent() )
             return optionalCafe2.get();

@@ -79,7 +79,7 @@ public class ReviewController {
     @PutMapping("/{reviewId}/cafes/{cafeId}")
     public String assignCafeToReview(
             @PathVariable Integer reviewId,
-            @PathVariable Integer cafeId
+            @PathVariable String cafeId
     ){
        Optional<Cafe2> cafe = cafeRepository.findById(cafeId);
        Optional<Review> review = reviewRepository.findById(reviewId);
