@@ -18,8 +18,6 @@ class _SignOutPageState extends State<SignOut> {
       appBar: AppBar(
         title: const Text('Sign out'),
         automaticallyImplyLeading: true,
-        centerTitle: true,
-        backgroundColor: Colors.blue[100],
       ),
       body: SafeArea(
         child: Center(
@@ -46,7 +44,7 @@ class _SignOutPageState extends State<SignOut> {
                 child: Column(children: const <Widget>[
                   Text('YES',
                       style:
-                      TextStyle(fontFamily: 'SourceSansPro', fontSize: 40)),
+                          TextStyle(fontFamily: 'SourceSansPro', fontSize: 40)),
                   Icon(Icons.thumb_up, color: Colors.amber, size: 40)
                 ]),
                 onPressed: () => Navigator.push(
