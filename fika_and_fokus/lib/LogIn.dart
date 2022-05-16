@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import 'google_sign_in.dart';
 import 'signup.dart';
 import 'User.dart';
 
@@ -171,15 +173,9 @@ class _LogInState extends State<LogIn> {
                       child: Text(
                         'LOG IN',
                         style: GoogleFonts.oswald(
-                          fontSize: 28,
-                          fontWeight: FontWeight.normal
-                          ),
-                        //     TextStyle(
-                        //   color: Color.fromARGB(255, 255, 255, 255),
-                        //   fontSize: 28,
-                        //   fontWeight: FontWeight.bold,
-                        //   fontFamily: 'Pacifico',
-                        // ),
+                            fontSize: 28,
+                            fontWeight: FontWeight.normal
+                        ),
                       ),
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xFF696969),
@@ -206,8 +202,20 @@ class _LogInState extends State<LogIn> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(
-                    height: 24,
+                  const SizedBox(height: 24),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      onPrimary: Colors.black,
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    icon: FaIcon(FontAwesomeIcons.google),
+                    label: Text('Sign up with Google'),
+                    onPressed: () {
+                      final provider = Provider.of<GoogleSignInProvider>(
+                          context, listen: false);
+                      provider.googleLogin();
+                    },
                   ),
                   Row(
                     // ignore: prefer_const_literals_to_create_immutables
@@ -237,9 +245,6 @@ class _LogInState extends State<LogIn> {
                             primary: Color(0xFF75AB98),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
-                              // side: BorderSide(
-                              //   color: Colors.black,
-                              // ),
                             ),
                           ),
                         ),
