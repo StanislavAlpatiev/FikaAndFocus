@@ -102,6 +102,19 @@ public class CafeController {
         return "Saved";
     }
 
+    @DeleteMapping("/{userId}/removefavourite/{cafeId}")
+    public String removeFavourite(
+            @PathVariable Integer userId,
+            @PathVariable String cafeId
+    ){
+        Optional<Cafe2> cafe = cafeRepository.findById(cafeId);
+        Optional<UserEntity> user = userRepository.findById(userId);
+        user.get().removeFavourite(cafe.get());
+        cafe.get().removeFavourite(user.get());
+        cafeRepository.save(cafe.get());
+        return "Deleted";
+    }
+
     @GetMapping("/locations")
     public String getLocations(@RequestParam String busy_min,@RequestParam String busy_max,@RequestParam String radius,@RequestParam String lng,@RequestParam String lat) throws IOException{
         String url = "https://besttime.app/api/v1/venues/filter?api_key_private=pri_c84fd82d775d442883228456f021f11b&busy_min=" + busy_min + "&busy_max=" + busy_max + "&types=CAFE&lat=" + lat + "&lng=" + lng + "&radius=" + radius + "&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0";

@@ -111,6 +111,12 @@ public class Cafe2 {
     public void addFavourite(UserEntity userEntity){
         users.add(userEntity);
     }
+
+    public void removeFavourite(UserEntity userEntity){
+        users.remove(userEntity);
+    }
+
+
     public String getId() {
         return id;
     }

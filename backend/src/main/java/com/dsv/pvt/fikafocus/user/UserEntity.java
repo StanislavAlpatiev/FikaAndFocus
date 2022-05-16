@@ -46,6 +46,10 @@ public class UserEntity {
         cafes.add(cafe2);
     }
 
+    public void removeFavourite(Cafe2 cafe2){
+        cafes.remove(cafe2);
+    }
+
     public Integer getId() {
         return id;
     }
