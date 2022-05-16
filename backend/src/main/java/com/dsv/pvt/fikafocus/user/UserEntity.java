@@ -42,6 +42,10 @@ public class UserEntity {
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<Cafe2> cafes = new HashSet<>();
 
+    public void addFavourite(Cafe2 cafe2){
+        cafes.add(cafe2);
+    }
+
     public Integer getId() {
         return id;
     }

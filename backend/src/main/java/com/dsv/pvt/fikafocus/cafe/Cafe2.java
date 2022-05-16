@@ -108,7 +108,9 @@ public class Cafe2 {
         reviewSet.add(review);
     }
 
-
+    public void addFavourite(UserEntity userEntity){
+        users.add(userEntity);
+    }
     public String getId() {
         return id;
     }

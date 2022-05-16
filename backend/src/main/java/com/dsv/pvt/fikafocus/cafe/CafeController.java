@@ -72,7 +72,7 @@ public class CafeController {
         return null;
     }
 
-    @GetMapping("/{id}/allfavourites")
+    @GetMapping("/{id}/favourites")
     public Collection getAllFavouritesForCafesByUserId(@PathVariable("id") Integer id){
         Optional<UserEntity> optionalUser = userRepository.findById(id);
         if ( optionalUser.isPresent() )
@@ -80,12 +80,26 @@ public class CafeController {
         return null;
     }
 
-    @GetMapping("/{id}/allfavouritesbycafe")
+    @GetMapping("/{id}/favouritesbycafe")
     public Collection getAllFavouritesForCafesByCafeId(@PathVariable("id") String id){
-        Optional<Cafe2> optionalUser = cafeRepository.findById(id);
-        if ( optionalUser.isPresent() )
-            return optionalUser.get().getUsers();
+        Optional<Cafe2> optionalCafe = cafeRepository.findById(id);
+        if ( optionalCafe.isPresent() )
+            return optionalCafe.get().getUsers();
         return null;
+    }
+
+    @PostMapping("/{userId}/addfavourite/{cafeId}")
+    public String addFavourite(
+            @PathVariable Integer userId,
+            @PathVariable String cafeId
+    ){
+        Optional<Cafe2> cafe = cafeRepository.findById(cafeId);
+        Optional<UserEntity> user = userRepository.findById(userId);
+
+        user.get().addFavourite(cafe.get());
+        cafe.get().addFavourite(user.get());
+        cafeRepository.save(cafe.get());
+        return "Saved";
     }
 
     @GetMapping("/locations")
