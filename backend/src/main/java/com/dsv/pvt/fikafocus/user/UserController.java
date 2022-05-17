@@ -14,9 +14,9 @@ public class UserController {
 
     //Create
     @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody com.dsv.pvt.fikafocus.user.UserEntity addNewUser (@RequestBody com.dsv.pvt.fikafocus.user.UserEntity newEntity) {
+    public @ResponseBody com.dsv.pvt.fikafocus.user.UserEntity addNewUser (@RequestParam String email, @RequestParam String username, @RequestParam String password) {
         // @ResponseBody means the returned String is the response, not a view name
-        return userService.addNewUser(newEntity);
+        return userService.addNewUser(email, username, password);
     }
 //    //Create lists.
 //    @PostMapping(path="/addUsers")

@@ -33,12 +33,13 @@ public class UserService {
         return userRepo.findById(email).orElse(null);
     }
 
-    public UserEntity addNewUser(UserEntity newUser) {
+    public UserEntity addNewUser(String email, String userName, String password) {
         try {
-            if(userRepo.existsByNameAndEmail(newUser.getName(), newUser.getEmail())){
+            if(userRepo.existsByNameAndEmail(userName, email)){
                 return null;
             }else{
-                return userRepo.save(newUser);
+                UserEntity tempUser = new UserEntity(email, userName, password);
+                return userRepo.save(tempUser);
             }
         } catch (Exception e) {
             System.out.println("TO ADD NEW USER");

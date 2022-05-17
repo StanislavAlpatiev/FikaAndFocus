@@ -252,7 +252,7 @@ class _SignUpState extends State<SignUp> {
                           String username = userCtrl.text;
                           String email = mailCtrl.text;
                           String pass = passCtrl.text;
-                          String confirmPass = confPassCtrl.text;
+                          //String confirmPass = confPassCtrl.text;
 
                           registerUser(email, username, pass, context);
                           // UserModel user = await registerUser(
@@ -325,13 +325,15 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Future<UserModel> registerUser(String email, String userName, String password,
+  Future<UserModel> registerUser(String email, String username, String password,
       BuildContext context) async {
-    Uri url = Uri.parse("http://group-1-75.pvt.dsv.su.se/user/add?"
-        "email="  + email +
-        "&userName=" + userName +
-        "&password=" + password
+    print("test");
+    Uri url = Uri.parse("http://10.201.52.46:8080/user/add?"
+        "email=" + "user@gmail.com" +
+        "&username=" + "user" +
+        "&password=" + "user"
     );
+    print(url.toString());
     var response = await http.post(url
       // url,
       // headers: <String, String>{"Content-Type": "application/json"},
@@ -343,12 +345,13 @@ class _SignUpState extends State<SignUp> {
       //   },
       // ),
     );
-
-    String responseString = response.body;
-    print(responseString);
+    print("passed request");
+    //String responseString = response.body;
+    //print(responseString);
 
     if (response.statusCode == 200) {
-      return UserModel(email: email, userName: userName, password: password);
+      print("200");
+      return UserModel(email: email, userName: username, password: password);
     } else {
       throw "Error: " + response.statusCode.toString();
     }
