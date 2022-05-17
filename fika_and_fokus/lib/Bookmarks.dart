@@ -87,9 +87,16 @@ class _BookmarksPageState extends State<BookmarksPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.blue[100],
+        backgroundColor: const Color(0xFFE0DBCF),
         appBar: AppBar(
-          title: const Text('Favorites'),
+          centerTitle: true,
+          title: Text(
+            'Favorites',
+            style: TextStyle(
+              fontFamily: 'Roboto',
+            ),
+          ),
+          backgroundColor: const Color(0xFF75AB98),
           automaticallyImplyLeading: false,
         ),
         body: SafeArea(
@@ -102,7 +109,11 @@ class _BookmarksPageState extends State<BookmarksPage> {
                     elevation: 5,
                     margin: EdgeInsets.all(5),
                     child: ListTile(
-                      leading: const Icon(Icons.coffee, size: 56.0, color: Color(0xFFE0DBCF),),
+                      leading: const Icon(
+                        Icons.coffee,
+                        size: 56.0,
+                        color: Color(0xFF75AB98),
+                      ),
                       title: cafes[index].buildTitle(context),
                       subtitle: cafes[index].buildPrice(context),
                       trailing: RatingBarIndicator(
@@ -118,7 +129,8 @@ class _BookmarksPageState extends State<BookmarksPage> {
                       ),
                       onTap: () {
                         Navigator.push(context,
-                            new MaterialPageRoute(builder: (context) => Cafe( /*cafes[index].returnId(context)*/ ))
+                            new MaterialPageRoute(builder: (context) => Cafe(
+                                cafes[index] /*.id, cafes[index].name, cafes[index].price, cafes[index].rating)cafes[index].returnId(context)*/ ))
                         );
                       },
                     ),

@@ -297,12 +297,12 @@ class PopularCafes extends StatelessWidget {
                                   ),
                                   Container(
                                     child: InkWell(
-                                      onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => const Cafe(),
-                                        ),
-                                      ),
+                                      // onTap: () => Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) => const Cafe(),
+                                      //   ),
+                                      // ),
                                       child: Icon(
                                         Icons.arrow_circle_right_rounded,
                                         size: 60.0,

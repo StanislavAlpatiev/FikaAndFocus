@@ -1,15 +1,27 @@
+import 'package:fika_and_fokus/Bookmarks.dart';
 import 'package:flutter/material.dart';
 
 class Cafe extends StatelessWidget {
   // final String cafeName;
+  final CafeItem cafeItem;
 
-  const Cafe({Key? key}) : super(key: key);
+  //const Cafe({Key? key}) : super(key: key);
+  Cafe(this.cafeItem);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFE0DBCF),
       appBar: AppBar(
-        title: Text("cafeName"),
+        centerTitle: true,
+        title: Text(
+            cafeItem.name,
+            style: TextStyle(
+            fontFamily: 'Roboto',
+          ),
+        ),
+        backgroundColor: const Color(0xFF75AB98),
+        automaticallyImplyLeading: false,
       ),
       // backgroundColor: const Color(0xFF75AB98),
       body: Stack(
@@ -22,7 +34,7 @@ class Cafe extends StatelessWidget {
                     // color: Colors.amberAccent,
                     child: Column(
                       children: [
-                        Text("cafeName"),
+                        Text(cafeItem.name),
                         Row(),
                       ],
                     ),
