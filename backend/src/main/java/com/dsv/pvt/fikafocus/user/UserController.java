@@ -25,7 +25,7 @@ public class UserController {
 //        return userService.addNewUsers(newEntities);
 //    }
 
-    @PostMapping("/add")
+    @PostMapping(path="/add")
     public @ResponseBody com.dsv.pvt.fikafocus.user.UserEntity addNewUser (@RequestParam String email, @RequestParam String userName, @RequestParam String password) throws IOException {
         return userService.addNewUser(email, userName, password);
     }
