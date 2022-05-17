@@ -1,5 +1,6 @@
 package com.dsv.pvt.fikafocus.user;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,23 +14,25 @@ public class UserController {
     private UserService userService;
 
     //Create
-    @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody com.dsv.pvt.fikafocus.user.UserEntity addNewUser (@RequestBody com.dsv.pvt.fikafocus.user.UserEntity newEntity) {
-        // @ResponseBody means the returned String is the response, not a view name
-        return userService.addNewUser(newEntity);
-    }
+//    @PostMapping(path="/add") // Map ONLY POST Requests
+//    public @ResponseBody com.dsv.pvt.fikafocus.user.UserEntity addNewUser (@RequestBody com.dsv.pvt.fikafocus.user.UserEntity newEntity) {
+//        // @ResponseBody means the returned String is the response, not a view name
+//        return userService.addNewUser(newEntity);
+//    }
 //    //Create lists.
 //    @PostMapping(path="/addUsers")
 //    public @ResponseBody List<com.dsv.pvt.fikafocus.user.UserEntity> addNewUsers(@RequestBody List<com.dsv.pvt.fikafocus.user.UserEntity> newEntities){
 //        return userService.addNewUsers(newEntities);
 //    }
 
-//    @GetMapping("/login")
-//    public String getLocations(@RequestParam String email, @RequestParam String password) throws IOException {
-//
-//        String urlHardCoded = "https://besttime.app/api/v1/venues/filter?api_key_private=pri_1957561c46a644fdaff49985493a50dc&busy_min=" + busy_min + "&busy_max=" + busy_max + "&types=CAFE&lat=" + lat + "&lng=" + lng + "&radius=" + radius + "&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0";
-//        return sendAPIRequest(urlHardCoded);
-//    }
+    @PostMapping("/add")
+    public @ResponseBody com.dsv.pvt.fikafocus.user.UserEntity getLocations(@RequestParam String email,
+                               @RequestParam String userName,
+                               @RequestParam String password)
+            throws IOException {
+
+        return userService.addNewUser(email, userName, password);
+    }
 
     //Read
     @GetMapping(path="/all")

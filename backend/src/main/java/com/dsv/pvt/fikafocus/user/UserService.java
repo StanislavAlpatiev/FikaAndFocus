@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import org.apache.catalina.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,12 +34,13 @@ public class UserService {
         return userRepo.findById(email).orElse(null);
     }
 
-    public UserEntity addNewUser(UserEntity newUser) {
+    public UserEntity addNewUser(String email, String username, String password) {
         try {
-            if(userRepo.existsByNameAndEmail(newUser.getName(), newUser.getEmail())){
+            if(userRepo.existsByNameAndEmail(username, email)) {
                 return null;
             }else{
-                return userRepo.save(newUser);
+                UserEntity tempUser = new UserEntity(email, username, password);
+                return userRepo.save(tempUser);
             }
         } catch (Exception e) {
             System.out.println("TO ADD NEW USER");

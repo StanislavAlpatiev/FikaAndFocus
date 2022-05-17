@@ -254,6 +254,7 @@ class _SignUpState extends State<SignUp> {
                           String pass = passCtrl.text;
                           String confirmPass = confPassCtrl.text;
 
+                          registerUser(email, username, pass, context);
                           // UserModel user = await registerUser(
                           //     username, email, pass, confirmPass, context);
                           userCtrl.text = '';
@@ -323,56 +324,33 @@ class _SignUpState extends State<SignUp> {
       ),
     );
   }
-}
 
-class MyAlertDialog extends StatelessWidget {
-  final String title;
-  final String content;
-  final List<Widget> actions;
-
-  MyAlertDialog({
-    required this.title,
-    required this.content,
-    this.actions = const [],
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(
-        this.title,
-        style: TextStyle(color: Colors.white),
-      ),
-      actions: this.actions,
-      content: Text(
-        this.content,
-        style: TextStyle(color: Colors.white),
-      ),
-    );
-  }
-
-  Future<UserModel> registerUser(String email, String userName, String pass,
+  Future<UserModel> registerUser(String email, String userName, String password,
       BuildContext context) async {
-    Uri url = Uri.parse("http://group-1-75.pvt.dsv.su.se/user/add");
-    var response = await http.post(
-      url,
-      headers: <String, String>{"Content-Type": "application/json"},
-      body: jsonEncode(
-        <String, String>{
-          "email": email,
-          "username": userName,
-          "pass": pass,
-        },
-      ),
+    Uri url = Uri.parse("http://group-1-75.pvt.dsv.su.se/user/add?"
+        "email="  + email +
+        "&userName=" + userName +
+        "&password=" + password
+    );
+    var response = await http.post(url
+      // url,
+      // headers: <String, String>{"Content-Type": "application/json"},
+      // body: jsonEncode(
+      //   <String, String>{
+      //     "email": email,
+      //     "username": userName,
+      //     "pass": pass,
+      //   },
+      // ),
     );
 
     String responseString = response.body;
+    print(responseString);
 
     if (response.statusCode == 200) {
-      return UserModel(email: email, userName: userName, password: pass);
+      return UserModel(email: email, userName: userName, password: password);
     } else {
-      throw "Error, status code is not: 200";
+      throw "Error: " + response.statusCode.toString();
     }
   }
-
 }
