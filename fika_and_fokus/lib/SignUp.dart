@@ -328,13 +328,13 @@ class _SignUpState extends State<SignUp> {
   Future<UserModel> registerUser(String email, String username, String password,
       BuildContext context) async {
     print("test");
-    Uri url = Uri.parse("http://10.201.52.46:8080/user/add?"
-        "email=" + "user@gmail.com" +
-        "&username=" + "user" +
-        "&password=" + "user"
+    Uri url = Uri.parse("http://192.168.0.14:8080/user/add?"
+        "email=" + email +
+        "&username=" + username +
+        "&password=" + password
     );
     print(url.toString());
-    var response = await http.post(url
+    final response = await http.post(url
       // url,
       // headers: <String, String>{"Content-Type": "application/json"},
       // body: jsonEncode(
@@ -351,7 +351,9 @@ class _SignUpState extends State<SignUp> {
 
     if (response.statusCode == 200) {
       print("200");
-      return UserModel(email: email, userName: username, password: password);
+      UserModel user = UserModel(email: email, userName: username, password: password);
+      print(user.toString());
+      return user;
     } else {
       throw "Error: " + response.statusCode.toString();
     }

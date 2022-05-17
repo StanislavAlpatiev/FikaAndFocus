@@ -156,12 +156,13 @@ class _LogInState extends State<LogIn> {
                     child: ElevatedButton(
                       onPressed: () {
                         // save();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const NavBar(),
-                          ),
-                        );
+                        login(user.email, user.getPassword);
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => const NavBar(),
+                        //   ),
+                        // );
                       },
                       child: Text(
                         'LOG IN',
@@ -254,28 +255,41 @@ class _LogInState extends State<LogIn> {
   }
 
 
-  Future save(String username, String password) async {
-    Uri url = Uri.parse("http://http://group-1-75.pvt.dsv.su.se/user/login?"
-        "username=" + username +
+  Future login(String email, String password) async {
+    Uri url = Uri.parse("http://192.168.0.14:8080/user/login?"
+        "email=" + email +
         "&password=" + password
     );
 
     var response = await http.get(url);
+    print(response.toString());
 
     if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      // print(response.body);
-      Map<String, dynamic> responseJson = json.decode(response.body);
-      List status = responseJson['status'];
-      setState(() {
-
-      });
+      print("ok");
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const NavBar(),
+        ),
+      );
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load album');
+      print("fail");
+      return null;
     }
-    print(response.body);
+    // if (response.statusCode == 200) {
+    //   // If the server did return a 200 OK response,
+    //   // then parse the JSON.
+    //   // print(response.body);
+    //   Map<String, dynamic> responseJson = json.decode(response.body);
+    //   List status = responseJson['status'];
+    //   setState(() {
+    //
+    //   });
+    // } else {
+    //   // If the server did not return a 200 OK response,
+    //   // then throw an exception.
+    //   throw Exception('Failed to load album');
+    // }
+    // print(response.body);
   }
 }
