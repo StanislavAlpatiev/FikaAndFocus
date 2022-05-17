@@ -14,10 +14,11 @@ class _SignOutPageState extends State<SignOut> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[100],
+      backgroundColor: const Color(0xFFE0DBCF),
       appBar: AppBar(
         title: const Text('Sign out'),
         automaticallyImplyLeading: true,
+        backgroundColor: const Color(0xFF75AB98),
       ),
       body: SafeArea(
         child: Center(
@@ -27,55 +28,96 @@ class _SignOutPageState extends State<SignOut> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const CircleAvatar(
-                radius: 80,
+                radius: 100,
                 backgroundImage: AssetImage('images/profile_avatar.jpg'),
               ),
+              const Text('  '), //Creates space
               const Card(
                 child: Text(
-                  'Are you sure?',
+                  '  Are you sure?  ',
                   style: TextStyle(
-                    fontFamily: 'SourceSansPro',
+                    fontFamily: 'Roboto',
                     fontSize: 45,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF75AB98),
                   ),
                 ),
               ),
               const Text(' '), //Creates space
-              ElevatedButton(
-                child: Column(children: const <Widget>[
-                  Text('YES',
-                      style:
-                          TextStyle(fontFamily: 'SourceSansPro', fontSize: 40)),
-                  Icon(Icons.thumb_up, color: Colors.amber, size: 40)
-                ]),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LogIn(),
+              TextButton(
+                child: Card(
+                  child: Column(
+                    children: const [
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(text: '     '), //Creates space
+                            WidgetSpan(
+                              child: Icon(
+                                Icons.thumb_up,
+                                color: Color(0xFF75AB98),
+                                size: 35,
+                              ),
+                            ),
+                            TextSpan(
+                              //TODO get name of individual
+                              text: '   YES ',
+
+                              style: TextStyle(
+                                fontSize: 40,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF75AB98),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+                onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LogIn()),
+                ),
               ),
-              const Text(' '), //Space between buttons
-              const Text(' '), //Space between buttons
-              ElevatedButton(
-                child: Column(children: const <Widget>[
-                  Text('NO',
-                      style: TextStyle(
-                        fontFamily: 'SourceSansPro',
-                        fontSize: 40,
+              TextButton(
+                  child: Card(
+                    child: Column(
+                      children: const [
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(text: '     '), //Creates space
+                              WidgetSpan(
+                                child: Icon(
+                                  Icons.thumb_down,
+                                  color: Color(0xFF75AB98),
+                                  size: 35,
+                                ),
+                              ),
+                              TextSpan(
+                                //TODO get name of individual
+                                text: '   NO   ',
+                                style: TextStyle(
+                                  fontSize: 40,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF75AB98),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  onPressed: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ProfilePage(),
+                        ),
                       )),
-                  Icon(
-                    Icons.thumb_down,
-                    color: Colors.amber,
-                    size: 40,
-                  )
-                ]),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProfilePage(),
-                  ),
-                ),
-              ),
             ],
           ),
         ),

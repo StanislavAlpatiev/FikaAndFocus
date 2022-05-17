@@ -1,9 +1,4 @@
-import 'package:fika_and_fokus/Profile.dart';
 import 'package:flutter/material.dart';
-
-import 'ChangeUsername.dart';
-import 'ChangePassword.dart';
-import 'ChangePhonenumber.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class AccountSettings extends StatefulWidget {
@@ -17,29 +12,40 @@ class _AccountSettingsPageState extends State<AccountSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
+      appBar: AppBar(
+        title: const Text('Settings'),
+        backgroundColor: Color(0xFF75AB98),
+      ),
       body: SettingsList(
         sections: [
           SettingsSection(
-            title: Text('Common'),
+            title: const Text('Common'),
             tiles: [
               SettingsTile(
-                title: Text('Language'),
+                title: const Text('Language'),
                 //subtitle: 'English',
-                leading: Icon(Icons.language),
+                leading: const Icon(Icons.language),
               ),
               SettingsTile(
-                  title: Text('Environment'), leading: Icon(Icons.cloud_queue)),
+                  title: const Text('Environment'),
+                  leading: const Icon(Icons.cloud_queue)),
             ],
           ),
           SettingsSection(
-            title: Text('Account'),
+            title: const Text('Account'),
             tiles: [
               //TODO - redirections should happen when pressed!
               SettingsTile(
-                  title: Text('Phone number'), leading: Icon(Icons.phone)),
-              SettingsTile(title: Text('Email'), leading: Icon(Icons.email)),
-              SettingsTile(title: Text('Password'), leading: Icon(Icons.lock))
+                title: const Text('Phone number'),
+                leading: const Icon(Icons.phone),
+                enabled: true,
+                //  onPressed: ),
+              ),
+              SettingsTile(
+                  title: const Text('Email'), leading: const Icon(Icons.email)),
+              SettingsTile(
+                  title: const Text('Password'),
+                  leading: const Icon(Icons.lock))
             ],
           )
         ],
@@ -47,6 +53,10 @@ class _AccountSettingsPageState extends State<AccountSettings> {
     );
   }
 }
+
+
+
+
 
 
    /*     //Heading
