@@ -15,11 +15,9 @@ public class UserController {
 
     //Create
     @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody com.dsv.pvt.fikafocus.user.UserEntity addNewUser (@RequestParam String email,
-                                                                           @RequestParam String userName,
-                                                                           @RequestParam String password) {
+    public @ResponseBody com.dsv.pvt.fikafocus.user.UserEntity addNewUser (@RequestBody com.dsv.pvt.fikafocus.user.UserEntity newEntity) {
         // @ResponseBody means the returned String is the response, not a view name
-        return userService.addNewUser(email, userName, password);
+        return userService.addNewUser(newEntity);
     }
 //    //Create lists.
 //    @PostMapping(path="/addUsers")
@@ -28,7 +26,9 @@ public class UserController {
 //    }
 
 //    @GetMapping("/add")
-//    public @ResponseBody com.dsv.pvt.fikafocus.user.UserEntity getLocations()
+//    public @ResponseBody com.dsv.pvt.fikafocus.user.UserEntity getLocations(@RequestParam String email,
+//                               @RequestParam String userName,
+//                               @RequestParam String password)
 //            throws IOException {
 //
 //        return userService.addNewUser(email, userName, password);

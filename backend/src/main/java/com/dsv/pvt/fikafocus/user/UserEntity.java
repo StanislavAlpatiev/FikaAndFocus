@@ -71,6 +71,7 @@ public class UserEntity {
 
     @Override
     public String toString() {
-        return "Contact [ email=" + email +"name=" + name + ", pass=" + pass  + "]";
+        return "Contact [ name=" + name + ", email=" + email
+                + ", pass=" + pass  + "]";
     }
 }
