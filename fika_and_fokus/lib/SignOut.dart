@@ -29,7 +29,7 @@ class _SignOutPageState extends State<SignOut> {
             children: <Widget>[
               const CircleAvatar(
                 radius: 100,
-                backgroundImage: AssetImage('images/profile_avatar.jpg'),
+                backgroundImage: AssetImage('images/profile_picture.png'),
               ),
               const Text('  '), //Creates space
               const Card(

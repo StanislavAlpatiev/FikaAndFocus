@@ -56,7 +56,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: const [
                   CircleAvatar(
                     radius: 100,
-                    backgroundImage: AssetImage('images/profile_avatar.jpg'),
+                    backgroundImage: AssetImage('images/profile_picture.png'),
                   ),
                   Text(
                     //TODO get name of individual
