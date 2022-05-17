@@ -14,19 +14,19 @@ public class UserService {
     private UserRepository userRepo;
 
     public List<UserEntity> getAllUsers(){
-       try {
-           List<UserEntity> entities = userRepo.findAll();
+        try {
+            List<UserEntity> entities = userRepo.findAll();
             List<UserEntity> customUsers = new ArrayList<>();
             entities.stream().forEach(e -> {
                 UserEntity u = new UserEntity();
                 BeanUtils.copyProperties(e, u);
                 customUsers.add(u);
             });
-           return entities;
-       } catch (Exception e) {
-           System.out.println("GET ALL USER METHOD()");
-           throw e;
-       }
+            return entities;
+        } catch (Exception e) {
+            System.out.println("GET ALL USER METHOD()");
+            throw e;
+        }
     }
 
     public UserEntity getUserById(String email) {
@@ -73,6 +73,7 @@ public class UserService {
         userRepo.deleteById(email);
         return "removed successfully";
     }
+
 
     public String deleteAll() {
         userRepo.deleteAll();

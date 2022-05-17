@@ -1,6 +1,5 @@
 package com.dsv.pvt.fikafocus.user;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +24,11 @@ public class UserController {
 //        return userService.addNewUsers(newEntities);
 //    }
 
-//    @GetMapping("/add")
-//    public @ResponseBody com.dsv.pvt.fikafocus.user.UserEntity getLocations(@RequestParam String email,
-//                               @RequestParam String userName,
-//                               @RequestParam String password)
-//            throws IOException {
+//    @GetMapping("/login")
+//    public String getLocations(@RequestParam String email, @RequestParam String password) throws IOException {
 //
-//        return userService.addNewUser(email, userName, password);
+//        String urlHardCoded = "https://besttime.app/api/v1/venues/filter?api_key_private=pri_1957561c46a644fdaff49985493a50dc&busy_min=" + busy_min + "&busy_max=" + busy_max + "&types=CAFE&lat=" + lat + "&lng=" + lng + "&radius=" + radius + "&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0";
+//        return sendAPIRequest(urlHardCoded);
 //    }
 
     //Read
