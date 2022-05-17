@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'dart:developer';
 
 class GoogleSignInProvider extends ChangeNotifier {
   final googleSignIn = GoogleSignIn();
@@ -12,8 +13,10 @@ class GoogleSignInProvider extends ChangeNotifier {
   Future googleLogin() async {
     try {
       final googleUser = await googleSignIn.signIn();
+      log("Google user id: ");
       if(googleUser == null) return;
       _user = googleUser;
+
 
       final googleAuth = await googleUser.authentication;
 
@@ -24,7 +27,7 @@ class GoogleSignInProvider extends ChangeNotifier {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
-      print(e.toString());
+      print("Error: " + e.toString());
     }
 
     // updates UI

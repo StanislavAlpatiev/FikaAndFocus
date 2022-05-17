@@ -1,41 +1,39 @@
 import 'dart:convert';
 
-import 'package:fika_and_fokus/User.dart';
-
 UserModel userModelJson(String str) => UserModel.fromJson(json.decode(str));
 
 String userModelToJSON(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
-  int id;
-  String userName;
-  String email;
-  String password;
-  String confirmedPass;
+  String email = "";
+  String userName = "";
+  String password = "";
 
   UserModel(
-      {required this.id,
+    {
       required this.userName,
       required this.email,
       required this.password,
-      required this.confirmedPass});
+    }
+  );
+
+  UserModel.login(String username, String pass) {
+    username = username;
+    password = pass;
+  }
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-      id: json["id"],
-      userName: json["username"],
       email: json["email"],
-      password: json["pass"],
-      confirmedPass: json["confirmPass"]);
+      userName: json["username"],
+      password: json["pass"]);
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "username": userName,
         "email": email,
-        "pass": password,
-        "confirmedPass": confirmedPass
+        "username": userName,
+        "pass": password
       };
 
-  String get getUserName => userName;
   String get getEmail => email;
+  String get getUserName => userName;
   String get getPassword => password;
 }

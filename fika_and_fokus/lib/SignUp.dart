@@ -14,34 +14,6 @@ class SignUp extends StatefulWidget {
   State<SignUp> createState() => _SignUpState();
 }
 
-// Future<UserModel> registerUser(String userName, String email, String pass,
-//     String confirmPass, BuildContext context) async {
-//   var url = "http://localhost:8080/add";
-//   var response = await http.post(
-//     Uri.parse(url),
-//     headers: <String, String>{"Content-Type": "application/json"},
-//     body: jsonEncode(
-//       <String, String>{
-//         "username": userName,
-//         "email": email,
-//         "pass": pass,
-//         "confirmedPass": confirmPass
-//       },
-//     ),
-//   );
-//   String responseString = response.body;
-//
-//   if (response.statusCode == 200) {
-//     showDialog(
-//       context: context,
-//       barrierDismissible: true,
-//       builder: (BuildContext dialogContext) {
-//         return MyAlertDialog(title: 'Backend Response', content: response.body);
-//       },
-//     );
-//   }
-// }
-
 class _SignUpState extends State<SignUp> {
   TextEditingController userCtrl = TextEditingController();
   TextEditingController mailCtrl = TextEditingController();
@@ -378,4 +350,29 @@ class MyAlertDialog extends StatelessWidget {
       ),
     );
   }
+
+  Future<UserModel> registerUser(String email, String userName, String pass,
+      BuildContext context) async {
+    Uri url = Uri.parse("http://group-1-75.pvt.dsv.su.se/user/add");
+    var response = await http.post(
+      url,
+      headers: <String, String>{"Content-Type": "application/json"},
+      body: jsonEncode(
+        <String, String>{
+          "email": email,
+          "username": userName,
+          "pass": pass,
+        },
+      ),
+    );
+
+    String responseString = response.body;
+
+    if (response.statusCode == 200) {
+      return UserModel(email: email, userName: userName, password: pass);
+    } else {
+      throw "Error, status code is not: 200";
+    }
+  }
+
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 // CRUD refers Create, Read, Update, Delete
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+public interface UserRepository extends JpaRepository<UserEntity, String> {
     public boolean existsByNameAndEmail(String name, String email);
     // public boolean existsById(long id);
     //public UserEntity findById(int id);

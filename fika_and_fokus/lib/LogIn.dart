@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'google_sign_in.dart';
 import 'signup.dart';
-import 'User.dart';
+import 'UserModel.dart';
 
 //Test
 class LogIn extends StatefulWidget {
@@ -20,18 +20,11 @@ class LogIn extends StatefulWidget {
 
 class _LogInState extends State<LogIn> {
   final _formKey = GlobalKey<FormState>(); //a globalkey for validation.
-  User user = User("", ""); //For creating a user.
+  UserModel user = UserModel.login("", ""); //For creating a user.
   // TextEditingController userCtrl =
   //     TextEditingController(); //A variable to store username
   // TextEditingController passCtrl =
   //     TextEditingController(); //A variable to store password
-  var url = Uri.parse("http://localhost:8080/login");
-  Future save() async {
-    var response = await http.post(url,
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode({'email': user.email, 'password': user.password}));
-    print(response.body);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -258,5 +251,31 @@ class _LogInState extends State<LogIn> {
         ),
       ),
     );
+  }
+
+
+  Future save(String username, String password) async {
+    Uri url = Uri.parse("http://http://group-1-75.pvt.dsv.su.se/user/login?"
+        "username=" + username +
+        "&password=" + password
+    );
+
+    var response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      // print(response.body);
+      Map<String, dynamic> responseJson = json.decode(response.body);
+      List status = responseJson['status'];
+      setState(() {
+
+      });
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+    print(response.body);
   }
 }

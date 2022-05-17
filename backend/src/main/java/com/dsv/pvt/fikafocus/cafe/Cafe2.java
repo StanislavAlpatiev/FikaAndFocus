@@ -1,7 +1,6 @@
 package com.dsv.pvt.fikafocus.cafe;
 
 import com.dsv.pvt.fikafocus.review.Review;
-import com.dsv.pvt.fikafocus.user.User;
 import com.dsv.pvt.fikafocus.user.UserEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -95,7 +94,7 @@ public class Cafe2 {
                     @JoinColumn(name = "cafe_id", referencedColumnName = "id",
                             nullable = false, updatable = false)},
             inverseJoinColumns = {
-                    @JoinColumn(name = "user_id", referencedColumnName = "id",
+                    @JoinColumn(name = "user_id", referencedColumnName = "email",
                             nullable = false, updatable = false)})
     private Set<UserEntity> users = new HashSet<>();
 
