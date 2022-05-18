@@ -140,8 +140,8 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             alignment: Alignment.bottomCenter,
             child: Dismissible(
               child: Visibility(
-                visible: true, // for development purposes, so you don't need to click markers
-                // visible: isInfoVisible, // correct one
+                // visible: true, // for development purposes, so you don't need to click markers
+                visible: isInfoVisible, // correct one
                 maintainInteractivity: false,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
