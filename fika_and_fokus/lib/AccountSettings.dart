@@ -1,3 +1,9 @@
+import 'package:fika_and_fokus/ChangeEmail.dart';
+import 'package:fika_and_fokus/ChangeLanguage.dart';
+import 'package:fika_and_fokus/ChangePassword.dart';
+import 'package:fika_and_fokus/ChangePhonenumber.dart';
+import 'package:fika_and_fokus/ChangeUsername.dart';
+import 'package:fika_and_fokus/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
@@ -22,13 +28,27 @@ class _AccountSettingsPageState extends State<AccountSettings> {
             title: const Text('Common'),
             tiles: [
               SettingsTile(
-                title: const Text('Language'),
-                //subtitle: 'English',
-                leading: const Icon(Icons.language),
-              ),
-              SettingsTile(
+                  title: const Text('Language'),
+                  //subtitle: 'English',
+                  leading: const Icon(Icons.language),
+                  onPressed: (context) => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChangeLanguage(),
+                            ))
+                      }),
+              /* SettingsTile(
                   title: const Text('Environment'),
-                  leading: const Icon(Icons.cloud_queue)),
+                  leading: const Icon(Icons.cloud_queue),
+                  onPressed: (context) => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChangeUserName(),
+                            ))
+                      }),
+                      */
             ],
           ),
           SettingsSection(
@@ -36,16 +56,47 @@ class _AccountSettingsPageState extends State<AccountSettings> {
             tiles: [
               //TODO - redirections should happen when pressed!
               SettingsTile(
-                title: const Text('Phone number'),
-                leading: const Icon(Icons.phone),
-                enabled: true,
-                //  onPressed: ),
-              ),
+                  title: const Text('Username'),
+                  leading: const Icon(Icons.person),
+                  enabled: true,
+                  onPressed: (context) => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChangeUserName(),
+                            ))
+                      }),
               SettingsTile(
-                  title: const Text('Email'), leading: const Icon(Icons.email)),
+                  title: const Text('Phone number'),
+                  leading: const Icon(Icons.phone),
+                  enabled: true,
+                  onPressed: (context) => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChangePhonenumber(),
+                            ))
+                      }),
+              SettingsTile(
+                  title: const Text('Email'),
+                  leading: const Icon(Icons.email),
+                  onPressed: (context) => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChangeEmail(),
+                            ))
+                      }),
               SettingsTile(
                   title: const Text('Password'),
-                  leading: const Icon(Icons.lock))
+                  leading: const Icon(Icons.lock),
+                  onPressed: (context) => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ChangePassword(),
+                            ))
+                      }),
             ],
           )
         ],
