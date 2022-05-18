@@ -256,7 +256,7 @@ class _LogInState extends State<LogIn> {
 
 
   Future login(String email, String password) async {
-    Uri url = Uri.parse("http://192.168.0.14:8080/user/login?"
+    Uri url = Uri.parse("https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/user/login?"
         "email=" + email +
         "&password=" + password
     );

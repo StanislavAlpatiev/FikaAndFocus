@@ -221,7 +221,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
         // Uri.parse("https://besttime.app/api/v1/venues/filter?api_key_private=pri_50709d58bc7444f3aa6739695d46050a&busy_min=0&busy_max=100&types=CAFE&lat=59.3247819&lng=18.0699477&radius=2000&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0");
         //Uri.parse("http://group-1-75.pvt.dsv.su.se/cafes/locations?busy_min=0&busy_max=100&radius=500&lng=18.0699477&lat=59.3247819");
         Uri.parse(
-            "http://group-1-75.pvt.dsv.su.se/cafes/locations?busy_min=0&busy_max=" +
+            "https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/locations?busy_min=0&busy_max=" +
                 businessLevel +
                 "&radius=" +
                 radius +
