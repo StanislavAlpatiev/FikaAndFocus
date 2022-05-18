@@ -32,6 +32,8 @@ class _LogInState extends State<LogIn> {
       home: Container(
         child: SafeArea(
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
+
             backgroundColor: Color(0xFFE0DBCF),
             body: Padding(
               padding: const EdgeInsets.fromLTRB(30, 50, 30, 10),
