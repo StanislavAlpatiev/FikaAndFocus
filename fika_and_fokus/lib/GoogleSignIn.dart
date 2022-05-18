@@ -10,7 +10,7 @@ class GoogleSignInProvider extends ChangeNotifier {
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
 
-  Future googleLogin() async {
+  Future loginWithGoogle() async {
     try {
       final googleUser = await googleSignIn.signIn();
       log("Google user id: ");
@@ -34,8 +34,8 @@ class GoogleSignInProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future logout() async {
+  Future signOutWithGoogle() async {
     await googleSignIn.disconnect();
-    FirebaseAuth.instance.signOut();
+    await FirebaseAuth.instance.signOut();
   }
 }

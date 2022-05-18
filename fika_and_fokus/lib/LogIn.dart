@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'google_sign_in.dart';
+import 'GoogleSignIn.dart';
 import 'signup.dart';
 import 'UserModel.dart';
 
@@ -30,26 +30,18 @@ class _LogInState extends State<LogIn> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Container(
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: const AssetImage("images/bg_white.jpg"),
-        //     fit: BoxFit.cover,
-        //     colorFilter: ColorFilter.mode(
-        //         Colors.brown.withOpacity(0.9), BlendMode.dstATop),
-        //   ),
-        // ),
         child: SafeArea(
           child: Scaffold(
             backgroundColor: Color(0xFFE0DBCF),
             body: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
+              padding: const EdgeInsets.fromLTRB(30, 50, 30, 10),
               child: ListView(
                 shrinkWrap: true,
                 // ignore: prefer_const_literals_to_create_immutables
                 children: <Widget>[
                   // ignore: prefer_const_constructors
                   Image.asset('images/logo-white.png',width:600,height:200),
-                  const SizedBox(height: 10),
+                  // const SizedBox(height: 5),
                   Center(
                     child: Text(
                       "ACCOUNT LOGIN",
@@ -59,19 +51,7 @@ class _LogInState extends State<LogIn> {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                  // const SizedBox(
-                  //   height: 12,
-                  // ),
-                  // CircleAvatar(
-                  //   radius: 77,
-                  //   child: ClipRRect(
-                  //     borderRadius: BorderRadius.circular(80),
-                  //     child: Image.network(
-                  //       "https://img.freepik.com/free-vector/mysterious-mafia-man-wearing-hat_52683-34829.jpg?t=st=1648889842~exp=1648890442~hmac=6ff53459fbf62e0b08f8a44b8d1f71a84b693415923df79ea74a1c74e9d423a9&w=740",
-                  //     ),
-                  //   ),
-                  // ),
-                  const SizedBox(height: 10),
+                  // const SizedBox(height: 5),
                   Card(
                     // ignore: prefer_const_constructors
                     child: TextFormField(
@@ -148,7 +128,7 @@ class _LogInState extends State<LogIn> {
                     ),
                   ),
                   const SizedBox(
-                    height: 12,
+                    height: 10,
                   ),
                   Container(
                     height: 50,
@@ -180,9 +160,28 @@ class _LogInState extends State<LogIn> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    //Margin between elements.
-                    height: 10,
+                  const SizedBox(height: 10,
+                  ),
+                  ElevatedButton.icon(
+                    icon: FaIcon(FontAwesomeIcons.google),
+                    label: Text('Log in with Google',
+                        style: GoogleFonts.roboto(
+                        fontSize: 20.00,
+                        fontWeight: FontWeight.w300),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      primary: Colors.white,
+                      onPrimary: Colors.black,
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    onPressed: () {
+                      final provider = Provider.of<GoogleSignInProvider>(
+                          context, listen: false);
+                      provider.loginWithGoogle();
+                    },
                   ),
                   TextButton(
                     onPressed: () {},
@@ -196,26 +195,9 @@ class _LogInState extends State<LogIn> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 24),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: Colors.black,
-                      minimumSize: Size(double.infinity, 50),
-                    ),
-                    icon: FaIcon(FontAwesomeIcons.google),
-                    label: Text('Sign up with Google'),
-                    onPressed: () {
-                      final provider = Provider.of<GoogleSignInProvider>(
-                          context, listen: false);
-                      provider.googleLogin();
-                    },
-                  ),
                   Row(
-                    // ignore: prefer_const_literals_to_create_immutables
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Container(
                         height: 50,

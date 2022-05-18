@@ -1,6 +1,10 @@
+import 'package:fika_and_fokus/LogIn.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'AccountSettings.dart';
 import 'SignOut.dart';
+import 'package:provider/provider.dart';
+import 'GoogleSignIn.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -10,6 +14,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +29,17 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: const Color(0xFF75AB98),
         // automaticallyImplyLeading: false,
         actions: [
+          // Temporary button - testing state management
+          TextButton(
+            child: Text('Logout'),
+            onPressed: () {
+              final provider = Provider.of<GoogleSignInProvider>(
+                  context, listen: false);
+              provider.signOutWithGoogle();
+              // Navigator.of(context).push(MaterialPageRoute(builder:
+              //     (context) => LogIn()));
+            },
+          ),
           PopupMenuButton<int>(
               onSelected: (item) => onSelected(context, item),
               itemBuilder: (context) => [
@@ -53,14 +69,15 @@ class _ProfilePageState extends State<ProfilePage> {
             const Text('                           '), //Creates space
             Center(
               child: Column(
-                children: const [
+                children: [
                   CircleAvatar(
                     radius: 100,
-                    backgroundImage: AssetImage('images/profile_picture.png'),
+                    backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
+                    // backgroundImage: AssetImage('images/profile_picture.png'),
                   ),
-                  Text(
+                   Text(
                     //TODO get name of individual
-                    'WELCOME -NAME- !',
+                    'WELCOME ' + user.displayName!,
                     style: TextStyle(
                       fontSize: 25,
                       fontFamily: 'Roboto',
@@ -70,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 2,
                     ),
                   ),
-                  Text(
+                  const Text(
                     '___________________________________________________________',
                     style: TextStyle(color: Color(0xFF75AB98)),
                   ),
@@ -98,7 +115,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       TextSpan(
                         //TODO get name of individual
-                        text: '   Visided cafés: -NR-',
+                        text: '   Visited cafés: -NR-',
 
                         style: TextStyle(
                           fontSize: 25,

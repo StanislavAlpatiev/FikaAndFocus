@@ -1,12 +1,11 @@
-import 'package:fika_and_fokus/HomePageTutorial.dart';
+import 'package:fika_and_fokus/HomePageGoogle.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'SignUp.dart';
 import 'LogIn.dart';
 import 'GoogleMapMarkerInfoWindow.dart';
 import 'package:firebase_core/firebase_core.dart';
-
-import 'google_sign_in.dart';
+import 'GoogleSignIn.dart';
 
 
 Future main() async{
@@ -26,13 +25,14 @@ Future main() async{
 class MyApp extends StatelessWidget {
   static final String title = 'Main Page';
 
+  // ChangeNotifierProvider enables state management between screens
   Widget build(BuildContext context) => ChangeNotifierProvider(
       create: (context) => GoogleSignInProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: title,
         // theme: ThemeData.dark().copyWith(),
-        home: HomePageTutorial(),
+        home: HomePageGoogle(),
       )
   );
 }
