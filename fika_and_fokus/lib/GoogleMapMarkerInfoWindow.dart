@@ -42,10 +42,11 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
           // color: Colors.red,
             decoration: BoxDecoration(
                 color:Colors.white,
-                border: Border.all(
-                    color: Colors.black
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                // border: Border.all(
+                //     color: Colors.red
+                // ),
+                borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                //borderRadius: BorderRadius.all(Radius.circular(20)),
                 boxShadow: [
                   BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
@@ -113,9 +114,9 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
             child: Container(
               // color: Color(0xFF75AB98),
               margin:
-              EdgeInsets.only(left: 60.0, top: 0.0, right: 60.0, bottom: 00.0),
+              EdgeInsets.only(left: 60.0, top: 0.0, right: 60.0, bottom: 0.0),
               height: 170,
-              width: double.infinity,
+              // width: double.infinity,
               child: Column(
                 children: [
                   SizedBox(

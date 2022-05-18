@@ -74,7 +74,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
         tiltGesturesEnabled: false,
         markers: Set<Marker>.of(allMarkers),
         // mapToolbarEnabled: true,
-        padding: EdgeInsets.only(top: 510, right: 10),
+        padding: EdgeInsets.only(top: 0, right: 0),
       ),
       // SearchBar(),
       Positioned(
@@ -127,7 +127,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
           visible: isVisible,
           maintainInteractivity: false,
           child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 40, 5, 0),
+              padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
               child: FilterWindow(
                 child: ElevatedButton(
                     onPressed: _changeVisibility, child: Text("cancel")),
@@ -140,10 +140,11 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             alignment: Alignment.bottomCenter,
             child: Dismissible(
               child: Visibility(
-                visible: isInfoVisible,
+                visible: true, // for development purposes, so you don't need to click markers
+                // visible: isInfoVisible, // correct one
                 maintainInteractivity: false,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 40, 5, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                   child: GestureDetector(
                       onDoubleTap: () => _disableInfoVisibility(),
                       child: MarkerInfoWindow(markedVenueName: venueN, markedDistance: '', markedVenueId: venueI, markedRating: venueR,
