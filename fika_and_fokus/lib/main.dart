@@ -7,7 +7,6 @@ import 'GoogleMapMarkerInfoWindow.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'GoogleSignIn.dart';
 
-
 Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
