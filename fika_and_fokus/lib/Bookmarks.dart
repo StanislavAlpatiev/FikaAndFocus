@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'Cafe.dart';
+import 'CafePage.dart';
 
 
 class CafeItem {
@@ -61,8 +62,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
   }
 
   Future refreshCafes() async {
-    Uri favoriteCafesURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/cafes/all');
-    //Uri favoriteCafesURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/favourites?user=' + getCurrentUser);
+    Uri favoriteCafesURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/sten@gmail.com/favourites');
 
     final response = await http.get(favoriteCafesURI);
 
@@ -129,8 +129,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                       ),
                       onTap: () {
                         Navigator.push(context,
-                            new MaterialPageRoute(builder: (context) => Cafe(
-                                cafes[index] /*.id, cafes[index].name, cafes[index].price, cafes[index].rating)cafes[index].returnId(context)*/ ))
+                            new MaterialPageRoute(builder: (context) => CafePage(cafes[index]))
                         );
                       },
                     ),
