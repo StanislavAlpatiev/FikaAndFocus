@@ -54,18 +54,19 @@ class _SignUpState extends State<SignUp> {
                     // ignore: prefer_const_constructors
                     Center(
 
-                      // child: const Text(
-                      //   "Sign Up",
-                      //   style: TextStyle(
-                      //     fontWeight: FontWeight.bold,
-                      //     color: Colors.white,
-                      //     fontSize: 46,
-                      //     backgroundColor: Color.fromARGB(51, 183, 183, 186),
-                      //     fontFamily: 'Pacifico',
-                      //   ),
-                      // ),
-                    ),
-                    Image.asset('images/logo-white.png',width:600,height:200),
+                        // child: const Text(
+                        //   "Sign Up",
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.bold,
+                        //     color: Colors.white,
+                        //     fontSize: 46,
+                        //     backgroundColor: Color.fromARGB(51, 183, 183, 186),
+                        //     fontFamily: 'Pacifico',
+                        //   ),
+                        // ),
+                        ),
+                    Image.asset('images/logo-white.png',
+                        width: 600, height: 200),
                     const SizedBox(
                       height: 10,
                     ),
@@ -91,7 +92,8 @@ class _SignUpState extends State<SignUp> {
                             return null;
                           },
                           decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 100, vertical: 0),
                             border: InputBorder.none,
                             prefixIcon: Align(
                               widthFactor: 1.0,
@@ -107,7 +109,8 @@ class _SignUpState extends State<SignUp> {
                               fontSize: 20,
                             ),
                           ),
-                          style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                          style:
+                              GoogleFonts.roboto(fontWeight: FontWeight.w300),
                         ),
                       ),
                       color: const Color.fromARGB(255, 255, 255, 255),
@@ -132,7 +135,8 @@ class _SignUpState extends State<SignUp> {
                             return null;
                           },
                           decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 100, vertical: 0),
                             border: InputBorder.none,
                             prefixIcon: Align(
                               widthFactor: 1.0,
@@ -148,7 +152,8 @@ class _SignUpState extends State<SignUp> {
                               fontSize: 20,
                             ),
                           ),
-                          style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                          style:
+                              GoogleFonts.roboto(fontWeight: FontWeight.w300),
                         ),
                       ),
                       color: const Color.fromARGB(255, 255, 255, 255),
@@ -173,7 +178,8 @@ class _SignUpState extends State<SignUp> {
                             return null;
                           },
                           decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 100, vertical: 0),
                             border: InputBorder.none,
                             prefixIcon: Align(
                               widthFactor: 1.0,
@@ -189,7 +195,8 @@ class _SignUpState extends State<SignUp> {
                               fontSize: 20,
                             ),
                           ),
-                          style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                          style:
+                              GoogleFonts.roboto(fontWeight: FontWeight.w300),
                         ),
                       ),
                       color: const Color.fromARGB(255, 255, 255, 255),
@@ -231,7 +238,8 @@ class _SignUpState extends State<SignUp> {
                               fontSize: 20,
                             ),
                           ),
-                          style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                          style:
+                              GoogleFonts.roboto(fontWeight: FontWeight.w300),
                         ),
                       ),
                       color: const Color.fromARGB(255, 255, 255, 255),
@@ -268,9 +276,7 @@ class _SignUpState extends State<SignUp> {
                         child: Text(
                           'SIGN UP',
                           style: GoogleFonts.oswald(
-                              fontSize: 28,
-                              fontWeight: FontWeight.normal
-                          ),
+                              fontSize: 28, fontWeight: FontWeight.normal),
                         ),
                         style: ElevatedButton.styleFrom(
                           primary: const Color(0xFF871801),
@@ -287,18 +293,18 @@ class _SignUpState extends State<SignUp> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       // ignore: prefer_const_literals_to_create_immutables
                       children: <Widget>[
-                         Text(
-                          "Forgotten password/username?",
+                        Text(
+                          "Already have an account?",
                           style: GoogleFonts.roboto(
-                              textStyle: const TextStyle(color: Color(0xFFFFFFFF),
-                                  letterSpacing: .5),
+                              textStyle: const TextStyle(
+                                  color: Color(0xFFFFFFFF), letterSpacing: .5),
                               fontSize: 15.00,
                               fontWeight: FontWeight.w300),
                           textAlign: TextAlign.center,
                         ),
+
                         // ignore: prefer_const_constructors
                         InkWell(
-
                           child: Text(
                             " Log in here",
                             style: GoogleFonts.roboto(
@@ -329,29 +335,32 @@ class _SignUpState extends State<SignUp> {
       BuildContext context) async {
     print("test");
     Uri url = Uri.parse("http://192.168.0.14:8080/user/add?"
-        "email=" + email +
-        "&username=" + username +
-        "&password=" + password
-    );
+            "email=" +
+        email +
+        "&username=" +
+        username +
+        "&password=" +
+        password);
     print(url.toString());
     final response = await http.post(url
-      // url,
-      // headers: <String, String>{"Content-Type": "application/json"},
-      // body: jsonEncode(
-      //   <String, String>{
-      //     "email": email,
-      //     "username": userName,
-      //     "pass": pass,
-      //   },
-      // ),
-    );
+        // url,
+        // headers: <String, String>{"Content-Type": "application/json"},
+        // body: jsonEncode(
+        //   <String, String>{
+        //     "email": email,
+        //     "username": userName,
+        //     "pass": pass,
+        //   },
+        // ),
+        );
     print("passed request");
     //String responseString = response.body;
     //print(responseString);
 
     if (response.statusCode == 200) {
       print("200");
-      UserModel user = UserModel(email: email, userName: username, password: password);
+      UserModel user =
+          UserModel(email: email, userName: username, password: password);
       print(user.toString());
       return user;
     } else {
