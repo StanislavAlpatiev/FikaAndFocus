@@ -36,7 +36,7 @@ class _LogInState extends State<LogIn> {
 
             backgroundColor: Color(0xFFE0DBCF),
             body: Padding(
-              padding: const EdgeInsets.fromLTRB(30, 50, 30, 10),
+              padding: const EdgeInsets.fromLTRB(30, 50, 30, 0),
               child: ListView(
                 shrinkWrap: true,
                 // ignore: prefer_const_literals_to_create_immutables
@@ -58,7 +58,7 @@ class _LogInState extends State<LogIn> {
                     // ignore: prefer_const_constructors
                     child: TextFormField(
                       decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
+                        // contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
                         border: InputBorder.none,
                         prefixIcon: Align(
                           widthFactor: 1.0,
@@ -68,11 +68,11 @@ class _LogInState extends State<LogIn> {
                             color: Color(0xFF696969),
                           ),
                         ),
-                        labelText: 'Username or email',
-                        labelStyle: TextStyle(
-                          color: Color(0xFF696969),
-                          fontSize: 20,
-                        ),
+                        labelText: 'Email',
+                        // labelStyle: TextStyle(
+                        //   color: Color(0xFF696969),
+                        //   fontSize: 20,
+                        // ),
                       ),
                       // ignore: prefer_const_constructors
                       style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
@@ -96,7 +96,7 @@ class _LogInState extends State<LogIn> {
                     child: TextFormField(
                       obscureText: true,
                       decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
+                        // contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
                         border: InputBorder.none,
                         prefixIcon: Align(
                           widthFactor: 1.0,
@@ -162,8 +162,7 @@ class _LogInState extends State<LogIn> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10,
-                  ),
+                  const SizedBox(height: 10,),
                   ElevatedButton.icon(
                     icon: FaIcon(FontAwesomeIcons.google),
                     label: Text('Log in with Google',
@@ -260,20 +259,5 @@ class _LogInState extends State<LogIn> {
       print("fail");
       return null;
     }
-    // if (response.statusCode == 200) {
-    //   // If the server did return a 200 OK response,
-    //   // then parse the JSON.
-    //   // print(response.body);
-    //   Map<String, dynamic> responseJson = json.decode(response.body);
-    //   List status = responseJson['status'];
-    //   setState(() {
-    //
-    //   });
-    // } else {
-    //   // If the server did not return a 200 OK response,
-    //   // then throw an exception.
-    //   throw Exception('Failed to load album');
-    // }
-    // print(response.body);
   }
 }
