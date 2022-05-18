@@ -2,6 +2,7 @@ import 'package:fika_and_fokus/Bookmarks.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'CafeItemModel.dart';
 
 class Review{
   final String review;
@@ -36,8 +37,8 @@ class _CafePageState extends State<CafePage>{
   }
 
   Future refreshReviews() async {
-    Uri reviewsURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/ven_304c56776d34454959414e52593058646156516e6158614a496843/all');
-    //Uri reviewsURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all');
+    // Uri reviewsURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/ven_304c56776d34454959414e52593058646156516e6158614a496843/all');
+    Uri reviewsURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all');
 
     final response = await http.get(reviewsURI);
 
@@ -71,7 +72,7 @@ class _CafePageState extends State<CafePage>{
           ),
         ),
         backgroundColor: const Color(0xFF75AB98),
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
       ),
       body: Stack(
         children: [

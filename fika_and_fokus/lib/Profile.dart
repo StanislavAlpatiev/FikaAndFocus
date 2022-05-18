@@ -27,7 +27,8 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         backgroundColor: const Color(0xFF75AB98),
-        // automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         actions: [
           // Temporary button - testing state management
           TextButton(
@@ -78,7 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
                    Text(
                     //TODO get name of individual
                     // 'WELCOME ' + user.displayName!,
-                     'WELCOME ' + "User",
+                     'WELCOME ' + "Sten",
                     style: TextStyle(
                       fontSize: 25,
                       fontFamily: 'Roboto',

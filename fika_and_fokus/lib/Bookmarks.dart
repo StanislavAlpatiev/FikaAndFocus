@@ -4,46 +4,46 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'Cafe.dart';
 import 'CafePage.dart';
+import 'CafeItemModel.dart';
 
-
-class CafeItem {
-  final String id;
-  final String name;
-  final String price;
-  final double rating;
-
-  CafeItem(this.id, this.name, this.price, this.rating);
-
-  Widget returnId(BuildContext context) {
-    return Text(id);
-  }
-
-  Widget buildTitle(BuildContext context) {
-    return Text(name);
-  }
-
-  Widget buildPrice(BuildContext context) {
-    return Text(price);
-  }
-
-  double buildRating(BuildContext context) {
-    return rating;
-  }
-
-  factory CafeItem.fromJson(Map<String, dynamic> json) {
-    String tempPrice;
-
-    if (json['price'] == '0') {
-      tempPrice = '\$';
-    } else if (json['price'] == '1') {
-      tempPrice = '\$\$';
-    } else {
-      tempPrice = '\$\$\$';
-    }
-
-    return CafeItem(json['id'], json['name'], tempPrice, double.parse(json['rating']));
-  }
-}
+// class CafeItem {
+//   final String id;
+//   final String name;
+//   final String price;
+//   final double rating;
+//
+//   CafeItem(this.id, this.name, this.price, this.rating);
+//
+//   Widget returnId(BuildContext context) {
+//     return Text(id);
+//   }
+//
+//   Widget buildTitle(BuildContext context) {
+//     return Text(name);
+//   }
+//
+//   Widget buildPrice(BuildContext context) {
+//     return Text(price);
+//   }
+//
+//   double buildRating(BuildContext context) {
+//     return rating;
+//   }
+//
+//   factory CafeItem.fromJson(Map<String, dynamic> json) {
+//     String tempPrice;
+//
+//     if (json['price'] == '0') {
+//       tempPrice = '\$';
+//     } else if (json['price'] == '1') {
+//       tempPrice = '\$\$';
+//     } else {
+//       tempPrice = '\$\$\$';
+//     }
+//
+//     return CafeItem(json['id'], json['name'], tempPrice, double.parse(json['rating']));
+//   }
+// }
 
 class BookmarksPage extends StatefulWidget {
   const BookmarksPage({Key? key}) : super(key: key);

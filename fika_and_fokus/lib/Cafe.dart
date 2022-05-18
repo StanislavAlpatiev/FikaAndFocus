@@ -1,5 +1,6 @@
 import 'package:fika_and_fokus/Bookmarks.dart';
 import 'package:flutter/material.dart';
+import 'CafeItemModel.dart';
 
 class Cafe extends StatelessWidget {
   // final String cafeName;
