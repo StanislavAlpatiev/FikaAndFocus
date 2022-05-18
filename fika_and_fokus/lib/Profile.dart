@@ -14,7 +14,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final user = FirebaseAuth.instance.currentUser!;
+  // final user = FirebaseAuth.instance.currentUser!;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,12 +72,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   CircleAvatar(
                     radius: 100,
-                    backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
-                    // backgroundImage: AssetImage('images/profile_picture.png'),
+                    // backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
+                    backgroundImage: AssetImage('images/profile_picture.png'),
                   ),
                    Text(
                     //TODO get name of individual
-                    'WELCOME ' + user.displayName!,
+                    // 'WELCOME ' + user.displayName!,
+                     'WELCOME ' + "User",
                     style: TextStyle(
                       fontSize: 25,
                       fontFamily: 'Roboto',

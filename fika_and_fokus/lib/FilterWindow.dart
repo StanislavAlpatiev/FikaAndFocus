@@ -176,7 +176,7 @@ class _FilterWindowState extends State<FilterWindow> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text("Business")],
+              children: [Text("Busyness %")],
             ),
           ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
