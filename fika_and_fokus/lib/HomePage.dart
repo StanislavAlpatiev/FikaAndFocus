@@ -12,19 +12,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // Widget customSearchBar = const Text('Home');
-  // Icon customIcon = const Icon(Icons.search);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
             child: Stack(
                 children: [
-                  // SearchBar(),
-                  // requestLocationPermission(),
                   MyGoogleMap(),
-                  // SearchBar(),
                 ]
             )
         )
