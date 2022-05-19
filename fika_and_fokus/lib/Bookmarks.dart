@@ -26,6 +26,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
     Uri favoriteCafesURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/sten@gmail.com/favourites');
 
     final response = await http.get(favoriteCafesURI);
+    print(response.body);
 
     if (response.statusCode == 200) {
       String source = Utf8Decoder().convert(response.bodyBytes);

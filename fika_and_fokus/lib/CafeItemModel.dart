@@ -38,6 +38,6 @@ class CafeItem {
       tempPrice = '\$\$\$';
     }
 
-    return CafeItem(json['id'], json['name'], json['address'], json['lat'], json['lng'], tempPrice, double.parse(json['rating']));
+    return CafeItem(json['id'], json['name'], json['address'], double.parse(json['lat']), double.parse(json['lng']), tempPrice, double.parse(json['rating']));
   }
 }
