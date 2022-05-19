@@ -141,6 +141,7 @@ class _CafePageState extends State<CafePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFFE0DBCF),
       appBar: AppBar(
         centerTitle: true,
