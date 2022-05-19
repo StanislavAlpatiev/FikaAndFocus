@@ -96,7 +96,7 @@ public class APIDataLoader {
                 String sqlInsert = "insert into cafe2 (id, address, name, lat, lng, price, rating) values ("+ sourceStringID + ", " + sourceStringAddress + ", "+ sourceStringName + ", "+ sourceStringLat + ", " + sourceStringLng + ", " + sourceStringPrice + ", " + sourceStringRating +")";
                 System.out.println("The SQL statement is: " + sqlInsert + "\n");  // Echo for debugging
                 int countInserted = stmt.executeUpdate(sqlInsert);
-                System.out.println(countInserted + " records inserted.\n");
+                System.out.println(countInserted + "");
             }catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

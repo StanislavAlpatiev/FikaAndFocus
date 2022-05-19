@@ -20,6 +20,17 @@ class GoogleSignInProvider extends ChangeNotifier {
 
       final googleAuth = await googleUser.authentication;
 
+      final String googleEmail =  googleUser.email;
+      // if (
+      // do get query on this email isnt in database){
+      // call signup endpoint using no password
+      // call sign in endpoint using no password}
+      // else call sign in endpoint;
+      // }
+      // i think this solution works because only google user will be able to create an account using no password
+      // and using sign in using no password
+
+
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
