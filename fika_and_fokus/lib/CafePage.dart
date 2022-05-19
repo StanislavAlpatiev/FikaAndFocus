@@ -29,6 +29,8 @@ class CafePage extends StatefulWidget {
 
 class _CafePageState extends State<CafePage>{
   var reviews = [];
+  final TextEditingController _controller = TextEditingController();
+  Future<Review>? _futureReview;
 
   @override
   void initState() {
@@ -59,6 +61,65 @@ class _CafePageState extends State<CafePage>{
     }
   }
 
+  Future<Review> createReview(String review) async {
+    final response = await http.post(
+      //Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all'),
+      Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'rating': '3',
+        'review_string': review,
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      return Review.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create review.');
+    }
+  }
+
+  Column buildColumn() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        TextField(
+          controller: _controller,
+          decoration: const InputDecoration(hintText: 'Enter Review'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              _futureReview = createReview(_controller.text);
+            });
+          },
+          child: const Text('Post Review'),
+        ),
+      ],
+    );
+  }
+
+  FutureBuilder<Review> buildFutureBuilder() {
+    return FutureBuilder<Review>(
+      future: _futureReview,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text(snapshot.data!.review);
+        } else if (snapshot.hasError) {
+          return Text('${snapshot.error}');
+        }
+
+        return const CircularProgressIndicator();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,6 +147,11 @@ class _CafePageState extends State<CafePage>{
                       children: [
                         Text(widget.cafeItem.name),
                         Row(),
+                        Container(
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.all(8.0),
+                          child: (_futureReview == null) ? buildColumn() : buildFutureBuilder(),
+                        ),
                       ],
                     ),
                   )),
