@@ -38,7 +38,7 @@ class _FilterWindowState extends State<FilterWindow> {
       maintainInteractivity: false,
       child: Container(
         width: 280,
-        height: 460,
+        height: 360,
         alignment: Alignment.topLeft,
         //color: Colors.white,
         decoration: BoxDecoration(
@@ -57,80 +57,81 @@ class _FilterWindowState extends State<FilterWindow> {
         //huvudkolumn
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          // An extra filter
+          // Padding(
+          //   padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [Text("FILTER",
+          //         textAlign: TextAlign.center,
+          //         style: GoogleFonts.roboto(
+          //           textStyle: const TextStyle(
+          //             letterSpacing: 3.0),
+          //           fontSize: 15.00,
+          //           fontWeight: FontWeight.w300),
+          //     )],
+          //   ),
+          // ), //titel
+          // Padding(
+          //   padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+          //   child: Row(
+          //       //min-max samt dropdow
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         Column(
+          //           //mintitel + dropdown,
+          //           children: [
+          //             Padding(
+          //               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          //               child: Text("min",
+          //                   textAlign: TextAlign.center,
+          //                   style: GoogleFonts.roboto(
+          //                     textStyle: const TextStyle(
+          //                       letterSpacing: 2.0),
+          //                     fontSize: 15.00,
+          //                     fontWeight: FontWeight.w300),
+          //               ),
+          //             ),
+          //             Padding(
+          //               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+          //               child: DropdownButton<String>(
+          //                 value: menuValue1,
+          //                 items: items1.map(buildMenuItem).toList(),
+          //                 onChanged: (value) => setState(() =>
+          //                     this.menuValue1 = value), //onChanged: onChanged),
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //         Column(
+          //           //maxtitel + dropdown
+          //           children: [
+          //             Padding(
+          //               padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+          //               child: Text("max",
+          //                   textAlign: TextAlign.center,
+          //                   style: GoogleFonts.roboto(
+          //                     textStyle: const TextStyle(
+          //                       letterSpacing: 2.0),
+          //                     fontSize: 15.00,
+          //                     fontWeight: FontWeight.w300),
+          //               ),
+          //             ),
+          //             Padding(
+          //               padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+          //               child: DropdownButton<String>(
+          //                 value: menuValue2,
+          //                 items: items2.map(buildMenuItem).toList(),
+          //                 onChanged: (value) => setState(() =>
+          //                     this.menuValue2 = value), //onChanged: onChanged),
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       ]),
+          // ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Text("FILTER",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.roboto(
-                    textStyle: const TextStyle(
-                      letterSpacing: 3.0),
-                    fontSize: 15.00,
-                    fontWeight: FontWeight.w300),
-              )],
-            ),
-          ), //titel
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-            child: Row(
-                //min-max samt dropdow
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Column(
-                    //mintitel + dropdown,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: Text("min",
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.roboto(
-                              textStyle: const TextStyle(
-                                letterSpacing: 2.0),
-                              fontSize: 15.00,
-                              fontWeight: FontWeight.w300),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: DropdownButton<String>(
-                          value: menuValue1,
-                          items: items1.map(buildMenuItem).toList(),
-                          onChanged: (value) => setState(() =>
-                              this.menuValue1 = value), //onChanged: onChanged),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    //maxtitel + dropdown
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-                        child: Text("max",
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.roboto(
-                              textStyle: const TextStyle(
-                                letterSpacing: 2.0),
-                              fontSize: 15.00,
-                              fontWeight: FontWeight.w300),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-                        child: DropdownButton<String>(
-                          value: menuValue2,
-                          items: items2.map(buildMenuItem).toList(),
-                          onChanged: (value) => setState(() =>
-                              this.menuValue2 = value), //onChanged: onChanged),
-                        ),
-                      ),
-                    ],
-                  ),
-                ]),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [Text("PRICE",
