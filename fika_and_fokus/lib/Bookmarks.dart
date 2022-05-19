@@ -4,46 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'Cafe.dart';
 import 'CafePage.dart';
-
-
-class CafeItem {
-  final String id;
-  final String name;
-  final String price;
-  final double rating;
-
-  CafeItem(this.id, this.name, this.price, this.rating);
-
-  Widget returnId(BuildContext context) {
-    return Text(id);
-  }
-
-  Widget buildTitle(BuildContext context) {
-    return Text(name);
-  }
-
-  Widget buildPrice(BuildContext context) {
-    return Text(price);
-  }
-
-  double buildRating(BuildContext context) {
-    return rating;
-  }
-
-  factory CafeItem.fromJson(Map<String, dynamic> json) {
-    String tempPrice;
-
-    if (json['price'] == '0') {
-      tempPrice = '\$';
-    } else if (json['price'] == '1') {
-      tempPrice = '\$\$';
-    } else {
-      tempPrice = '\$\$\$';
-    }
-
-    return CafeItem(json['id'], json['name'], tempPrice, double.parse(json['rating']));
-  }
-}
+import 'CafeItemModel.dart';
 
 class BookmarksPage extends StatefulWidget {
   const BookmarksPage({Key? key}) : super(key: key);
@@ -140,39 +101,4 @@ class _BookmarksPageState extends State<BookmarksPage> {
         )
     );
   }
-
-
-/*
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.blue[100],
-        appBar: AppBar(
-          title: const Text('Favorites'),
-        ),
-      body: Column(
-        children: [
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: refreshCafes,
-              child: ListView.builder(
-                itemCount: cafes.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    leading: cafes[index].place,
-                    title: cafes[index].buildTitle(context),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {},
-                    ),
-                  );
-                },
-              ),
-            ),
-          )
-        ],
-      )
-    );
-  }
-   */
 }

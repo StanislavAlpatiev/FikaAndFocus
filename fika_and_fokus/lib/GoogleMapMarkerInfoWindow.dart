@@ -4,7 +4,8 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'CafeItemModel.dart';
+import 'CafePage.dart';
 
 class MarkerInfoWindow extends StatefulWidget {
 
@@ -12,6 +13,7 @@ class MarkerInfoWindow extends StatefulWidget {
   double markedRating;
   String markedVenueId;
   String markedDistance;
+  int markedPriceLevel;
 
   MarkerInfoWindow({
     Key? key,
@@ -19,6 +21,7 @@ class MarkerInfoWindow extends StatefulWidget {
     required this.markedRating,
     required this.markedVenueId,
     required this.markedDistance,
+    required this.markedPriceLevel
   }) : super(key: key);
 
   @override
@@ -56,61 +59,6 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                   )
                 ]
             ),
-            // child: Container(
-            //   height: 200,
-            //   child:Column(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   crossAxisAlignment: CrossAxisAlignment.stretch,
-            //   children: <Widget>[
-            //     Container(
-            //       height: 40, // x-button height
-            //
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //         crossAxisAlignment: CrossAxisAlignment.stretch,
-            //         children: <Widget>[
-            //           Expanded(
-            //             child: Container(
-            //               // color: Colors.red,
-            //               child: Column(
-            //                 mainAxisAlignment: MainAxisAlignment.start,
-            //                 children: <Widget>[
-            //                   // Text('Left', textAlign: TextAlign.center),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //           Expanded(
-            //             child: Container(
-            //               // color: Colors.green,
-            //
-            //               child: Column(
-            //                 mainAxisAlignment: MainAxisAlignment.center,
-            //                 children: <Widget>[
-            //                   Text('x', textAlign: TextAlign.center),
-            //                 ],
-            //               ),
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //     Expanded(
-            //       child: Container(
-            //         // color: Colors.blue,
-            //         child: Column(
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           children: <Widget>[
-            //             Text('Bottom', textAlign: TextAlign.center),
-            //           ],
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),),
-
-
-
             child: Container(
               // color: Color(0xFF75AB98),
               margin:
@@ -162,9 +110,12 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                             Icons.info_outline,
                             color: Colors.black,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            // CafeItem cafeItem = CafeItem(widget.markedVenueId, widget.markedVenueName, widget.markedPriceLevel.toString(), widget.markedRating);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => CafePage(CafeItem(widget.markedVenueId, widget.markedVenueName, widget.markedPriceLevel.toString(), widget.markedRating)))
+                            );
+                          },
                         ),
-
                       ),
                       Container(
                         height: 50,
@@ -186,14 +137,9 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                   ),
                 ],
               ),
-
-
             )
         ),
-
       ),
-
-
     );
 
   }

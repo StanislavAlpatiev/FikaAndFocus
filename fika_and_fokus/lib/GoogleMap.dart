@@ -36,6 +36,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   String venueN = "";
   String venueI = "";
   double venueR = 0.0;
+  int venuePriceLevel = 0;
 
   @override
   void initState() {
@@ -66,8 +67,9 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             target: LatLng(59.32967345111922, 18.068326509937545), zoom: 17.0),
         zoomControlsEnabled: false,
         myLocationEnabled: true,
-        myLocationButtonEnabled: true,
+        myLocationButtonEnabled: false,
         onMapCreated: _onMapCreated,
+        compassEnabled: false,
 
         // myLocationEnabled: true,
         buildingsEnabled: true,
@@ -147,8 +149,12 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
                   padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                   child: GestureDetector(
                       onDoubleTap: () => _disableInfoVisibility(),
-                      child: MarkerInfoWindow(markedVenueName: venueN, markedDistance: '', markedVenueId: venueI, markedRating: venueR,
-
+                      child: MarkerInfoWindow(
+                        markedVenueName: venueN,
+                        markedDistance: '',
+                        markedVenueId: venueI,
+                        markedRating: venueR,
+                        markedPriceLevel: venuePriceLevel
                       )),
                 ),
               ),
@@ -253,8 +259,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             // info-window related - Anton
             setState(() {
               venueN = venue.venueName;
-
-
+              venuePriceLevel = venue.priceLevel;
               venueR = venue.rating;
               venueI = venue.venueId;
             });

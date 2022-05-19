@@ -27,7 +27,8 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
         backgroundColor: const Color(0xFF75AB98),
-        // automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
+        centerTitle: true,
         actions: [
           // Temporary button - testing state management
           TextButton(
