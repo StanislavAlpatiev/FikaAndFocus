@@ -32,7 +32,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
 
   // late String _currentAddress;
 
-  bool isInfoVisible = true;
+  bool isInfoVisible = false;
   String venueN = "";
   String venueI = "";
   double venueR = 0.0;

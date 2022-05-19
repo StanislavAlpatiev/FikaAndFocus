@@ -172,7 +172,7 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
       ),
     );
   }
-  
+
   _toggleHeart() async {
     var isFavorite = await _checkIfCafeIsFavorite();
     print(isFavorite.toString());
