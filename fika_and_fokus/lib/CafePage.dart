@@ -83,14 +83,12 @@ class _CafePageState extends State<CafePage> {
     //    'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText="jättefint"&cafeId=${widget.cafeItem.id}');
 
     //  OBS: MÅSTE ÄNDRA SÅ ATT DET ÄR "...group-1-75.." - URL:en
-    Uri new_review = Uri.parse('http://192.168.0.35:8080/reviews/add?rating=5&reviewText=${review}&cafeId=${widget.cafeItem.id}');
+    Uri new_review = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText=${review}&cafeId=${widget.cafeItem.id}');
 
     final response = await http.post(new_review);
 
-
     //final response = await http.post(
-      //Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all'),
-
+    //Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all'),
 
     if (response.statusCode == 200) {
       // If the server did return a 201 CREATED response,

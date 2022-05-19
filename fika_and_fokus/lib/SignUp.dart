@@ -342,20 +342,8 @@ class _SignUpState extends State<SignUp> {
         "&password=" +
         password);
     print(url.toString());
-    final response = await http.post(url
-        // url,
-        // headers: <String, String>{"Content-Type": "application/json"},
-        // body: jsonEncode(
-        //   <String, String>{
-        //     "email": email,
-        //     "username": userName,
-        //     "pass": pass,
-        //   },
-        // ),
-        );
+    final response = await http.post(url);
     print("passed request");
-    //String responseString = response.body;
-    //print(responseString);
 
     if (response.statusCode == 200) {
       print("200");
