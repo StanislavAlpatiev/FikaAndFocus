@@ -36,6 +36,9 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   String venueN = "";
   String venueI = "";
   double venueR = 0.0;
+  String venueAddress = "";
+  double venueLat = 0.0;
+  double venueLong = 0.0;
   int venuePriceLevel = 0;
 
   @override
@@ -132,6 +135,9 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
                   child: MarkerInfoWindow(
                     markedVenueName: venueN,
                     markedDistance: '',
+                    markedAddress: venueAddress,
+                    markedLat: venueLat,
+                    markedLong: venueLong,
                     markedVenueId: venueI,
                     markedRating: venueR,
                     markedPriceLevel: venuePriceLevel
@@ -228,6 +234,9 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             setState(() {
               venueN = venue.venueName;
               venuePriceLevel = venue.priceLevel;
+              venueAddress = venue.venueAddress;
+              venueLat = venue.lat;
+              venueLong = venue.long;
               venueR = venue.rating;
               venueI = venue.venueId;
             });

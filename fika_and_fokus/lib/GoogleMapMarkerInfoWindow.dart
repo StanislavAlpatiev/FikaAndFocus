@@ -11,6 +11,9 @@ class MarkerInfoWindow extends StatefulWidget {
 
   String markedVenueName;
   double markedRating;
+  String markedAddress;
+  double markedLong;
+  double markedLat;
   String markedVenueId;
   String markedDistance;
   int markedPriceLevel;
@@ -19,6 +22,9 @@ class MarkerInfoWindow extends StatefulWidget {
     Key? key,
     required this.markedVenueName,
     required this.markedRating,
+    required this.markedAddress,
+    required this.markedLong,
+    required this.markedLat,
     required this.markedVenueId,
     required this.markedDistance,
     required this.markedPriceLevel
@@ -112,8 +118,7 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                           ),
                           onPressed: () {
                             // CafeItem cafeItem = CafeItem(widget.markedVenueId, widget.markedVenueName, widget.markedPriceLevel.toString(), widget.markedRating);
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => CafePage(CafeItem(widget.markedVenueId, widget.markedVenueName, widget.markedPriceLevel.toString(), widget.markedRating)))
-                            );
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => CafePage(CafeItem(widget.markedVenueId, widget.markedVenueName, widget.markedAddress, widget.markedLat, widget.markedLong, widget.markedPriceLevel.toString(), widget.markedRating)))                            );
                           },
                         ),
                       ),

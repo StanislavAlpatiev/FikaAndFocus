@@ -156,7 +156,8 @@ class _CafePageState extends State<CafePage> {
                     ),
                   ],
                 ),
-              )),
+              )
+          ),
           Flexible(
             flex: 5,
             child: Padding(

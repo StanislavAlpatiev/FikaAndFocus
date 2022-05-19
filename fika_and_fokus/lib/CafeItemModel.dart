@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 class CafeItem {
   final String id;
   final String name;
+  final String address;
+  final double lat;
+  final double long;
   final String price;
   final double rating;
 
-  CafeItem(this.id, this.name, this.price, this.rating);
+  CafeItem(this.id, this.name, this.address, this.lat, this.long, this.price, this.rating);
 
   Widget returnId(BuildContext context) {
     return Text(id);
@@ -35,6 +38,6 @@ class CafeItem {
       tempPrice = '\$\$\$';
     }
 
-    return CafeItem(json['id'], json['name'], tempPrice, double.parse(json['rating']));
+    return CafeItem(json['id'], json['name'], json['address'],  double.parse(json['lat']),  double.parse(json['lng']), tempPrice, double.parse(json['rating']));
   }
 }
