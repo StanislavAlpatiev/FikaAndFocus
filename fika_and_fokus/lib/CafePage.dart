@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'CafeItemModel.dart';
 
-class Review{
+class Review {
   final String review;
 
   Review(this.review);
@@ -27,7 +27,7 @@ class CafePage extends StatefulWidget {
   State<CafePage> createState() => _CafePageState();
 }
 
-class _CafePageState extends State<CafePage>{
+class _CafePageState extends State<CafePage> {
   var reviews = [];
   final TextEditingController _controller = TextEditingController();
   Future<Review>? _futureReview;
@@ -40,7 +40,8 @@ class _CafePageState extends State<CafePage>{
 
   Future refreshReviews() async {
     // Uri reviewsURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/ven_304c56776d34454959414e52593058646156516e6158614a496843/all');
-    Uri reviewsURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all');
+    Uri reviewsURI = Uri.parse(
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all');
 
     final response = await http.get(reviewsURI);
 
@@ -64,7 +65,8 @@ class _CafePageState extends State<CafePage>{
   Future<Review> createReview(String review) async {
     final response = await http.post(
       //Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all'),
-      Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add'),
+      Uri.parse(
+          'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -127,76 +129,74 @@ class _CafePageState extends State<CafePage>{
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-            widget.cafeItem.name,
-            style: TextStyle(
+          widget.cafeItem.name,
+          style: TextStyle(
             fontFamily: 'Roboto',
           ),
         ),
         backgroundColor: const Color(0xFF75AB98),
         automaticallyImplyLeading: true,
       ),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Flexible(
-                  flex: 4,
-                  child: Container(
-                    // color: Colors.amberAccent,
-                    child: Column(
-                      children: [
-                        Text(widget.cafeItem.name),
-                        Row(),
-                        Container(
-                          alignment: Alignment.center,
-                          padding: const EdgeInsets.all(8.0),
-                          child: (_futureReview == null) ? buildColumn() : buildFutureBuilder(),
-                        ),
-                      ],
+      body: Stack(children: [
+        Column(children: [
+          Flexible(
+              flex: 4,
+              child: Container(
+                // color: Colors.amberAccent,
+                child: Column(
+                  children: [
+                    Text(widget.cafeItem.name),
+                    Row(),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(8.0),
+                      child: (_futureReview == null)
+                          ? buildColumn()
+                          : buildFutureBuilder(),
                     ),
-                  )),
-              Flexible(
-                flex: 5,
+                  ],
+                ),
+              )),
+          Flexible(
+            flex: 5,
+            child: Padding(
+              padding: EdgeInsets.all(0),
+              child: Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20)),
+                  color: Color(0xFF75AB98),
+                  // .all(Radius.circular(20))
+                ),
                 child: Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20)),
-                      color: Color(0xFF75AB98),
-                      // .all(Radius.circular(20))
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Expanded(
-                        child: RefreshIndicator(
-                          onRefresh: refreshReviews,
-                          child: ListView.builder(
-                            itemCount: reviews.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                // width: 400,
-                                margin: EdgeInsets.all(5),
-                                // color: Colors.amberAccent,
-                                height: 150,
-                                decoration: _getBoxStile(),
-                                child: Center(
-                                  child: reviews[index].buildReview(context),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
+                  padding: EdgeInsets.all(10),
+                  child: Expanded(
+                    child: RefreshIndicator(
+                      onRefresh: refreshReviews,
+                      child: ListView.builder(
+                        itemCount: reviews.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            // width: 400,
+                            margin: EdgeInsets.all(5),
+                            // color: Colors.amberAccent,
+                            height: 150,
+                            decoration: _getBoxStile(),
+                            child: Center(
+                              child: reviews[index].buildReview(context),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
                 ),
               ),
-            ],
+            ),
           ),
-        ],
-      ),
+        ]),
+      ]),
     );
   }
 
@@ -214,5 +214,3 @@ class _CafePageState extends State<CafePage>{
         ]);
   }
 }
-
-
