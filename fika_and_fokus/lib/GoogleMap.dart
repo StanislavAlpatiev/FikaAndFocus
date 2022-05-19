@@ -32,7 +32,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
 
   // late String _currentAddress;
 
-  bool isInfoVisible = false;
+  bool isInfoVisible = true;
   String venueN = "";
   String venueI = "";
   double venueR = 0.0;
@@ -44,7 +44,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   @override
   void initState() {
     super.initState();
-    _handlePermission();
+    _getCurrentPosition();
   }
 
   //callback from FilterWindow Widget/Class
@@ -131,7 +131,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
                 child: GestureDetector(
-                  onDoubleTap: () => _disableInfoVisibility(),
+                  // onDoubleTap: () => _disableInfoVisibility(),
                   child: MarkerInfoWindow(
                     markedVenueName: venueN,
                     markedDistance: '',

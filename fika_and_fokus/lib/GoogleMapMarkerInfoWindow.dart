@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'CafeItemModel.dart';
 import 'CafePage.dart';
+import 'package:cupertino_icons/cupertino_icons.dart';
 
 class MarkerInfoWindow extends StatefulWidget {
 
@@ -35,6 +36,11 @@ class MarkerInfoWindow extends StatefulWidget {
 }
 
 class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
+  Icon notFilledHeart = Icon(CupertinoIcons.heart, color: Colors.red);
+  Icon filledHeart = Icon(CupertinoIcons.heart_fill, color: Colors.red);
+  late Icon heart;
+  bool isHeartFilled = false;
+
   void goToGoogleMapsApp() {
     return;
   }
@@ -123,19 +129,38 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                         ),
                       ),
                       Container(
-                        height: 50,
-                        width: 100,
-                        child: ElevatedButton(
-                          onPressed: () {  },
-                          child: Icon(
+                        // height: 50,
+                        // width: 100,
+                        child: IconButton(
+                          onPressed: () {
+                            _toggleHeart();
+                          },
+                          iconSize: 50,
+                          icon: isHeartFilled
+                              ? filledHeart
+                              : notFilledHeart,
+                          // style: ElevatedButton.styleFrom(
+                          //   primary: Colors.transparent,
+                          //   onPrimary: Colors.transparent,
+                          //   side: BorderSide(width: 1.0, color: Colors.black),
+                          // ),
+                        ),
+                      ),
+                      Container(
+                        // height: 50,
+                        // width: 100,
+                        child: IconButton(
+                          onPressed: () { },
+                          iconSize: 50,
+                          icon: Icon(
                             Icons.directions_walk,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF871801),
-                            side: BorderSide(width: 1.0, color: Colors.black),
-                          ),
-
+                          // style: ElevatedButton.styleFrom(
+                          //   primary: Colors.transparent,
+                          //   onPrimary: Colors.transparent,
+                          //   side: BorderSide(width: 1.0, color: Colors.black),
+                          // ),
                         ),
                       )
                     ],
@@ -146,6 +171,11 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
         ),
       ),
     );
+  }
 
+  _toggleHeart() {
+    setState(() {
+      isHeartFilled = !isHeartFilled;
+    });
   }
 }
