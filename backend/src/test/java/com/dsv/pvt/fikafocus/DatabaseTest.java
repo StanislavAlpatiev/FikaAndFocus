@@ -25,14 +25,18 @@ public class DatabaseTest {
 
     @Test
     void cafeAppearsInDatabaseAfterAddingWithSQLQuery() throws SQLException{
-        String sqlInsert = "insert into cafe2 (id, address, name, lat, lng, price, rating) values ('abc123', 'café street 123', 'café abc123', '123.456', '1.01101', '4', '3')";
+        String sqlInsert = "insert into cafe2 (id, address, name, lat, lng, price, rating) " +
+                "values ('abc123', 'café street 123', 'café abc123', '123.456', '1.01101', '4', '3')";
         stmt.executeUpdate(sqlInsert);
         ResultSet myRs = stmt.executeQuery("select * from cafe2");
         String s = null;
         if (myRs.next()) {
-            s = myRs.getString("id") + " " +  myRs.getString("address");
+            s = myRs.getString("id") + " " +  myRs.getString("address") +
+                    " " +  myRs.getString("name") + " " + myRs.getString("lat") +
+                    " " + myRs.getString("lng") + " " + myRs.getString("price") +
+                    " " + myRs.getString("rating");
         }
-        assertTrue(s.equals("abc123 café street 123"));
+        assertTrue(s.equals("abc123 café street 123 café abc123 123.456 1.01101 4 3"));
     }
 
     @Test
