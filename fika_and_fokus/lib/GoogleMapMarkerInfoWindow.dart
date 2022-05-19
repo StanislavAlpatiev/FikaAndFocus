@@ -41,7 +41,7 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
   Icon notFilledHeart = Icon(CupertinoIcons.heart, color: Colors.red);
   Icon filledHeart = Icon(CupertinoIcons.heart_fill, color: Colors.red);
   late Icon heart;
-  bool isHeartFilled = false;
+  late bool isHeartFilled;
 
   void goToGoogleMapsApp() {
     return;
@@ -49,7 +49,6 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
 
   @override
   Widget build(BuildContext context) {
-
     return Visibility(
 
       child: GestureDetector(
@@ -130,23 +129,27 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                           },
                         ),
                       ),
-                      Container(
-                        // height: 50,
-                        // width: 100,
-                        child: IconButton(
-                          onPressed: () {
-                            _toggleHeart();
-                          },
-                          iconSize: 50,
-                          icon: isHeartFilled
-                              ? filledHeart
-                              : notFilledHeart,
-                          // style: ElevatedButton.styleFrom(
-                          //   primary: Colors.transparent,
-                          //   onPrimary: Colors.transparent,
-                          //   side: BorderSide(width: 1.0, color: Colors.black),
-                          // ),
-                        ),
+                      FutureBuilder(
+                            future: _checkIfCafeIsFavorite(),
+                            builder: (context, snapshot) {
+                            if (snapshot.data == true) {
+                              return IconButton(
+                                  onPressed: () {
+                                    _toggleHeart();
+                                  },
+                                  iconSize: 50,
+                                  icon: filledHeart
+                              );
+                            } else {
+                              return IconButton(
+                                  onPressed: () {
+                                    _toggleHeart();
+                                  },
+                                  iconSize: 50,
+                                  icon: notFilledHeart
+                              );
+                            }
+                          }
                       ),
                       Container(
                         // height: 50,
@@ -158,11 +161,6 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                             Icons.directions_walk,
                             color: Colors.black,
                           ),
-                          // style: ElevatedButton.styleFrom(
-                          //   primary: Colors.transparent,
-                          //   onPrimary: Colors.transparent,
-                          //   side: BorderSide(width: 1.0, color: Colors.black),
-                          // ),
                         ),
                       )
                     ],
@@ -174,7 +172,7 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
       ),
     );
   }
-
+  
   _toggleHeart() async {
     var isFavorite = await _checkIfCafeIsFavorite();
     print(isFavorite.toString());
@@ -187,6 +185,7 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
       final response = await http.post(addFavouriteUrl);
 
       setState(() {
+        heart = filledHeart;
         isHeartFilled = true;
       });
     } else {
@@ -197,6 +196,7 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
       final response = await http.delete(deleteFavouriteUrl);
 
       setState(() {
+        heart = notFilledHeart;
         isHeartFilled = false;
       });
     }
