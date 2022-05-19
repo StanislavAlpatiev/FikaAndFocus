@@ -62,28 +62,44 @@ class _CafePageState extends State<CafePage> {
     }
   }
 
-  Future<Review> createReview(String review) async {
-    final response = await http.post(
-      //Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all'),
-      Uri.parse(
-          'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'rating': '3',
-        'review_string': review,
-      }),
-    );
+  void addReviewToCafe() async {
 
-    if (response.statusCode == 201) {
+    /**
+     * lägg till review till cafe
+     * på formen:
+     * "/{reviewId}/cafes/{cafeId}"
+     */
+
+    Uri reviewsToCafeUrl = Uri.parse(
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/${widget.cafeItem.id}/all');
+
+    final response = await http.put(reviewsToCafeUrl);
+
+  }
+
+  Future<Review> createReview(String review) async {
+
+    //Uri new_review = Uri.parse(
+    //    'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText="jättefint"&cafeId=${widget.cafeItem.id}');
+
+    //  OBS: MÅSTE ÄNDRA SÅ ATT DET ÄR "...group-1-75.." - URL:en
+    Uri new_review = Uri.parse('http://192.168.0.35:8080/reviews/add?rating=5&reviewText=${review}&cafeId=${widget.cafeItem.id}');
+
+    final response = await http.post(new_review);
+
+
+    //final response = await http.post(
+      //Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all'),
+
+
+    if (response.statusCode == 200) {
       // If the server did return a 201 CREATED response,
       // then parse the JSON.
       return Review.fromJson(jsonDecode(response.body));
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
-      throw Exception('Failed to create review.');
+      throw Exception('Failed to create review.  ' + response.statusCode.toString());
     }
   }
 
