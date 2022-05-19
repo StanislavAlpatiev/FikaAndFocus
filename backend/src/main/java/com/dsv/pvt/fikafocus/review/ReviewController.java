@@ -34,17 +34,24 @@ public class ReviewController {
     @PostMapping(path="/add") // Map ONLY POST Requests
     public @ResponseBody String addNewReview (
             @RequestParam Integer rating,
-            @RequestParam String reviewText
+            @RequestParam String reviewText,
+            @RequestParam String cafeId
     )
     {
         Review review = new Review();
         review.setRating(rating);
         review.setReview_string(reviewText);
 
+
         Date date = new Date();
         review.setDate(
             date.toString()
         );
+
+        Cafe2 cafeTemp = cafeRepository.findById(cafeId).get();
+        review.setCafe(cafeTemp);
+        cafeTemp.addReview(review);
+
 
         reviewRepository.save(review);
         return "Saved";

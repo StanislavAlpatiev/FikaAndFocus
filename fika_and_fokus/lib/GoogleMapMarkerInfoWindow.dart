@@ -6,11 +6,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'CafeItemModel.dart';
 import 'CafePage.dart';
+import 'package:cupertino_icons/cupertino_icons.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class MarkerInfoWindow extends StatefulWidget {
 
   String markedVenueName;
   double markedRating;
+  String markedAddress;
+  double markedLong;
+  double markedLat;
   String markedVenueId;
   String markedDistance;
   int markedPriceLevel;
@@ -19,6 +25,9 @@ class MarkerInfoWindow extends StatefulWidget {
     Key? key,
     required this.markedVenueName,
     required this.markedRating,
+    required this.markedAddress,
+    required this.markedLong,
+    required this.markedLat,
     required this.markedVenueId,
     required this.markedDistance,
     required this.markedPriceLevel
@@ -29,6 +38,11 @@ class MarkerInfoWindow extends StatefulWidget {
 }
 
 class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
+  Icon notFilledHeart = Icon(CupertinoIcons.heart, color: Colors.red);
+  Icon filledHeart = Icon(CupertinoIcons.heart_fill, color: Colors.red);
+  late Icon heart;
+  bool isHeartFilled = false;
+
   void goToGoogleMapsApp() {
     return;
   }
@@ -112,25 +126,43 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                           ),
                           onPressed: () {
                             // CafeItem cafeItem = CafeItem(widget.markedVenueId, widget.markedVenueName, widget.markedPriceLevel.toString(), widget.markedRating);
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => CafePage(CafeItem(widget.markedVenueId, widget.markedVenueName, widget.markedPriceLevel.toString(), widget.markedRating)))
-                            );
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => CafePage(CafeItem(widget.markedVenueId, widget.markedVenueName, widget.markedAddress, widget.markedLat, widget.markedLong, widget.markedPriceLevel.toString(), widget.markedRating)))                            );
                           },
                         ),
                       ),
                       Container(
-                        height: 50,
-                        width: 100,
-                        child: ElevatedButton(
-                          onPressed: () {  },
-                          child: Icon(
+                        // height: 50,
+                        // width: 100,
+                        child: IconButton(
+                          onPressed: () {
+                            _toggleHeart();
+                          },
+                          iconSize: 50,
+                          icon: isHeartFilled
+                              ? filledHeart
+                              : notFilledHeart,
+                          // style: ElevatedButton.styleFrom(
+                          //   primary: Colors.transparent,
+                          //   onPrimary: Colors.transparent,
+                          //   side: BorderSide(width: 1.0, color: Colors.black),
+                          // ),
+                        ),
+                      ),
+                      Container(
+                        // height: 50,
+                        // width: 100,
+                        child: IconButton(
+                          onPressed: () { },
+                          iconSize: 50,
+                          icon: Icon(
                             Icons.directions_walk,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF871801),
-                            side: BorderSide(width: 1.0, color: Colors.black),
-                          ),
-
+                          // style: ElevatedButton.styleFrom(
+                          //   primary: Colors.transparent,
+                          //   onPrimary: Colors.transparent,
+                          //   side: BorderSide(width: 1.0, color: Colors.black),
+                          // ),
                         ),
                       )
                     ],
@@ -141,6 +173,62 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
         ),
       ),
     );
+  }
 
+  _toggleHeart() async {
+    var isFavorite = await _checkIfCafeIsFavorite();
+    print(isFavorite.toString());
+    print(widget.markedVenueId);
+    if (isFavorite == false) {
+      Uri addFavouriteUrl = Uri.parse(
+          'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${"sten@gmail.com"}/addfavourite/${widget
+              .markedVenueId}');
+
+      final response = await http.post(addFavouriteUrl);
+
+      setState(() {
+        isHeartFilled = true;
+      });
+    } else {
+      Uri deleteFavouriteUrl = Uri.parse(
+          'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${"sten@gmail.com"}/removefavourite/${widget
+              .markedVenueId}');
+
+      final response = await http.delete(deleteFavouriteUrl);
+
+      setState(() {
+        isHeartFilled = false;
+      });
+    }
+  }
+
+  Future<bool> _checkIfCafeIsFavorite() async {
+    Uri getFavouritesUrl = Uri.parse(
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${"sten@gmail.com"}/favourites');
+
+    final response = await http.get(getFavouritesUrl);
+
+    if (response.statusCode == 200) {
+      String source = Utf8Decoder().convert(response.bodyBytes);
+      var data = json.decode(source);
+
+      List favorites = [];
+      for (var i = 0; i < data.length; i++) {
+        favorites.add(CafeItem.fromJson(data[i]));
+      }
+
+      for (CafeItem item in favorites) {
+        if (item.id == widget.markedVenueId) {
+          setState(() {
+            isHeartFilled = true;
+          });
+          return true;
+        }
+      }
+
+      return false;
+    } else {
+      throw Exception('Failed to load reviews');
+    }
   }
 }
