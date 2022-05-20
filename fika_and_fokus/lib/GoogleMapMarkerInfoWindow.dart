@@ -244,7 +244,12 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
         'price=${widget.markedPriceLevel}&'
         'rating=${widget.markedRating}');
 
+    print(widget.markedLat);
+    print(widget.markedLong);
+    print(widget.markedPriceLevel);
+    print(widget.markedRating);
     final response = await http.post(addCafeUrl);
+    print(response.body);
   }
 
 }

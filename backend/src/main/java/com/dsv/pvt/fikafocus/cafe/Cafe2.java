@@ -34,7 +34,6 @@ public class Cafe2 {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private String id;
     private String name;
