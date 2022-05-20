@@ -48,6 +48,10 @@ public class UserEntity {
         cafes.add(cafe2);
     }
 
+    public void addReview(Review review){
+        reviewSet.add(review);
+    }
+
     public void removeFavourite(Cafe2 cafe2){
         cafes.remove(cafe2);
     }

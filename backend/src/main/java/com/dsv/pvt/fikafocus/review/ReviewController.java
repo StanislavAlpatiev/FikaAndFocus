@@ -12,6 +12,7 @@ import com.dsv.pvt.fikafocus.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
@@ -55,9 +56,13 @@ public class ReviewController {
 
         Cafe2 cafeTemp = cafeRepository.findById(cafeId).get();
         UserEntity userTemp = userRepository.findById(userEmail).get();
-        review.setCafe(cafeTemp);
-        cafeTemp.addReview(review);
+
         review.setUser(userTemp);
+        review.setCafe(cafeTemp);
+
+        cafeTemp.addReview(review);
+        userTemp.addReview(review);
+
         reviewRepository.save(review);
         return "Saved";
     }
@@ -77,7 +82,7 @@ public class ReviewController {
         review.setRating(3);
         review.setReview_string("reviewText alfalalfsoa");
 
-        Date date = new Date();
+        LocalDate date = LocalDate.now();
         review.setDate(
                 date.toString()
         );

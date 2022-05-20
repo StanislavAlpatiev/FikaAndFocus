@@ -19,8 +19,9 @@ public class Review {
     @ManyToOne(cascade = CascadeType.ALL)
     //name: vad foreginkey kolumn ska heta, referencedColumnname: vilken kolumn som är forgein key
     @JoinColumn(name="cafe", referencedColumnName = "id")
-
     private Cafe2 cafe2;
+
+
     @ManyToOne
     @JoinColumn(name = "user", referencedColumnName = "email")
     private UserEntity user;
