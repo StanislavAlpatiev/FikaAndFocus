@@ -208,7 +208,8 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
           businessLevel +
           "&radius=" +
           radius +
-          "&lng=" + _currentPosition.longitude.toString() + "&lat=" + _currentPosition.latitude.toString()
+          "&lng=" + "18.068326509937545" + "&lat=" + "59.32967345111922"
+          // "&lng=" + _currentPosition.longitude.toString() + "&lat=" + _currentPosition.latitude.toString()
       );
     final response = await http.get(sampleFriendsURI);
     if (response.statusCode == 200) {
@@ -270,19 +271,15 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   // info window related - Anton
   _disableInfoVisibility() async {
     setState(() {
-      isInfoVisible = false;
+      // isInfoVisible = !isInfoVisible;
+      if (isInfoVisible){
+        isInfoVisible = false;
+      }
+
     });
   }
 
-  // info window related - Anton
-  _resetInfoVisibility() async {
-    setState(() {
-      isInfoVisible = false;
-    });
-    setState(() {
-      isInfoVisible = true;
-    });
-  }
+
 
   _updateInfoWindow(String venueName) async {
     this.venueN = venueName;
@@ -305,6 +302,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
 
   _changeVisibility() async {
     setState(() {
+      _disableInfoVisibility(); // prevents this setState from showing info window
       isVisible = !isVisible;
     });
   }
