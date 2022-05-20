@@ -11,7 +11,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class MarkerInfoWindow extends StatefulWidget {
-
   String markedVenueName;
   double markedRating;
   String markedAddress;
@@ -21,23 +20,27 @@ class MarkerInfoWindow extends StatefulWidget {
   String markedDistance;
   int markedPriceLevel;
 
-  MarkerInfoWindow({
-    Key? key,
-    required this.markedVenueName,
-    required this.markedRating,
-    required this.markedAddress,
-    required this.markedLong,
-    required this.markedLat,
-    required this.markedVenueId,
-    required this.markedDistance,
-    required this.markedPriceLevel
-  }) : super(key: key);
+  MarkerInfoWindow(
+      {Key? key,
+      required this.markedVenueName,
+      required this.markedRating,
+      required this.markedAddress,
+      required this.markedLong,
+      required this.markedLat,
+      required this.markedVenueId,
+      required this.markedDistance,
+      required this.markedPriceLevel})
+      : super(key: key);
 
   @override
   State<MarkerInfoWindow> createState() => _MarkerInfoWindowState();
 }
 
 class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
+  List<TextDecoration> dec = [
+    TextDecoration.overline,
+    TextDecoration.underline
+  ];
   Icon notFilledHeart = Icon(CupertinoIcons.heart, color: Colors.red);
   Icon filledHeart = Icon(CupertinoIcons.heart_fill, color: Colors.red);
   late Icon heart;
@@ -50,32 +53,33 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
   @override
   Widget build(BuildContext context) {
     return Visibility(
-
       child: GestureDetector(
-
         child: Container(
 
-          // color: Colors.red,
+            // color: Colors.red,
             decoration: BoxDecoration(
-                color:Colors.white,
+                image: DecorationImage(
+                    image: ExactAssetImage('images/coffieShop_.jpg'),
+                    fit: BoxFit.fitWidth,
+                    colorFilter: ColorFilter.linearToSrgbGamma()),
                 // border: Border.all(
                 //     color: Colors.red
                 // ),
-                borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20)),
                 //borderRadius: BorderRadius.all(Radius.circular(20)),
                 boxShadow: [
                   BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 5,
                       blurRadius: 7,
-                      offset: Offset(2,3)
-                  )
-                ]
-            ),
+                      offset: Offset(2, 3))
+                ]),
             child: Container(
               // color: Color(0xFF75AB98),
-              margin:
-              EdgeInsets.only(left: 60.0, top: 0.0, right: 60.0, bottom: 0.0),
+              margin: EdgeInsets.only(
+                  left: 60.0, top: 0.0, right: 60.0, bottom: 0.0),
               height: 170,
               // width: double.infinity,
               child: Column(
@@ -91,11 +95,15 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                         padding: EdgeInsets.only(top: 10, bottom: 10),
                         child: Text(widget.markedVenueName,
                             style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w500,
                                 color: Colors.black,
-                                fontFamily: 'Oswald',
-                                fontSize: 30,
-                                decoration: TextDecoration.none),
+                                fontFamily: 'Roboto',
+                                //backgroundColor: Colors.white,
+                                fontSize: 25,
+                                decoration: TextDecoration.combine(dec),
+                                decorationColor: Colors.white,
+                                decorationStyle: TextDecorationStyle.double,
+                                decorationThickness: 2),
                             textAlign: TextAlign.left),
                       ),
                     ],
@@ -103,11 +111,28 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(children: [
-                        Text(widget.markedRating.toString(), textAlign: TextAlign.left, style: TextStyle(fontSize: 25,),),
-                        Icon(Icons.star),
-                      ]),
-                      Text(" " + widget.markedDistance, textAlign: TextAlign.left, style: TextStyle(fontSize: 25,))
+                      Card(
+                        child: Row(children: [
+                          Text(
+                            widget.markedRating.toString(),
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w900),
+                          ),
+                          Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 25,
+                          ),
+                        ]),
+                      ),
+                      Text(" " + widget.markedDistance,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: 25,
+                          ))
                     ],
                   ),
                   SizedBox(
@@ -117,58 +142,72 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        child: IconButton(
-                          iconSize: 50,
-                          icon: Icon(
-                            Icons.info_outline,
-                            color: Colors.black,
+                        child: Card(
+                          child: IconButton(
+                            iconSize: 40,
+                            icon: Icon(
+                              Icons.info_outline,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              // CafeItem cafeItem = CafeItem(widget.markedVenueId, widget.markedVenueName, widget.markedPriceLevel.toString(), widget.markedRating);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CafePage(CafeItem(
+                                          widget.markedVenueId,
+                                          widget.markedVenueName,
+                                          widget.markedAddress,
+                                          widget.markedLat,
+                                          widget.markedLong,
+                                          widget.markedPriceLevel.toString(),
+                                          widget.markedRating))));
+                            },
                           ),
-                          onPressed: () {
-                            // CafeItem cafeItem = CafeItem(widget.markedVenueId, widget.markedVenueName, widget.markedPriceLevel.toString(), widget.markedRating);
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => CafePage(CafeItem(widget.markedVenueId, widget.markedVenueName, widget.markedAddress, widget.markedLat, widget.markedLong, widget.markedPriceLevel.toString(), widget.markedRating)))                            );
-                          },
                         ),
                       ),
-                      FutureBuilder(
+                      Card(
+                        shape:
+                            ShapeBorder.lerp(CircleBorder(), CircleBorder(), 2),
+                        child: FutureBuilder(
                             future: _checkIfCafeIsFavorite(),
                             builder: (context, snapshot) {
-                            if (snapshot.data == true) {
-                              return IconButton(
-                                  onPressed: () {
-                                    _toggleHeart();
-                                  },
-                                  iconSize: 50,
-                                  icon: filledHeart
-                              );
-                            } else {
-                              return IconButton(
-                                  onPressed: () {
-                                    _toggleHeart();
-                                  },
-                                  iconSize: 50,
-                                  icon: notFilledHeart
-                              );
-                            }
-                          }
+                              if (snapshot.data == true) {
+                                return IconButton(
+                                    onPressed: () {
+                                      _toggleHeart();
+                                    },
+                                    iconSize: 47,
+                                    icon: filledHeart);
+                              } else {
+                                return IconButton(
+                                    onPressed: () {
+                                      _toggleHeart();
+                                    },
+                                    iconSize: 50,
+                                    icon: notFilledHeart);
+                              }
+                            }),
                       ),
                       Container(
                         // height: 50,
                         // width: 100,
-                        child: IconButton(
-                          onPressed: () { },
-                          iconSize: 50,
-                          icon: Icon(
-                            Icons.directions_walk,
-                            color: Colors.black,
+                        child: Card(
+                          child: IconButton(
+                            onPressed: () {},
+                            iconSize: 40,
+                            icon: Icon(
+                              Icons.directions_walk,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ],
               ),
-            )
-        ),
+            )),
       ),
     );
   }
@@ -180,8 +219,7 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
     if (isFavorite == false) {
       _addCafeToDataBase();
       Uri addFavouriteUrl = Uri.parse(
-          'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${"sten@gmail.com"}/addfavourite/${widget
-              .markedVenueId}');
+          'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${"sten@gmail.com"}/addfavourite/${widget.markedVenueId}');
 
       final response = await http.post(addFavouriteUrl);
 
@@ -191,8 +229,7 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
       });
     } else {
       Uri deleteFavouriteUrl = Uri.parse(
-          'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${"sten@gmail.com"}/removefavourite/${widget
-              .markedVenueId}');
+          'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${"sten@gmail.com"}/removefavourite/${widget.markedVenueId}');
 
       final response = await http.delete(deleteFavouriteUrl);
 
@@ -235,7 +272,8 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
 
   _addCafeToDataBase() async {
     //  OBS: MÅSTE ÄNDRA SÅ ATT DET ÄR "...group-1-75.." - URL:en
-    Uri addCafeUrl = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/add?'
+    Uri addCafeUrl = Uri.parse(
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/add?'
         'id=${widget.markedVenueId}&'
         'address=${widget.markedAddress}&'
         'name=${widget.markedVenueName}&'
@@ -251,5 +289,4 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
     final response = await http.post(addCafeUrl);
     print(response.body);
   }
-
 }
