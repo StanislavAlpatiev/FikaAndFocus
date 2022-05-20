@@ -1,4 +1,3 @@
-import 'package:fika_and_fokus/Bookmarks.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -46,7 +45,7 @@ class _CafePageState extends State<CafePage> {
     final response = await http.get(reviewsURI);
 
     if (response.statusCode == 200) {
-      String source = Utf8Decoder().convert(response.bodyBytes);
+      String source = const Utf8Decoder().convert(response.bodyBytes);
       var data = json.decode(source);
 
       reviews = [];
@@ -63,7 +62,6 @@ class _CafePageState extends State<CafePage> {
   }
 
   void addReviewToCafe() async {
-
     /**
      * lägg till review till cafe
      * på formen:
@@ -74,16 +72,15 @@ class _CafePageState extends State<CafePage> {
         'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/${widget.cafeItem.id}/all');
 
     final response = await http.put(reviewsToCafeUrl);
-
   }
 
   Future<Review> createReview(String review) async {
-
     //Uri new_review = Uri.parse(
     //    'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText="jättefint"&cafeId=${widget.cafeItem.id}');
 
     //  OBS: MÅSTE ÄNDRA SÅ ATT DET ÄR "...group-1-75.." - URL:en
-    Uri new_review = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText=${review}&cafeId=${widget.cafeItem.id}');
+    Uri new_review = Uri.parse(
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText=${review}&cafeId=${widget.cafeItem.id}');
 
     final response = await http.post(new_review);
 
@@ -97,7 +94,8 @@ class _CafePageState extends State<CafePage> {
     } else {
       // If the server did not return a 201 CREATED response,
       // then throw an exception.
-      throw Exception('Failed to create review.  ' + response.statusCode.toString());
+      throw Exception(
+          'Failed to create review.  ' + response.statusCode.toString());
     }
   }
 
@@ -145,7 +143,7 @@ class _CafePageState extends State<CafePage> {
         centerTitle: true,
         title: Text(
           widget.cafeItem.name,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'Roboto',
           ),
         ),
@@ -156,27 +154,23 @@ class _CafePageState extends State<CafePage> {
         Column(children: [
           Flexible(
               flex: 4,
-              child: Container(
-                // color: Colors.amberAccent,
-                child: Column(
-                  children: [
-                    Text(widget.cafeItem.name),
-                    Row(),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(8.0),
-                      child: (_futureReview == null)
-                          ? buildColumn()
-                          : buildFutureBuilder(),
-                    ),
-                  ],
-                ),
-              )
-          ),
+              child: Column(
+                children: [
+                  Text(widget.cafeItem.name),
+                  Row(),
+                  Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(8.0),
+                    child: (_futureReview == null)
+                        ? buildColumn()
+                        : buildFutureBuilder(),
+                  ),
+                ],
+              )),
           Flexible(
             flex: 5,
             child: Padding(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               child: Container(
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -186,7 +180,7 @@ class _CafePageState extends State<CafePage> {
                   // .all(Radius.circular(20))
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Expanded(
                     child: RefreshIndicator(
                       onRefresh: refreshReviews,
@@ -194,15 +188,45 @@ class _CafePageState extends State<CafePage> {
                         itemCount: reviews.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
-                            // width: 400,
-                            margin: EdgeInsets.all(5),
-                            // color: Colors.amberAccent,
-                            height: 150,
-                            decoration: _getBoxStile(),
-                            child: Center(
-                              child: reviews[index].buildReview(context),
-                            ),
-                          );
+                              // width: 400,
+                              margin: const EdgeInsets.all(5),
+                              // color: Colors.amberAccent,
+                              height: 100,
+                              decoration: _getBoxStile(),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Card(
+                                        color: const Color(0xFF75AB98),
+                                        child: Row(
+                                          children: const [
+                                            CircleAvatar(
+                                              radius: 10,
+                                              // backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
+                                              backgroundImage: AssetImage(
+                                                  'images/profile_picture.png'),
+                                            ),
+                                            Text(' Hannah Andersson',
+                                                style: TextStyle(
+                                                    color: Colors.white)),
+                                          ],
+                                        ),
+                                      ),
+                                      const Text(
+                                        '                                      ',
+                                      ),
+                                      const Text('2022-05-20')
+                                    ],
+                                  ),
+                                  Center(
+                                    child: reviews[index].buildReview(context),
+                                  ),
+                                ],
+                              ));
                         },
                       ),
                     ),
@@ -220,13 +244,13 @@ class _CafePageState extends State<CafePage> {
     return BoxDecoration(
         color: Colors.white,
         // border: Border.all(color: Colors.black),
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
         boxShadow: [
           BoxShadow(
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 5,
               blurRadius: 7,
-              offset: Offset(2, 3))
+              offset: const Offset(2, 3))
         ]);
   }
 }
