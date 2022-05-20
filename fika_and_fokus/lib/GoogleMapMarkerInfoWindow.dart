@@ -197,10 +197,17 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                           child: IconButton(
                             onPressed: () async {
                               // if (await MapLauncher.isMapAvailable(MapType.google)) {
-                              await MapLauncher.showMarker(
+                              // await MapLauncher.showMarker(
+                              //   mapType: MapType.google,
+                              //   coords: Coords(widget.markedLat, widget.markedLong),
+                              //   title: "going to " + widget.markedVenueName,
+                              //   // description: description,
+                              // );
+                              await MapLauncher.showDirections(
                                 mapType: MapType.google,
-                                coords: Coords(widget.markedLat, widget.markedLong),
-                                title: "going to " + widget.markedVenueName,
+                                destination: Coords(widget.markedLat, widget.markedLong),
+                                //origin: Coords(59.2971115,17.7642534);
+                                destinationTitle: "going to " + widget.markedVenueName,
                                 // description: description,
                               );
                               // }
