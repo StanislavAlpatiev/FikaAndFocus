@@ -49,7 +49,7 @@ public class ReviewController {
         review.setReview_string(reviewText);
 
 
-        Date date = new Date();
+        LocalDate date = LocalDate.now();
         review.setDate(
             date.toString()
         );
