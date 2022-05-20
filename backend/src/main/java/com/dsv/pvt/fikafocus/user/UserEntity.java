@@ -3,6 +3,8 @@ package com.dsv.pvt.fikafocus.user;//package com.dsv.pvt.fikafocus;
 import javax.persistence.*;
 
 import com.dsv.pvt.fikafocus.cafe.Cafe2;
+import com.dsv.pvt.fikafocus.review.Review;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,6 +35,11 @@ public class UserEntity {
         this.name = nameParam;
         this.pass = passParam;
     }
+
+    @JsonIgnore // to avoid recursive problem in relationship
+    @OneToMany(mappedBy = "user")
+    private Set<Review> reviewSet = new HashSet<Review>();
+
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private Set<Cafe2> cafes = new HashSet<>();

@@ -11,10 +11,11 @@ public class DatabaseTest {
     @BeforeAll
     static void connectToTestDataBase(){
       try {
-
         //connection to database
         Connection conn = DriverManager.getConnection("jdbc:mariadb://mysql.dsv.su.se:3306/test_data", "axda2670", "Ua5rah6eengu");
         stmt = conn.createStatement();
+        stmt.executeQuery("delete from favourites");
+        stmt.executeQuery("delete from review");
         stmt.executeQuery("delete from cafe2");
         stmt.executeQuery("delete from user");
     } catch (
@@ -46,8 +47,39 @@ public class DatabaseTest {
         ResultSet myRs = stmt.executeQuery("select * from user");
         String s = null;
         if (myRs.next()) {
-            s = myRs.getString("email") + " " +  myRs.getString("username") + " " +  myRs.getString("pass");
+            s = myRs.getString("email") + " " +  myRs.getString("username") +
+                    " " +  myRs.getString("pass");
         }
         assertTrue(s.equals("abc123@gmail.com abc123 123abc"));
     }
+
+    @Test
+    void favouriteAppearsInDatabaseAfterAddingWithSQLQuery() throws SQLException{
+        String sqlInsert = "insert into favourites (cafe_id, user_id) " +
+                "values ('abc123', 'abc123@gmail.com')";
+        stmt.executeUpdate(sqlInsert);
+        ResultSet myRs = stmt.executeQuery("select * from favourites");
+        String s = null;
+        if (myRs.next()) {
+            s = myRs.getString("cafe_id") + " " +  myRs.getString("user_id");
+        }
+        assertTrue(s.equals("abc123 abc123@gmail.com"));
+    }
+
+    @Test
+    void reviewAppearsInDatabaseAfterAddingWithSQLQuery() throws SQLException{
+        String sqlInsert = "insert into review (id, date, rating, review_string, cafe) " +
+                "values (1, '2020-12-22', 4, 'excellent coffee', 'abc123')";
+        stmt.executeUpdate(sqlInsert);
+        ResultSet myRs = stmt.executeQuery("select * from review");
+        String s = null;
+        if (myRs.next()) {
+            s = myRs.getString("id") + " " +  myRs.getString("date") +
+                    " " + myRs.getString("rating") + " " + myRs.getString("review_string") +
+            " " + myRs.getString("cafe");
+        }
+        assertTrue(s.equals("1 2020-12-22 4 excellent coffee abc123"));
+    }
+
+
 }

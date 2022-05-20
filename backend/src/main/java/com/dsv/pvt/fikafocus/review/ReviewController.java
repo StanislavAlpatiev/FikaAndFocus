@@ -7,16 +7,20 @@ package com.dsv.pvt.fikafocus.review;
 
 import com.dsv.pvt.fikafocus.cafe.Cafe2;
 import com.dsv.pvt.fikafocus.cafe.CafeRepository;
+import com.dsv.pvt.fikafocus.user.UserEntity;
+import com.dsv.pvt.fikafocus.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/reviews")
 public class ReviewController {
-
+    @Autowired
+    UserRepository userRepository;
     @Autowired
     CafeRepository cafeRepository;
     @Autowired
@@ -35,7 +39,8 @@ public class ReviewController {
     public @ResponseBody String addNewReview (
             @RequestParam Integer rating,
             @RequestParam String reviewText,
-            @RequestParam String cafeId
+            @RequestParam String cafeId,
+            @RequestParam String userEmail
     )
     {
         Review review = new Review();
@@ -49,12 +54,20 @@ public class ReviewController {
         );
 
         Cafe2 cafeTemp = cafeRepository.findById(cafeId).get();
+        UserEntity userTemp = userRepository.findById(userEmail).get();
         review.setCafe(cafeTemp);
         cafeTemp.addReview(review);
-
-
+        review.setUser(userTemp);
         reviewRepository.save(review);
         return "Saved";
+    }
+
+    @GetMapping(path="/users/{user}")
+    public Collection getAllReviewsFromUser(@PathVariable String user){
+        Optional<UserEntity> optionalUser = userRepository.findById(user);
+        if ( optionalUser.isPresent() )
+            return optionalUser.get().getReviewSet();
+        return null;
     }
 
     @PostMapping(path="/add/test") // Map ONLY POST Requests
