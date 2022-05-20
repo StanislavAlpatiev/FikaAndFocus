@@ -9,6 +9,7 @@ import 'CafePage.dart';
 import 'package:cupertino_icons/cupertino_icons.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:map_launcher/map_launcher.dart';
 
 class MarkerInfoWindow extends StatefulWidget {
   String markedVenueName;
@@ -194,7 +195,17 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                         // width: 100,
                         child: Card(
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              // if (await MapLauncher.isMapAvailable(MapType.google)) {
+                              await MapLauncher.showMarker(
+                                mapType: MapType.google,
+                                coords: Coords(widget.markedLat, widget.markedLong),
+                                title: "going to " + widget.markedVenueName,
+                                // description: description,
+                              );
+                              // }
+
+                            },
                             iconSize: 40,
                             icon: Icon(
                               Icons.directions_walk,
