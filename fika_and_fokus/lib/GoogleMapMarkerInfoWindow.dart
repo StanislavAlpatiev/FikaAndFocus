@@ -203,13 +203,28 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                               //   title: "going to " + widget.markedVenueName,
                               //   // description: description,
                               // );
-                              await MapLauncher.showDirections(
-                                mapType: MapType.google,
-                                destination: Coords(widget.markedLat, widget.markedLong),
-                                //origin: Coords(59.2971115,17.7642534);
-                                destinationTitle: "going to " + widget.markedVenueName,
-                                // description: description,
-                              );
+                              if (MapLauncher != null){
+                                if (await MapLauncher.isMapAvailable(MapType.google) as bool) {
+                                  await MapLauncher.showDirections(
+                                    mapType: MapType.google,
+                                    destination: Coords(widget.markedLat, widget.markedLong),
+                                    //origin: Coords(59.2971115,17.7642534);
+                                    destinationTitle: "going to " + widget.markedVenueName,
+                                    // description: description,
+                                  );
+                                }
+                                else if (await MapLauncher.isMapAvailable(MapType.googleGo) as bool) {
+                                  await MapLauncher.showDirections(
+                                    mapType: MapType.googleGo,
+                                    destination: Coords(widget.markedLat, widget.markedLong),
+                                    //origin: Coords(59.2971115,17.7642534);
+                                    destinationTitle: "going to " + widget.markedVenueName,
+                                    // description: description,
+                                  );
+                                }
+                              }
+
+
                               // }
 
                             },
