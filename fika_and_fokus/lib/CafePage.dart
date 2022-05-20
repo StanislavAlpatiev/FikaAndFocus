@@ -5,15 +5,20 @@ import 'CafeItemModel.dart';
 
 class Review {
   final String review;
+  final String date;
 
-  Review(this.review);
+  Review(this.review, this.date);
 
   Widget buildReview(BuildContext context) {
     return Text(review);
   }
 
+  Widget buildDate(BuildContext context) {
+    return Text(date);
+  }
+
   factory Review.fromJson(Map<String, dynamic> json) {
-    return Review(json['review_string']);
+    return Review(json['review_string'], json['date']);
   }
 }
 
@@ -79,8 +84,17 @@ class _CafePageState extends State<CafePage> {
     //    'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText="jättefint"&cafeId=${widget.cafeItem.id}');
 
     //  OBS: MÅSTE ÄNDRA SÅ ATT DET ÄR "...group-1-75.." - URL:en
+
+    /*
+    Required parameters:
+      @RequestParam Integer rating,
+      @RequestParam String reviewText,
+      @RequestParam String cafeId,
+      @RequestParam String userEmail
+     */
+
     Uri new_review = Uri.parse(
-        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText=${review}&cafeId=${widget.cafeItem.id}');
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText=$review&cafeId=${widget.cafeItem.id}&userEmail=sten@gmail.com');
 
     final response = await http.post(new_review);
 
@@ -219,7 +233,7 @@ class _CafePageState extends State<CafePage> {
                                       const Text(
                                         '                                      ',
                                       ),
-                                      const Text('2022-05-20')
+                                      const Text('2022-05-20') // reviews[index].buildDate(context)
                                     ],
                                   ),
                                   Center(
