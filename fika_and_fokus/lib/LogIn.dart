@@ -57,8 +57,8 @@ class _LogInState extends State<LogIn> {
                   Card(
                     // ignore: prefer_const_constructors
                     child: TextFormField(
+                      cursorColor: Color(0xFF75AB98),
                       decoration: const InputDecoration(
-                        // contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
                         border: InputBorder.none,
                         prefixIcon: Align(
                           widthFactor: 1.0,
@@ -69,12 +69,10 @@ class _LogInState extends State<LogIn> {
                           ),
                         ),
                         labelText: 'Email',
-                        // labelStyle: TextStyle(
-                        //   color: Color(0xFF696969),
-                        //   fontSize: 20,
-                        // ),
+                        labelStyle: TextStyle(color: Color(0xFF696969),
+                          fontSize: 18.0,
+                        ),
                       ),
-                      // ignore: prefer_const_constructors
                       style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -94,6 +92,7 @@ class _LogInState extends State<LogIn> {
                   ),
                   Card(
                     child: TextFormField(
+                      cursorColor: Color(0xFF75AB98),
                       obscureText: true,
                       decoration: const InputDecoration(
                         // contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
@@ -107,9 +106,8 @@ class _LogInState extends State<LogIn> {
                           ),
                         ),
                         labelText: 'Password',
-                        labelStyle: TextStyle(
-                          color: Color(0xFF696969),
-                          fontSize: 20,
+                        labelStyle: TextStyle(color: Color(0xFF696969),
+                          fontSize: 18.0,
                         ),
                       ),
                       style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
@@ -158,7 +156,6 @@ class _LogInState extends State<LogIn> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        // side: BorderSide(color: Colors.green),
                       ),
                     ),
                   ),
