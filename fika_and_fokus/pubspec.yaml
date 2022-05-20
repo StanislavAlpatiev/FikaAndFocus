@@ -52,6 +52,9 @@ dependencies:
   provider: ^6.0.2
   flutter_rating_bar:
   settings_ui: ^2.0.2
+  syncfusion_flutter_sliders: ^20.1.56
+  intl: ^0.17.0
+  syncfusion_flutter_core: ^20.1.56
 
 dev_dependencies:
   flutter_test:

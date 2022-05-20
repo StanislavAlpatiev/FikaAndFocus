@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'GoogleMap.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -18,17 +21,25 @@ class FilterWindow extends StatefulWidget {
 class _FilterWindowState extends State<FilterWindow> {
   _FilterWindowState({required this.callback});
 
-  final items1 = ["1", "2", "3", "4", "5"];
-  final items2 = ["1", "2", "3", "4", "5"];
-  final items3 = ["1", "2", "3", "4", "5"];
-  final items4 = ["1", "2", "3", "4", "5"];
-  String? menuValue1;
-  String? menuValue2;
+  // Additional variables for extra filter
+  // final items1 = ["1", "2", "3", "4", "5"];
+  // final items2 = ["1", "2", "3", "4", "5"];
+  // String? menuValue1;
+  // String? menuValue2;
+  final items3 = ["\$", "\$\$", "\$\$\$"];
+  final items4 = ["\$", "\$\$", "\$\$\$"];
   String? menuValue3;
   String? menuValue4;
 
-  double distanceSliderValue = 200;
+  SfRangeValues _ratingValues = SfRangeValues(2.0, 3.0);
+
+  double minRating = 1;
+  double maxRating = 5;
+  double ratingSliderValue = 1;
+  double distanceSliderValue = 8000;
   double busynessSliderValue = 20;
+  double ratingRangeStart = 1;
+  double ratingRangeEnd = 3;
 
   final Function callback;
 
@@ -37,8 +48,8 @@ class _FilterWindowState extends State<FilterWindow> {
     return Visibility(
       maintainInteractivity: false,
       child: Container(
-        width: 280,
-        height: 360,
+        width: 250,
+        height: 450,
         alignment: Alignment.topLeft,
         //color: Colors.white,
         decoration: BoxDecoration(
@@ -57,7 +68,7 @@ class _FilterWindowState extends State<FilterWindow> {
         //huvudkolumn
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          // An extra filter
+          // Just an extra filter
           // Padding(
           //   padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
           //   child: Row(
@@ -201,6 +212,43 @@ class _FilterWindowState extends State<FilterWindow> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text("RATING",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.roboto(
+                      textStyle: const TextStyle(
+                          letterSpacing: 3.0),
+                      fontSize: 15.00,
+                      fontWeight: FontWeight.w300),
+                )],
+            ),
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            SfSliderTheme(
+              data: SfSliderThemeData(
+                thumbColor: Color(0xFF75AB98),
+                activeTrackColor: Color(0xFF75AB98),
+                inactiveTrackColor: Color(0x22696969),
+              ),
+              child: SfSlider(
+                value: ratingRangeStart,
+                min: 1.0,
+                max: 5.0,
+                interval: 1,
+                showTicks: true,
+                showLabels: true,
+                onChanged: (dynamic newValue) {
+                  setState(() {
+                    ratingRangeStart = newValue;
+                  });
+                },
+              ),
+            )
+          ]),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
                 Text("DISTANCE",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.roboto(
@@ -218,7 +266,7 @@ class _FilterWindowState extends State<FilterWindow> {
               divisions: 5,
               activeColor: Color(0xFF75AB98),
               inactiveColor: Color(0x22696969),
-              label: distanceSliderValue.round().toString(),
+              label: distanceSliderValue.round().toString() + ' m',
               onChanged: (double value) {
                 setState(() {
                   distanceSliderValue = value;
@@ -247,7 +295,7 @@ class _FilterWindowState extends State<FilterWindow> {
               divisions: 10,
               activeColor: Color(0xFF75AB98),
               inactiveColor: Color(0x22696969),
-              label: busynessSliderValue.round().toString(),
+              label: busynessSliderValue.round().toString() + ' %',
               onChanged: (double value) {
                 setState(() {
                   busynessSliderValue = value;
