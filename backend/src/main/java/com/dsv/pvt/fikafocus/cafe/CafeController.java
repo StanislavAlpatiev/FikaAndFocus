@@ -32,20 +32,22 @@ public class CafeController {
     @PostMapping(path = "/add") // Map ONLY POST Requests
     public @ResponseBody
     String addNewCafe(
-            @RequestParam String name,
+            @RequestParam String id,
             @RequestParam String address,
+            @RequestParam String name,
             @RequestParam String lat,
             @RequestParam String lng,
-            @RequestParam String rating,
-            @RequestParam String price
+            @RequestParam String price,
+            @RequestParam String rating
     ){
         Cafe2 cafe = new Cafe2();
-        cafe.setName(name);
+        cafe.setId(id);
         cafe.setAddress(address);
+        cafe.setName(name);
         cafe.setLat(lat);
         cafe.setLng(lng);
-        cafe.setRating(rating);
         cafe.setPrice(price);
+        cafe.setRating(rating);
         cafeRepository.save(cafe);
         return "Saved";
     }

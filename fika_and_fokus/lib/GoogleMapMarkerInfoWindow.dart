@@ -178,6 +178,7 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
     print(isFavorite.toString());
     print(widget.markedVenueId);
     if (isFavorite == false) {
+      _addCafeToDataBase();
       Uri addFavouriteUrl = Uri.parse(
           'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${"sten@gmail.com"}/addfavourite/${widget
               .markedVenueId}');
@@ -231,4 +232,19 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
       throw Exception('Failed to load reviews');
     }
   }
+
+  _addCafeToDataBase() async {
+    //  OBS: MÅSTE ÄNDRA SÅ ATT DET ÄR "...group-1-75.." - URL:en
+    Uri addCafeUrl = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/add?'
+        'id=${widget.markedVenueId}&'
+        'address=${widget.markedAddress}&'
+        'name=${widget.markedVenueName}&'
+        'lat=${widget.markedLat}&'
+        'lng=${widget.markedLong}&'
+        'price=${widget.markedPriceLevel}&'
+        'rating=${widget.markedRating}');
+
+    final response = await http.post(addCafeUrl);
+  }
+
 }
