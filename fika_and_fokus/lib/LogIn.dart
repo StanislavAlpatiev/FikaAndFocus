@@ -33,7 +33,6 @@ class _LogInState extends State<LogIn> {
         child: SafeArea(
           child: Scaffold(
             resizeToAvoidBottomInset: false,
-
             backgroundColor: Color(0xFFE0DBCF),
             body: Padding(
               padding: const EdgeInsets.fromLTRB(30, 50, 30, 0),
@@ -43,7 +42,6 @@ class _LogInState extends State<LogIn> {
                 children: <Widget>[
                   // ignore: prefer_const_constructors
                   Image.asset('images/logo-white.png',width:600,height:200),
-                  // const SizedBox(height: 5),
                   Center(
                     child: Text(
                       "ACCOUNT LOGIN",
@@ -53,133 +51,144 @@ class _LogInState extends State<LogIn> {
                           fontWeight: FontWeight.w500),
                     ),
                   ),
-                  // const SizedBox(height: 5),
-                  Card(
-                    // ignore: prefer_const_constructors
-                    child: TextFormField(
-                      cursorColor: Color(0xFF75AB98),
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        prefixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: FaIcon(
-                            FontAwesomeIcons.solidUser,
-                            color: Color(0xFF696969),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: Card(
+                      // ignore: prefer_const_constructors
+                      child: TextFormField(
+                        cursorColor: Color(0xFF75AB98),
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 0,
+                              vertical: 5),
+                          border: InputBorder.none,
+                          prefixIcon: Align(
+                            widthFactor: 1.0,
+                            heightFactor: 1.0,
+                            child: FaIcon(
+                              FontAwesomeIcons.solidUser,
+                              color: Color(0xFF696969),
+                            ),
+                          ),
+                          labelText: 'Email',
+                          labelStyle: TextStyle(color: Color(0xFF696969),
+                            fontSize: 20,
                           ),
                         ),
-                        labelText: 'Email',
-                        labelStyle: TextStyle(color: Color(0xFF696969),
-                          fontSize: 18.0,
-                        ),
+                        style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Email is empty';
+                          }
+                          return '';
+                        },
+                        controller: TextEditingController(text: user.email),
+                        onChanged: (val) {
+                          user.email = val;
+                        },
                       ),
-                      style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Email is empty';
-                        }
-                        return '';
-                      },
-                      controller: TextEditingController(text: user.email),
-                      onChanged: (val) {
-                        user.email = val;
-                      },
-                    ),
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  Card(
-                    child: TextFormField(
-                      cursorColor: Color(0xFF75AB98),
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        // contentPadding: EdgeInsets.symmetric(horizontal: 100, vertical: 0),
-                        border: InputBorder.none,
-                        prefixIcon: Align(
-                          widthFactor: 1.0,
-                          heightFactor: 1.0,
-                          child: FaIcon(
-                            FontAwesomeIcons.lock,
-                            color: Color(0xFF696969),
-                          ),
-                        ),
-                        labelText: 'Password',
-                        labelStyle: TextStyle(color: Color(0xFF696969),
-                          fontSize: 18.0,
-                        ),
-                      ),
-                      style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Password is empty';
-                        }
-                        return '';
-                      },
-                      controller: TextEditingController(text: user.password),
-                      onChanged: (val) {
-                        user.password = val;
-                      },
-                    ),
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    height: 50,
-                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // save();
-                        login(user.email, user.getPassword);
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const NavBar(),
-                        //   ),
-                        // );
-                      },
-                      child: Text(
-                        'LOG IN',
-                        style: GoogleFonts.oswald(
-                            fontSize: 28,
-                            fontWeight: FontWeight.normal
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF696969),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 10,),
-                  ElevatedButton.icon(
-                    icon: FaIcon(FontAwesomeIcons.google),
-                    label: Text('Log in with Google',
-                        style: GoogleFonts.roboto(
-                        fontSize: 20.00,
-                        fontWeight: FontWeight.w300),
-                    ),
-                    style: ElevatedButton.styleFrom(
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
-                      primary: Colors.white,
-                      onPrimary: Colors.black,
-                      minimumSize: Size(double.infinity, 50),
                     ),
-                    onPressed: () {
-                      final provider = Provider.of<GoogleSignInProvider>(
-                          context, listen: false);
-                      provider.loginWithGoogle();
-                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                    child: Card(
+                      child: TextFormField(
+                        cursorColor: Color(0xFF75AB98),
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 0,
+                              vertical: 5),
+                          border: InputBorder.none,
+                          prefixIcon: Align(
+                            widthFactor: 1.0,
+                            heightFactor: 1.0,
+                            child: FaIcon(
+                              FontAwesomeIcons.lock,
+                              color: Color(0xFF696969),
+                            ),
+                          ),
+                          labelText: 'Password',
+                          labelStyle: TextStyle(color: Color(0xFF696969),
+                            fontSize: 20,
+                          ),
+                        ),
+                        style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Password is empty';
+                          }
+                          return '';
+                        },
+                        controller: TextEditingController(text: user.password),
+                        onChanged: (val) {
+                          user.password = val;
+                        },
+                      ),
+                      color: const Color.fromARGB(255, 255, 255, 255),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Container(
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // save();
+                          login(user.email, user.getPassword);
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const NavBar(),
+                          //   ),
+                          // );
+                        },
+                        child: Text(
+                          'LOG IN',
+                          style: GoogleFonts.oswald(
+                              fontSize: 28,
+                              fontWeight: FontWeight.normal
+                          ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xFF696969),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: ElevatedButton.icon(
+                      icon: Image.asset("images/google_logo.png",
+                        width: 32,
+                      ),
+                      label: Text('Log in with Google',
+                          style: GoogleFonts.roboto(
+                          fontSize: 20.00,
+                          fontWeight: FontWeight.w300),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        primary: Colors.white,
+                        onPrimary: Colors.black,
+                        minimumSize: Size(double.infinity, 50),
+                      ),
+                      onPressed: () {
+                        final provider = Provider.of<GoogleSignInProvider>(
+                            context, listen: false);
+                        provider.loginWithGoogle();
+                      },
+                    ),
                   ),
                   TextButton(
                     onPressed: () {},
@@ -193,37 +202,33 @@ class _LogInState extends State<LogIn> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 4),
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SignUp(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'SIGN UP',
-                            style: GoogleFonts.oswald(
-                                fontSize: 20.00,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF75AB98),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(100, 0, 100, 0),
+                    child:Container(
+                      height: 50,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignUp(),
                             ),
+                          );
+                        },
+                        child: Text(
+                          'SIGN UP',
+                          style: GoogleFonts.oswald(
+                              fontSize: 28.00,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xFF75AB98),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
