@@ -233,7 +233,7 @@ class _CafePageState extends State<CafePage> {
                                       const Text(
                                         '                                      ',
                                       ),
-                                      const Text('2022-05-20') // reviews[index].buildDate(context)
+                                      reviews[index].buildDate(context) // const Text('2022-05-20')
                                     ],
                                   ),
                                   Center(
