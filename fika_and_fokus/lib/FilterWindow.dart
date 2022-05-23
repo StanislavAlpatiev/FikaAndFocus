@@ -21,18 +21,18 @@ class FilterWindow extends StatefulWidget {
 class _FilterWindowState extends State<FilterWindow> {
   _FilterWindowState({required this.callback});
 
+  // Variables for min max filter
   // Additional variables for extra filter
   // final items1 = ["1", "2", "3", "4", "5"];
   // final items2 = ["1", "2", "3", "4", "5"];
+  // final items3 = ["\$", "\$\$", "\$\$\$"];
+  // final items4 = ["\$", "\$\$", "\$\$\$"];
   // String? menuValue1;
   // String? menuValue2;
-  final items3 = ["\$", "\$\$", "\$\$\$"];
-  final items4 = ["\$", "\$\$", "\$\$\$"];
-  String? menuValue3;
-  String? menuValue4;
+  // String? menuValue3;
+  // String? menuValue4;
 
-  SfRangeValues _ratingValues = SfRangeValues(2.0, 3.0);
-
+  double priceValue = 0;
   double minRating = 1;
   double maxRating = 5;
   double ratingSliderValue = 1;
@@ -44,7 +44,6 @@ class _FilterWindowState extends State<FilterWindow> {
   final Function callback;
 
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Visibility(
       maintainInteractivity: false,
       child: Container(
@@ -68,7 +67,7 @@ class _FilterWindowState extends State<FilterWindow> {
         //huvudkolumn
         child:
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          // Just an extra filter
+          // Extra min/max filter
           // Padding(
           //   padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
           //   child: Row(
@@ -156,56 +155,39 @@ class _FilterWindowState extends State<FilterWindow> {
             ),
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Column(
-              //mintitel + dropdown,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: Text("min",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.roboto(
-                          textStyle: const TextStyle(
-                              letterSpacing: 2.0),
-                          fontSize: 15.00,
-                          fontWeight: FontWeight.w300),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: DropdownButton<String>(
-                    value: menuValue3,
-                    items: items3.map(buildMenuItem).toList(),
-                    onChanged: (menuValue3) => setState(() =>
-                        this.menuValue3 = menuValue3), //onChanged: onChanged),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              //maxtitel + dropdown
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-                  child: Text("max",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.roboto(
-                          textStyle: const TextStyle(
-                              letterSpacing: 2.0),
-                          fontSize: 15.00,
-                          fontWeight: FontWeight.w300),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
-                  child: DropdownButton<String>(
-                    value: menuValue4,
-                    items: items4.map(buildMenuItem).toList(),
-                    onChanged: (menuValue4) => setState(() =>
-                        this.menuValue4 = menuValue4), //onChanged: onChanged),
-                  ),
-                ),
-              ],
-            ),
+            SfSliderTheme(
+              data: SfSliderThemeData(
+                thumbColor: Color(0xFF75AB98),
+                activeTrackColor: Color(0xFF75AB98),
+                inactiveTrackColor: Color(0x22696969),
+              ),
+              child: SfSlider(
+                value: priceValue,
+                min: 0,
+                max: 2,
+                stepSize: 1,
+                interval: 1,
+                showTicks: true,
+                showLabels: true,
+                labelFormatterCallback:
+                    (dynamic actualValue, String formattedText) {
+                  switch (actualValue) {
+                    case 0:
+                      return '\$';
+                    case 1:
+                      return '\$\$';
+                    case 2:
+                      return '\$\$\$';
+                  }
+                  return actualValue.toString();
+                },
+                onChanged: (dynamic newValue) {
+                  setState(() {
+                    priceValue = newValue;
+                  });
+                },
+              ),
+            )
           ]),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -303,7 +285,6 @@ class _FilterWindowState extends State<FilterWindow> {
               },
             )
           ]),
-
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -319,6 +300,7 @@ class _FilterWindowState extends State<FilterWindow> {
                     onPressed: () {
                       callback(
                           busynessSliderValue, distanceSliderValue, "search");
+                      //TODO: search according to rating and price value
                     },
                     child: Text("OK",
                       textAlign: TextAlign.center,
@@ -351,9 +333,8 @@ class _FilterWindowState extends State<FilterWindow> {
                   ))
             ],
           )
-        ]
-                //child: widget.child,
-                ),
+        ] //child: widget.child,
+            ),
       ),
     );
   }
