@@ -108,7 +108,7 @@ public class DatabaseTest {
         assertTrue(s.equals("abc123 abc123@gmail.com"));
     }
 
-    @Test
+/*    @Test
     void userAppearsInDataBaseAfterAddingWithHTTP() throws IOException, SQLException{
         String data = "email=abc123@gmail.com&username=abc123&password=123abc";
         URL url = new URL("http://127.0.0.1:8080/user/add");
@@ -148,5 +148,5 @@ public class DatabaseTest {
         assertTrue(s.equals("abc123 café street 123 café abc123 123.456 1.01101 4 3"));
     }
 
-
+*/
 }
