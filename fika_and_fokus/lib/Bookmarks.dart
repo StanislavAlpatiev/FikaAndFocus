@@ -1,3 +1,4 @@
+import 'package:fika_and_fokus/UserModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:http/http.dart' as http;
@@ -7,7 +8,10 @@ import 'CafePage.dart';
 import 'CafeItemModel.dart';
 
 class BookmarksPage extends StatefulWidget {
-  const BookmarksPage({Key? key}) : super(key: key);
+  UserModel user = new UserModel(userName: "", email: "", password: "");
+  BookmarksPage(UserModel user, {Key? key}) : super(key: key){
+    this.user = user;
+  }
 
   @override
   State<BookmarksPage> createState() => _BookmarksPageState();
@@ -23,7 +27,8 @@ class _BookmarksPageState extends State<BookmarksPage> {
   }
 
   Future refreshCafes() async {
-    Uri favoriteCafesURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/sten@gmail.com/favourites');
+    Uri favoriteCafesURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/'+ widget.user.getEmail + '/favourites');
+    // Uri favoriteCafesURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/sten@gmail.com/favourites');
 
     final response = await http.get(favoriteCafesURI);
 

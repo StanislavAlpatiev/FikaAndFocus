@@ -3,21 +3,34 @@ import 'package:flutter/material.dart';
 import 'Bookmarks.dart';
 import 'HomePage.dart';
 import 'Profile.dart';
+import 'UserModel.dart';
 
 class NavBar extends StatefulWidget {
-  const NavBar({Key? key}) : super(key: key);
 
+  UserModel user = new UserModel(userName: "", email: "", password: "");
+  NavBar({Key? key, UserModel? user}) : super(key: key){
+    this.user = user!;
+  }
   @override
   State<NavBar> createState() => _NavBarState();
 }
 
 class _NavBarState extends State<NavBar> {
   int _selectedIndex = 0;
-  final screens = [
-    const MyHomePage(),
-    const BookmarksPage(),
-    const ProfilePage()
-  ];
+
+  late final screens;
+  @override
+  void initState() {
+    screens = [
+      MyHomePage(widget.user),
+      BookmarksPage(widget.user),
+      ProfilePage(widget.user)
+    ];
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {

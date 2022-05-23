@@ -14,13 +14,20 @@ import 'UserModel.dart';
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
 
+
   @override
   State<LogIn> createState() => _LogInState();
 }
 
 class _LogInState extends State<LogIn> {
   final _formKey = GlobalKey<FormState>(); //a globalkey for validation.
+
   UserModel user = UserModel.login("", ""); //For creating a user.
+  UserModel getLoggedInUser(){
+    return user;
+  }
+
+
   // TextEditingController userCtrl =
   //     TextEditingController(); //A variable to store username
   // TextEditingController passCtrl =
@@ -83,7 +90,7 @@ class _LogInState extends State<LogIn> {
                           }
                           return '';
                         },
-                        controller: TextEditingController(text: user.email),
+                        controller: TextEditingController(text: user.getEmail),
                         onChanged: (val) {
                           user.email = val;
                         },
@@ -124,7 +131,7 @@ class _LogInState extends State<LogIn> {
                           }
                           return '';
                         },
-                        controller: TextEditingController(text: user.password),
+                        controller: TextEditingController(text: user.getPassword),
                         onChanged: (val) {
                           user.password = val;
                         },
@@ -144,7 +151,7 @@ class _LogInState extends State<LogIn> {
                           // save();
 
 
-                          login(user.email, user.getPassword).then((value) {
+                          login(user.getEmail, user.getPassword).then((value) {
                             setState((){
                               loginMessage = value;
 
@@ -277,7 +284,7 @@ class _LogInState extends State<LogIn> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const NavBar(),
+          builder: (context) => NavBar(user: user),
         ),
       );
     } else {

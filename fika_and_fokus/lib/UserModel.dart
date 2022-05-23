@@ -5,15 +5,15 @@ UserModel userModelJson(String str) => UserModel.fromJson(json.decode(str));
 String userModelToJSON(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
-  String email = "";
-  String userName = "";
-  String password = "";
+  String _email = "";
+  String _userName = "";
+  String _password = "";
 
   UserModel(
     {
-      required this.userName,
-      required this.email,
-      required this.password,
+      required userName,
+      required email,
+      required password,
     }
   );
 
@@ -28,12 +28,22 @@ class UserModel {
       password: json["pass"]);
 
   Map<String, dynamic> toJson() => {
-        "email": email,
-        "username": userName,
-        "pass": password
+        "email": _email,
+        "username": _userName,
+        "pass": _password
       };
 
-  String get getEmail => email;
-  String get getUserName => userName;
-  String get getPassword => password;
+  String get getEmail => _email.trim(); // if user accidentally added space at the end
+  String get getUserName => _userName.trim();
+  String get getPassword => _password;
+
+  set password(String value) {
+    _password = value;
+  }
+  set userName(String value) {
+    _userName = value;
+  }
+  set email(String value) {
+    _email = value;
+  }
 }

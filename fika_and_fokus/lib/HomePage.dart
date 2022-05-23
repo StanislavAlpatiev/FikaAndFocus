@@ -1,11 +1,16 @@
 import 'package:fika_and_fokus/GoogleMap.dart';
 import 'package:fika_and_fokus/SearchBar.dart';
+import 'package:fika_and_fokus/UserModel.dart';
 import 'package:flutter/material.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+
+  UserModel user = new UserModel(userName: "", email: "", password: "");
+  MyHomePage(UserModel user, {Key? key}) : super(key: key){
+    this.user = user;
+  }
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();

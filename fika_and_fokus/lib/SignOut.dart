@@ -112,12 +112,14 @@ class _SignOutPageState extends State<SignOut> {
                       ],
                     ),
                   ),
-                  onPressed: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ProfilePage(),
-                        ),
-                      )),
+                  onPressed: () => null,
+                  // onPressed: () => Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const ProfilePage(),
+                  //       ),
+                  //     )
+              ),
             ],
           ),
         ),

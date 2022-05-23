@@ -5,9 +5,14 @@ import 'AccountSettings.dart';
 import 'SignOut.dart';
 import 'package:provider/provider.dart';
 import 'GoogleSignIn.dart';
+import 'UserModel.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+
+  late UserModel user = new UserModel(userName: "", email: "", password: "");
+  ProfilePage(UserModel user, {Key? key}) : super(key: key){
+    this.user = user;
+  }
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -77,9 +82,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     backgroundImage: AssetImage('images/profile_picture.png'),
                   ),
                    Text(
-                    //TODO get name of individual
                     // 'WELCOME ' + user.displayName!,
-                     'WELCOME ' + "User",
+                     'WELCOME ' + widget.user.getEmail,
                     style: TextStyle(
                       fontSize: 25,
                       fontFamily: 'Roboto',
