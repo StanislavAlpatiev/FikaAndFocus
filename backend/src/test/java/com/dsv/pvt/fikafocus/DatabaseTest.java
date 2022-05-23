@@ -1,5 +1,11 @@
-package com.dsv.pvt.fikafocus;
+/**
+ * Application.properties needs to be changed to direct to test_data before running tests
+ * You will also need to run spring boot locally and use local urls instead of tomcat
+ */
 
+
+
+package com.dsv.pvt.fikafocus;
 import com.dsv.pvt.fikafocus.cafe.Cafe2;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
@@ -103,8 +109,8 @@ public class DatabaseTest {
     }
 
     @Test
-    void userAppearsInDataBaseAfterAddingWithHTTP() throws IOException{
-        String data = "email=test@test.com&username=etst123&password=1232222";
+    void userAppearsInDataBaseAfterAddingWithHTTP() throws IOException, SQLException{
+        String data = "email=abc123@gmail.com&username=abc123&password=123abc";
         URL url = new URL("http://127.0.0.1:8080/user/add");
         URLConnection connection = url.openConnection();
         HttpURLConnection http = (HttpURLConnection) connection;
@@ -112,7 +118,34 @@ public class DatabaseTest {
         http.setDoOutput(true);
         connection.getOutputStream().write(data.getBytes(StandardCharsets.UTF_8));
         connection.getInputStream();
+        ResultSet myRs = stmt.executeQuery("select * from user");
+        String s = null;
+        if ( myRs.next() ) {
+            s = myRs.getString("email") + " " + myRs.getString("username") +
+                    " " + myRs.getString("pass");
+        }
+        assertTrue(s.equals("abc123@gmail.com abc123 123abc"));
+    }
 
+    @Test
+    void cafeAppearsInDataBaseAfterAddingWithHTTP() throws IOException, SQLException{
+        String data = "id=abc123&address=café street 123&name=café abc123&lat=123.456&lng=1.01101&price=4&rating=3";
+        URL url = new URL("http://127.0.0.1:8080/cafes/add");
+        URLConnection connection = url.openConnection();
+        HttpURLConnection http = (HttpURLConnection) connection;
+        http.setRequestMethod("POST");
+        http.setDoOutput(true);
+        connection.getOutputStream().write(data.getBytes(StandardCharsets.UTF_8));
+        connection.getInputStream();
+        ResultSet myRs = stmt.executeQuery("select * from cafe2");
+        String s = null;
+        if ( myRs.next() ) {
+            s = myRs.getString("id") + " " + myRs.getString("address") +
+                    " " + myRs.getString("name") + " " + myRs.getString("lat") +
+                    " " + myRs.getString("lng") + " " + myRs.getString("price") +
+                    " " + myRs.getString("rating");
+        }
+        assertTrue(s.equals("abc123 café street 123 café abc123 123.456 1.01101 4 3"));
     }
 
 
