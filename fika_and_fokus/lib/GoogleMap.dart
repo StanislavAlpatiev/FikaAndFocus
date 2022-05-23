@@ -69,7 +69,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
         myLocationButtonEnabled: false,
         onMapCreated: _onMapCreated,
         compassEnabled: false,
-
+        mapToolbarEnabled: false,
         // myLocationEnabled: true,
         buildingsEnabled: true,
         tiltGesturesEnabled: false,
