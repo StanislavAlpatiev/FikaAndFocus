@@ -104,7 +104,7 @@ public class CafeController {
         return "Saved";
     }
 
-    @PostMapping("/{userId}/removefavourite/{cafeId}")
+    @DeleteMapping("/{userId}/removefavourite/{cafeId}")
     public String removeFavourite(
             @PathVariable String userId,
             @PathVariable String cafeId

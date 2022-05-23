@@ -11,6 +11,11 @@ import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
 
@@ -21,6 +26,8 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(properties = "spring.profiles.active=test")
 public class DatabaseTest {
     private static Statement stmt;
 
@@ -108,7 +115,7 @@ public class DatabaseTest {
         assertTrue(s.equals("abc123 abc123@gmail.com"));
     }
 
-/*    @Test
+    @Test
     void userAppearsInDataBaseAfterAddingWithHTTP() throws IOException, SQLException{
         String data = "email=abc123@gmail.com&username=abc123&password=123abc";
         URL url = new URL("http://127.0.0.1:8080/user/add");
@@ -148,5 +155,5 @@ public class DatabaseTest {
         assertTrue(s.equals("abc123 café street 123 café abc123 123.456 1.01101 4 3"));
     }
 
-*/
+
 }
