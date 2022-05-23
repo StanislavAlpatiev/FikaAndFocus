@@ -95,7 +95,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                       ),
                       onTap: () {
                         Navigator.push(context,
-                            new MaterialPageRoute(builder: (context) => CafePage(cafes[index]))
+                            new MaterialPageRoute(builder: (context) => CafePage(cafes[index], widget.user))
                         );
                       },
                     ),

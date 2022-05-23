@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'CafeItemModel.dart';
+import 'UserModel.dart';
 
 class Review {
   final String review;
@@ -24,8 +25,8 @@ class Review {
 
 class CafePage extends StatefulWidget {
   final CafeItem cafeItem;
-
-  const CafePage(this.cafeItem);
+  UserModel user;
+  CafePage(this.cafeItem, this.user);
 
   @override
   State<CafePage> createState() => _CafePageState();

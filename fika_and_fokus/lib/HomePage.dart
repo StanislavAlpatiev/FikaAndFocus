@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Center(
             child: Stack(
                 children: [
-                  MyGoogleMap(),
+                  MyGoogleMap(widget.user),
                 ]
             )
         )
@@ -42,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
       await Permission.locationAlways.request();
     }
     if (serviceStatusLocationAlways.isGranted) {
-      return const MyGoogleMap();
+      return MyGoogleMap(widget.user);
     } else {
       // showToast("Camera needs to access your microphone, please provide permission", position: ToastPosition.bottom);
       await openAppSettings();

@@ -3,6 +3,7 @@
 // import 'dart:html';
 
 import 'package:fika_and_fokus/FilterWindow.dart';
+import 'package:fika_and_fokus/UserModel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
@@ -18,7 +19,11 @@ import 'CafeItemModel.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class MyGoogleMap extends StatefulWidget {
-  const MyGoogleMap({Key? key}) : super(key: key);
+  late UserModel user = new UserModel(userName: "", email: "", password: "");
+  MyGoogleMap(UserModel user, {Key? key}) : super(key: key){
+    this.user = user;
+  }
+
 
   // @override
   State<MyGoogleMap> createState() => _MyGoogleMapState();
@@ -123,9 +128,9 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
               child: GestureDetector(
-                  // onDoubleTap: () => _disableInfoVisibility(),
                   child: MarkerInfoWindow(
-                currentCafe: currentCafe,
+                    user: widget.user,
+                    currentCafe: currentCafe,
               )),
             ),
           ),

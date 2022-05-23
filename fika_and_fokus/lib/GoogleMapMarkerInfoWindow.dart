@@ -13,14 +13,12 @@ import 'package:map_launcher/map_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Heart.dart';
 import 'CafeItemModel.dart';
+import 'UserModel.dart';
 
 class MarkerInfoWindow extends StatefulWidget {
   CafeItem currentCafe;
-
-  MarkerInfoWindow({
-    Key? key,
-    required this.currentCafe,
-  }) : super(key: key);
+  UserModel user = new UserModel(userName: "default", email: "", password: "");
+  MarkerInfoWindow({Key? key,required this.currentCafe, required this.user}) : super(key: key);
 
   @override
   State<MarkerInfoWindow> createState() => _MarkerInfoWindowState();
@@ -142,7 +140,7 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            CafePage(widget.currentCafe)));
+                                            CafePage(widget.currentCafe, widget.user)));
                               },
                             ),
                           ),
