@@ -26,6 +26,8 @@ class _LogInState extends State<LogIn> {
   // TextEditingController passCtrl =
   //     TextEditingController(); //A variable to store password
 
+  String loginMessage = "hej";
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -140,13 +142,28 @@ class _LogInState extends State<LogIn> {
                       child: ElevatedButton(
                         onPressed: () {
                           // save();
-                          login(user.email, user.getPassword);
+
+
+                          login(user.email, user.getPassword).then((value) {
+                            setState((){
+                              loginMessage = value;
+
+                              final snackBar = SnackBar(
+                                  content: Text(loginMessage)
+                              );
+
+                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                            });
+                          });
+
                           // Navigator.push(
                           //   context,
                           //   MaterialPageRoute(
                           //     builder: (context) => const NavBar(),
                           //   ),
                           // );
+
                         },
                         child: Text(
                           'LOG IN',
@@ -240,7 +257,13 @@ class _LogInState extends State<LogIn> {
   }
 
 
-  Future login(String email, String password) async {
+  Future<String> login(String email, String password) async {
+
+    if (email.isEmpty)
+      return "Email is empty";
+    if (password.isEmpty)
+      return "Password is empty";
+
     Uri url = Uri.parse("https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/user/login?"
         "email=" + email +
         "&password=" + password
@@ -250,7 +273,7 @@ class _LogInState extends State<LogIn> {
     print(response.toString());
 
     if (response.statusCode == 200) {
-      print("ok");
+      print("log in successfull");
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -258,8 +281,11 @@ class _LogInState extends State<LogIn> {
         ),
       );
     } else {
-      print("fail");
-      return null;
+      print("login failed: wrong username or password");
+      return "login failed: wrong username or password";
+
     }
+    return "";
   }
+
 }
