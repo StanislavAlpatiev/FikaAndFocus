@@ -11,6 +11,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:map_launcher/map_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'Heart.dart';
 
 class MarkerInfoWindow extends StatefulWidget {
   String markedVenueName;
@@ -171,29 +172,14 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                             ),
                           ),
                         ),
-                        Card(
-                          shape:
-                              ShapeBorder.lerp(CircleBorder(), CircleBorder(), 2),
-                          child: FutureBuilder(
-                              future: _checkIfCafeIsFavorite(),
-                              builder: (context, snapshot) {
-                                if (snapshot.data == true) {
-                                  return IconButton(
-                                      onPressed: () {
-                                        _toggleHeart();
-                                      },
-                                      iconSize: 35,
-                                      icon: filledHeart);
-                                } else {
-                                  return IconButton(
-                                      onPressed: () {
-                                        _toggleHeart();
-                                      },
-                                      iconSize: 35,
-                                      icon: notFilledHeart);
-                                }
-                              }),
-                        ),
+                        Heart(currentCafe: CafeItem(
+                            widget.markedVenueId,
+                            widget.markedVenueName,
+                            widget.markedAddress,
+                            widget.markedLat,
+                            widget.markedLong,
+                            widget.markedPriceLevel.toString(),
+                            widget.markedRating)),
                         Container(
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
