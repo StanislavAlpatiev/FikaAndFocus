@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'CafeItemModel.dart';
 import 'UserModel.dart';
 
 class Review {
-  // final UserModel user;
   final Object user;
   final String review;
   final String date;
+  final double rating;
 
-  Review(this.user, this.review, this.date);
+  Review(this.user, this.review, this.date, this.rating);
 
   Widget buildUser(BuildContext context) {
     return Text(user.toString());
@@ -24,8 +26,26 @@ class Review {
     return Text(date);
   }
 
+  double buildRating(BuildContext context) {
+    return rating;
+  }
+
   factory Review.fromJson(Map<String, dynamic> json) {
-    return Review(json['user'].values.elementAt(1), json['review_string'], json['date']);
+    double tempRating;
+
+    if (json['rating'] == 1) {
+      tempRating = 1.0;
+    } else if (json['rating'] == 2) {
+      tempRating = 2.0;
+    } else if (json['rating'] == 3) {
+      tempRating = 3.0;
+    } else if (json['rating'] == 4) {
+      tempRating = 4.0;
+    } else {
+      tempRating = 5.0;
+    }
+
+    return Review(json['user'].values.elementAt(1), json['review_string'], json['date'], tempRating);
   }
 }
 
@@ -203,55 +223,53 @@ class _CafePageState extends State<CafePage> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
-                  child: Expanded(
-                    child: RefreshIndicator(
-                      onRefresh: refreshReviews,
-                      child: ListView.builder(
-                        itemCount: reviews.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                              // width: 400,
-                              margin: const EdgeInsets.all(5),
-                              // color: Colors.amberAccent,
-                              height: 100,
-                              decoration: _getBoxStile(),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Card(
-                                        color: const Color(0xFF75AB98),
-                                        child: Row(
-                                          children: <Widget>[
-                                            CircleAvatar(
-                                              radius: 10,
-                                              // backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
-                                              backgroundImage: AssetImage(
-                                                  'images/profile_picture.png'),
-                                            ),
-                                            // Text(' Hannah Andersson',
-                                            //     style: TextStyle(
-                                            //         color: Colors.white)),
-                                            reviews[index].buildUser(context),
-                                          ],
-                                        ),
-                                      ),
-                                      const Text(
-                                        '                                      ',
-                                      ),
-                                      reviews[index].buildDate(context) // const Text('2022-05-20')
-                                    ],
+                  child: RefreshIndicator(
+                    onRefresh: refreshReviews,
+                    child: ListView.builder(
+                      itemCount: reviews.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          margin: const EdgeInsets.all(5),
+                          //height: 100,
+                          decoration: _getBoxStyle(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              ListTile(
+                                //style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                                leading: const CircleAvatar(
+                                  radius: 10,
+                                  // backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
+                                  backgroundImage:
+                                  AssetImage('images/profile_picture.png'),
+                                ),
+                                title: reviews[index].buildUser(context),
+                                trailing: reviews[index].buildDate(context),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: RatingBarIndicator(
+                                  rating: reviews[index].buildRating(context),
+                                  direction: Axis.horizontal,
+                                  itemCount: 5,
+                                  itemSize: 10.0,
+                                  itemPadding:
+                                  const EdgeInsets.fromLTRB(0, 0, 4, 5),
+                                  itemBuilder: (context, _) => const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
                                   ),
-                                  Center(
-                                    child: reviews[index].buildReview(context),
-                                  ),
-                                ],
-                              ));
-                        },
-                      ),
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                                child: reviews[index].buildReview(context),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -263,7 +281,7 @@ class _CafePageState extends State<CafePage> {
     );
   }
 
-  BoxDecoration _getBoxStile() {
+  BoxDecoration _getBoxStyle() {
     return BoxDecoration(
         color: Colors.white,
         // border: Border.all(color: Colors.black),
