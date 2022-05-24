@@ -12,10 +12,17 @@ import 'package:http/http.dart' as http;
 import 'package:map_launcher/map_launcher.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'CafeItemModel.dart';
+import 'UserModel.dart';
 
 class Heart extends StatefulWidget {
   CafeItem currentCafe;
-  Heart({Key? key, required this.currentCafe}) : super(key: key);
+  UserModel user = new UserModel(userName: "", email: "", password: "");
+  Heart({Key? key, required this.currentCafe, required this.user}) : super(key: key){
+    this.user = user;
+  }
+
+
+
 
   @override
   State<Heart> createState() => _HeartState();
@@ -60,7 +67,7 @@ class _HeartState extends State<Heart> {
     if (isFavorite == false) {
       _addCafeToDataBase();
       Uri addFavouriteUrl = Uri.parse(
-          'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${"sten@gmail.com"}/addfavourite/${widget.currentCafe.id}');
+          'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.user.getEmail}/addfavourite/${widget.currentCafe.id}');
 
       final response = await http.post(addFavouriteUrl);
 
@@ -70,7 +77,7 @@ class _HeartState extends State<Heart> {
       });
     } else {
       Uri deleteFavouriteUrl = Uri.parse(
-          'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${"sten@gmail.com"}/removefavourite/${widget.currentCafe.id}');
+          'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.user.getEmail}/removefavourite/${widget.currentCafe.id}');
 
       final response = await http.delete(deleteFavouriteUrl);
 
@@ -83,7 +90,7 @@ class _HeartState extends State<Heart> {
 
   Future<bool> _checkIfCafeIsFavorite() async {
     Uri getFavouritesUrl = Uri.parse(
-        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${"sten@gmail.com"}/favourites');
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.user.getEmail}/favourites');
 
     final response = await http.get(getFavouritesUrl);
 

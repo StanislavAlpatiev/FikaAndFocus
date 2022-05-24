@@ -145,7 +145,7 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                             ),
                           ),
                         ),
-                        Heart(currentCafe: widget.currentCafe),
+                        Heart(currentCafe: widget.currentCafe, user: widget.user),
                         Container(
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
