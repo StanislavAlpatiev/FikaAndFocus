@@ -74,42 +74,39 @@ class _CafePageState extends State<CafePage> {
         automaticallyImplyLeading: true,
       ),
       body: Stack(children: [
-        Column(children: [
-          Flexible(
-              flex: 4,
-              child: Column(
-                children: [
-                  Text(widget.cafeItem.name),
-                  Row(),
-                  Container(
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.all(8.0),
-                    child: (_futureReview == null)
-                        ? buildColumn()
-                        : buildFutureBuilder(),
-                  ),
-                ],
-              )),
-          Flexible(
-            flex: 5,
-            child: Padding(
-              padding: const EdgeInsets.all(0),
-              child: Container(
-                decoration: const BoxDecoration(
+        CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    Text(widget.cafeItem.name),
+                    Row(),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(8.0),
+                      child: (_futureReview == null)
+                      ? buildColumn()
+                      : buildFutureBuilder(),
+                    ),
+                  ],
+                ),
+              ),
+              SliverList(
+              delegate: SliverChildBuilderDelegate(
+              //itemCount: reviews.length, //attribute from Listview
+              (BuildContext context, int index) => Container(
+                  decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20)),
                   color: Color(0xFF75AB98),
                   // .all(Radius.circular(20))
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: RefreshIndicator(
-                    onRefresh: refreshReviews,
-                    child: ListView.builder(
-                      itemCount: reviews.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: RefreshIndicator(
+                      onRefresh: refreshReviews,
+                      child: Container(
                           margin: const EdgeInsets.all(5),
                           //height: 100,
                           decoration: _getBoxStyle(),
@@ -149,14 +146,13 @@ class _CafePageState extends State<CafePage> {
                               ),
                             ],
                           ),
-                        );
-                      },
+                        ),
+                        ),
+                      ),
                     ),
+                    childCount: reviews.length
                   ),
                 ),
-              ),
-            ),
-          ),
         ]),
       ]),
     );
