@@ -5,14 +5,15 @@ import 'CafeItemModel.dart';
 import 'UserModel.dart';
 
 class Review {
-  final UserModel user;
+  // final UserModel user;
+  final Object user;
   final String review;
   final String date;
 
   Review(this.user, this.review, this.date);
 
   Widget buildUser(BuildContext context) {
-    return Text(user.getUserName);
+    return Text(user.toString());
   }
 
   Widget buildReview(BuildContext context) {
@@ -24,7 +25,7 @@ class Review {
   }
 
   factory Review.fromJson(Map<String, dynamic> json) {
-    return Review(json['user'], json['review_string'], json['date']);
+    return Review(json['user'].values.elementAt(1), json['review_string'], json['date']);
   }
 }
 
@@ -48,10 +49,11 @@ class _CafePageState extends State<CafePage> {
     super.initState();
   }
 
+
+
   Future refreshReviews() async {
     // Uri reviewsURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/ven_304c56776d34454959414e52593058646156516e6158614a496843/all');
-    Uri reviewsURI = Uri.parse(
-        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all');
+    Uri reviewsURI = Uri.parse(        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all');
 
     final response = await http.get(reviewsURI);
 
