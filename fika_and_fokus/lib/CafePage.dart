@@ -31,31 +31,14 @@ class Review {
   }
 
   factory Review.fromJson(Map<String, dynamic> json) {
-
-
-    double tempRating = json['rating'].toDouble();
-
-    // double tempRating;
-    // if (json['rating'] == 1) {
-    //   tempRating = 1.0;
-    // } else if (json['rating'] == 2) {
-    //   tempRating = 2.0;
-    // } else if (json['rating'] == 3) {
-    //   tempRating = 3.0;
-    // } else if (json['rating'] == 4) {
-    //   tempRating = 4.0;
-    // } else {
-    //   tempRating = 5.0;
-    // }
-
-    return Review(json['user'].values.elementAt(1), json['review_string'], json['date'], tempRating);
+    return Review(json['user'].values.elementAt(1), json['review_string'], json['date'], json['rating'].toDouble());
   }
 }
 
 class CafePage extends StatefulWidget {
   final CafeItem cafeItem;
-  final UserModel user;
-  const CafePage(this.cafeItem, this.user, {Key? key}) : super(key: key);
+  UserModel user = new UserModel(userName: "default", email: "", password: "");
+  CafePage(this.cafeItem, this.user, {Key? key}) : super(key: key);
 
   @override
   State<CafePage> createState() => _CafePageState();
@@ -283,7 +266,7 @@ class _CafePageState extends State<CafePage> {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(2, 0, 0, 2),
                       child: Text(
-                        widget.user.getUserName,
+                        widget.user.getEmail,
                         style: GoogleFonts.roboto(fontWeight: FontWeight.w400),
                       ),
                     ),
