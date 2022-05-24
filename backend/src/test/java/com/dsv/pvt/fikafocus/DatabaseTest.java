@@ -1,5 +1,5 @@
 /**
- * Application.properties needs to be changed to direct to test_data before running tests
+ * application.properties in /src/main/resources needs to be changed to direct to test_data before running tests
  * You will also need to run spring boot locally and use local urls instead of tomcat
  */
 
@@ -7,13 +7,18 @@
 
 package com.dsv.pvt.fikafocus;
 import com.dsv.pvt.fikafocus.cafe.Cafe2;
+import com.dsv.pvt.fikafocus.cafe.CafeRepository;
+import com.dsv.pvt.fikafocus.review.ReviewRepository;
+import com.dsv.pvt.fikafocus.user.UserRepository;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -25,10 +30,18 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
+import java.time.LocalDate;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(properties = "spring.profiles.active=test")
+
+@ActiveProfiles("test")
 public class DatabaseTest {
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
+    @Autowired
+    private CafeRepository cafeRepository;
+
     private static Statement stmt;
 
     @BeforeEach
@@ -41,7 +54,8 @@ public class DatabaseTest {
             stmt.executeQuery("delete from review");
             stmt.executeQuery("delete from cafe2");
             stmt.executeQuery("delete from user");
-
+            String date = LocalDate.now().toString();
+            System.out.println(date);
         } catch (
                 SQLException throwables) {
             throwables.printStackTrace();
@@ -61,7 +75,7 @@ public class DatabaseTest {
                     " " + myRs.getString("lng") + " " + myRs.getString("price") +
                     " " + myRs.getString("rating");
         }
-        assertTrue(s.equals("abc123 café street 123 café abc123 123.456 1.01101 4 3"));
+        assertEquals("abc123 café street 123 café abc123 123.456 1.01101 4 3", s);
     }
 
     @Test
@@ -74,7 +88,7 @@ public class DatabaseTest {
             s = myRs.getString("email") + " " + myRs.getString("username") +
                     " " + myRs.getString("pass");
         }
-        assertTrue(s.equals("abc123@gmail.com abc123 123abc"));
+        assertEquals("abc123@gmail.com abc123 123abc", s);
     }
 
     @Test
@@ -94,7 +108,7 @@ public class DatabaseTest {
                     " " + myRs.getString("rating") + " " + myRs.getString("review_string") +
                     " " + myRs.getString("cafe") + " " + myRs.getString("user");;
         }
-        assertTrue(s.equals("1 2020-12-22 4 excellent coffee abc123 abc123@gmail.com"));
+        assertEquals("1 2020-12-22 4 excellent coffee abc123 abc123@gmail.com", s);
     }
 
     @Test
@@ -112,7 +126,7 @@ public class DatabaseTest {
         if ( myRs.next() ) {
             s = myRs.getString("cafe_id") + " " + myRs.getString("user_id");
         }
-        assertTrue(s.equals("abc123 abc123@gmail.com"));
+        assertEquals("abc123 abc123@gmail.com", s);
     }
 
     @Test
@@ -131,7 +145,7 @@ public class DatabaseTest {
             s = myRs.getString("email") + " " + myRs.getString("username") +
                     " " + myRs.getString("pass");
         }
-        assertTrue(s.equals("abc123@gmail.com abc123 123abc"));
+        assertEquals("abc123@gmail.com abc123 123abc", s);
     }
 
     @Test
@@ -152,7 +166,56 @@ public class DatabaseTest {
                     " " + myRs.getString("lng") + " " + myRs.getString("price") +
                     " " + myRs.getString("rating");
         }
-        assertTrue(s.equals("abc123 café street 123 café abc123 123.456 1.01101 4 3"));
+        assertEquals("abc123 café street 123 café abc123 123.456 1.01101 4 3", s);
+    }
+
+    @Test
+    void favouriteAppearsInDataBaseAfterAddingWithHTTP() throws IOException, SQLException{
+        String sqlInsert = "insert into cafe2 (id, address, name, lat, lng, price, rating) " +
+                "values ('abc123', 'café street 123', 'café abc123', '123.456', '1.01101', '4', '3')";
+        stmt.executeUpdate(sqlInsert);
+        String sqlInsert2 = "insert into user (email, username, pass) values ('abc123@gmail.com', 'abc123', '123abc')";
+        stmt.executeUpdate(sqlInsert2);
+        String data = "";
+        URL url = new URL("http://127.0.0.1:8080/cafes/abc123@gmail.com/addfavourite/abc123");
+        URLConnection connection = url.openConnection();
+        HttpURLConnection http = (HttpURLConnection) connection;
+        http.setRequestMethod("POST");
+        http.setDoOutput(true);
+        connection.getOutputStream().write(data.getBytes(StandardCharsets.UTF_8));
+        connection.getInputStream();
+        ResultSet myRs = stmt.executeQuery("select * from favourites");
+        String s = null;
+        if ( myRs.next() ) {
+            s = myRs.getString("cafe_id") + " " + myRs.getString("user_id");
+        }
+        assertEquals("abc123 abc123@gmail.com", s);
+    }
+
+    @Test
+    void reviewAppearsInDataBaseAfterAddingWithHTTP() throws IOException, SQLException{
+        String sqlInsert = "insert into cafe2 (id, address, name, lat, lng, price, rating) " +
+                "values ('abc123', 'café street 123', 'café abc123', '123.456', '1.01101', '4', '3')";
+        stmt.executeUpdate(sqlInsert);
+        String sqlInsert2 = "insert into user (email, username, pass) values ('abc123@gmail.com', 'abc123', '123abc')";
+        stmt.executeUpdate(sqlInsert2);
+        String data = "rating=4&reviewText=excellent coffee&cafeId=abc123&userEmail=abc123@gmail.com";
+        URL url = new URL("http://127.0.0.1:8080/reviews/add");
+        URLConnection connection = url.openConnection();
+        HttpURLConnection http = (HttpURLConnection) connection;
+        http.setRequestMethod("POST");
+        http.setDoOutput(true);
+        connection.getOutputStream().write(data.getBytes(StandardCharsets.UTF_8));
+        connection.getInputStream();
+        ResultSet myRs = stmt.executeQuery("select * from review");
+        String s = null;
+        String date = LocalDate.now().toString();
+        if ( myRs.next() ) {
+            s = 1 + " " + myRs.getString("date") +
+                    " " + myRs.getString("rating") + " " + myRs.getString("review_string") +
+                    " " + myRs.getString("cafe") + " " + myRs.getString("user");;
+        }
+        assertEquals("1 " + date + " 4 excellent coffee abc123 abc123@gmail.com", s);
     }
 
 
