@@ -18,6 +18,7 @@ class BookmarksPage extends StatefulWidget {
 }
 
 class _BookmarksPageState extends State<BookmarksPage> {
+  String markedVenueId = "";
   var cafes = [];
 
   @override
@@ -56,7 +57,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
         backgroundColor: const Color(0xFFE0DBCF),
         appBar: AppBar(
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Favorites',
             style: TextStyle(
               fontFamily: 'Roboto',
@@ -65,15 +66,27 @@ class _BookmarksPageState extends State<BookmarksPage> {
           backgroundColor: const Color(0xFF75AB98),
           automaticallyImplyLeading: false,
         ),
-        body: SafeArea(
-            child: Expanded(
-              child: RefreshIndicator(
-                onRefresh: refreshCafes,
-                child: ListView.builder(
-                  itemCount: cafes.length,
-                  itemBuilder: (context, index) => Card(
+      body: SafeArea(
+          child: Expanded(
+            child: RefreshIndicator(
+              onRefresh: refreshCafes,
+              child: ListView.builder(
+                itemCount: cafes.length,
+                itemBuilder: (context, index) => Dismissible(
+                  background: Container(
+                    color: Colors.red,
+                  ),
+                  key: ValueKey<CafeItem>(cafes[index]),
+                  onDismissed: (DismissDirection direction) {
+                    setState(() {
+                      CafeItem current = cafes[index];
+                      cafes.removeAt(index);
+                      _deleteCafeFromFavorites(current.id);
+                    });
+                  },
+                  child: Card(
                     elevation: 5,
-                    margin: EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(5),
                     child: ListTile(
                       leading: const Icon(
                         Icons.coffee,
@@ -87,23 +100,32 @@ class _BookmarksPageState extends State<BookmarksPage> {
                         direction: Axis.horizontal,
                         itemCount: 5,
                         itemSize: 10.0,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 2.0),
-                        itemBuilder: (context, _) => Icon(
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+                        itemBuilder: (context, _) => const Icon(
                           Icons.star,
                           color: Colors.amber,
                         ),
                       ),
                       onTap: () {
                         Navigator.push(context,
-                            new MaterialPageRoute(builder: (context) => CafePage(cafes[index], widget.user))
+                            MaterialPageRoute(builder: (context) => CafePage(cafes[index], widget.user))
                         );
                       },
                     ),
                   ),
                 ),
               ),
-            )
-        )
+            ),
+          )
+      )
     );
   }
+}
+
+_deleteCafeFromFavorites(String mvid) async {
+  Uri deleteFavouriteUrl = Uri.parse(
+      'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/'
+          'cafes/${"sten@gmail.com"}/removefavourite/${mvid}');
+
+  final response = await http.delete(deleteFavouriteUrl);
 }
