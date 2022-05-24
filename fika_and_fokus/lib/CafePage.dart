@@ -31,19 +31,22 @@ class Review {
   }
 
   factory Review.fromJson(Map<String, dynamic> json) {
-    double tempRating;
 
-    if (json['rating'] == 1) {
-      tempRating = 1.0;
-    } else if (json['rating'] == 2) {
-      tempRating = 2.0;
-    } else if (json['rating'] == 3) {
-      tempRating = 3.0;
-    } else if (json['rating'] == 4) {
-      tempRating = 4.0;
-    } else {
-      tempRating = 5.0;
-    }
+
+    double tempRating = json['rating'].toDouble();
+
+    // double tempRating;
+    // if (json['rating'] == 1) {
+    //   tempRating = 1.0;
+    // } else if (json['rating'] == 2) {
+    //   tempRating = 2.0;
+    // } else if (json['rating'] == 3) {
+    //   tempRating = 3.0;
+    // } else if (json['rating'] == 4) {
+    //   tempRating = 4.0;
+    // } else {
+    //   tempRating = 5.0;
+    // }
 
     return Review(json['user'].values.elementAt(1), json['review_string'], json['date'], tempRating);
   }
@@ -227,7 +230,7 @@ class _CafePageState extends State<CafePage> {
      */
 
     Uri new_review = Uri.parse(
-        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=$rating&reviewText=$review&cafeId=${widget.cafeItem.id}&userEmail=${widget.user.getEmail}');
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=${rating}&reviewText=$review&cafeId=${widget.cafeItem.id}&userEmail=${widget.user.getEmail}');
 
     final response = await http.post(new_review);
 
