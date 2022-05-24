@@ -36,16 +36,16 @@ class _ProfilePageState extends State<ProfilePage> {
         centerTitle: true,
         actions: [
           // Temporary button - testing state management
-          TextButton(
-            child: Text('Logout'),
-            onPressed: () {
-              final provider = Provider.of<GoogleSignInProvider>(
-                  context, listen: false);
-              provider.signOutWithGoogle();
-              // Navigator.of(context).push(MaterialPageRoute(builder:
-              //     (context) => LogIn()));
-            },
-          ),
+          // TextButton(
+          //   child: Text('Logout'),
+          //   onPressed: () {
+          //     final provider = Provider.of<GoogleSignInProvider>(
+          //         context, listen: false);
+          //     provider.signOutWithGoogle();
+          //     // Navigator.of(context).push(MaterialPageRoute(builder:
+          //     //     (context) => LogIn()));
+          //   },
+          // ),
           PopupMenuButton<int>(
               onSelected: (item) => onSelected(context, item),
               itemBuilder: (context) => [
