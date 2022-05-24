@@ -91,7 +91,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                       leading: const Icon(
                         Icons.coffee,
                         size: 56.0,
-                        color: Color(0xFF75AB98),
+                        color: Color(0xFF696969),
                       ),
                       title: cafes[index].buildTitle(context),
                       subtitle: cafes[index].buildPrice(context),

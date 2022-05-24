@@ -46,7 +46,7 @@ class _SignUpState extends State<SignUp> {
           child: Scaffold(
             backgroundColor: Color(0xFF75AB98),
             body: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 16),
+              padding: const EdgeInsets.fromLTRB(30, 50, 30, 0),
               child: SingleChildScrollView(
                 child: Column(
                   // ignore: prefer_const_literals_to_create_immutables

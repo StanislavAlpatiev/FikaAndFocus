@@ -22,6 +22,7 @@ class _ChangeLanguagePageState extends State<ChangeLanguage> {
       body:
           //mainAxisAlignment: MainAxisAlignment.start,
           Container(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: Column(
           children: [
             Text('   '),
