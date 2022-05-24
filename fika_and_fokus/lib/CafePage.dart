@@ -5,10 +5,15 @@ import 'CafeItemModel.dart';
 import 'UserModel.dart';
 
 class Review {
+  final UserModel user;
   final String review;
   final String date;
 
-  Review(this.review, this.date);
+  Review(this.user, this.review, this.date);
+
+  Widget buildUser(BuildContext context) {
+    return Text(user.getUserName);
+  }
 
   Widget buildReview(BuildContext context) {
     return Text(review);
@@ -19,7 +24,7 @@ class Review {
   }
 
   factory Review.fromJson(Map<String, dynamic> json) {
-    return Review(json['review_string'], json['date']);
+    return Review(json['user'], json['review_string'], json['date']);
   }
 }
 
@@ -95,7 +100,7 @@ class _CafePageState extends State<CafePage> {
      */
 
     Uri new_review = Uri.parse(
-        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText=$review&cafeId=${widget.cafeItem.id}&userEmail=sten@gmail.com');
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText=$review&cafeId=${widget.cafeItem.id}&userEmail=${widget.user.getEmail}');
 
     final response = await http.post(new_review);
 
@@ -218,16 +223,17 @@ class _CafePageState extends State<CafePage> {
                                       Card(
                                         color: const Color(0xFF75AB98),
                                         child: Row(
-                                          children: const [
+                                          children: <Widget>[
                                             CircleAvatar(
                                               radius: 10,
                                               // backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
                                               backgroundImage: AssetImage(
                                                   'images/profile_picture.png'),
                                             ),
-                                            Text(' Hannah Andersson',
-                                                style: TextStyle(
-                                                    color: Colors.white)),
+                                            // Text(' Hannah Andersson',
+                                            //     style: TextStyle(
+                                            //         color: Colors.white)),
+                                            reviews[index].buildUser(context),
                                           ],
                                         ),
                                       ),
