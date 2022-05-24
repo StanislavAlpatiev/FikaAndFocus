@@ -20,6 +20,9 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passCtrl = TextEditingController();
   TextEditingController confPassCtrl = TextEditingController();
   late UserModel userModel;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
   @override
   Widget build(BuildContext context) {
     TextStyle textStyle = const TextStyle(
@@ -33,6 +36,7 @@ class _SignUpState extends State<SignUp> {
     );
 
     return MaterialApp(
+      scaffoldMessengerKey: rootScaffoldMessengerKey,
       home: Container(
         // decoration: BoxDecoration(
         //   image: DecorationImage(
@@ -48,263 +52,283 @@ class _SignUpState extends State<SignUp> {
             body: Padding(
               padding: const EdgeInsets.fromLTRB(30, 50, 30, 0),
               child: SingleChildScrollView(
-                child: Column(
-                  // ignore: prefer_const_literals_to_create_immutables
-                  children: <Widget>[
-                    // ignore: prefer_const_constructors
-                    Image.asset('images/logo-white.png',
-                        width: 600, height: 200),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Card(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    // ignore: prefer_const_literals_to_create_immutables
+                    children: <Widget>[
                       // ignore: prefer_const_constructors
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 10),
-                        child: TextFormField(
-                          cursorColor: Color(0xFF75AB98),
-                          controller: userCtrl,
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return 'please enter your username';
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 0,
-                                vertical: 5),
-                            border: InputBorder.none,
-                            prefixIcon: Align(
-                              widthFactor: 1.0,
-                              heightFactor: 1.0,
-                              child: FaIcon(
-                                FontAwesomeIcons.solidUser,
-                                color: Color(0xFF696969),
-                              ),
-                            ),
-                            labelText: 'Username',
-                            labelStyle: TextStyle(
-                              color: Color(0xFF696969),
-                              fontSize: 20,
-                            ),
-                          ),
-                          style:
-                              GoogleFonts.roboto(fontWeight: FontWeight.w300),
-                        ),
+                      Image.asset('images/logo-white.png',
+                          width: 600, height: 200),
+                      const SizedBox(
+                        height: 10,
                       ),
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Card(
-                      // ignore: prefer_const_constructors
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 10),
-                        child: TextFormField(
-                          cursorColor: Color(0xFF75AB98),
-                          controller: mailCtrl,
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return 'please enter your email';
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 0,
-                                vertical: 5),
-                            border: InputBorder.none,
-                            prefixIcon: Align(
-                              widthFactor: 1.0,
-                              heightFactor: 1.0,
-                              child: FaIcon(
-                                FontAwesomeIcons.at,
-                                color: Color(0xFF696969),
-                              ),
-                            ),
-                            labelText: 'Email',
-                            labelStyle: TextStyle(
-                              color: Color(0xFF696969),
-                              fontSize: 20,
-                            ),
-                          ),
-                          style:
-                              GoogleFonts.roboto(fontWeight: FontWeight.w300),
-                        ),
-                      ),
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Card(
-                      // ignore: prefer_const_constructors
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 10),
-                        child: TextFormField(
-                          cursorColor: Color(0xFF75AB98),
-                          controller: passCtrl,
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return 'please enter your username';
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 0,
-                                vertical: 5),
-                            border: InputBorder.none,
-                            prefixIcon: Align(
-                              widthFactor: 1.0,
-                              heightFactor: 1.0,
-                              child: FaIcon(
-                                FontAwesomeIcons.lock,
-                                color: Color(0xFF696969),
-                              ),
-                            ),
-                            labelText: 'Password',
-                            labelStyle: TextStyle(
-                              color: Color(0xFF696969),
-                              fontSize: 20,
-                            ),
-                          ),
-                          style:
-                              GoogleFonts.roboto(fontWeight: FontWeight.w300),
-                        ),
-                      ),
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Card(
-                      // ignore: prefer_const_constructors
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 10),
-                        child: TextFormField(
-                          cursorColor: Color(0xFF75AB98),
-                          controller: confPassCtrl,
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return 'please enter your username';
-                            }
-                            return null;
-                          },
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 0,
-                                vertical: 5),
-                            border: InputBorder.none,
-                            prefixIcon: Align(
-                              widthFactor: 1.0,
-                              heightFactor: 1.0,
-                              child: FaIcon(
-                                FontAwesomeIcons.lock,
-                                color: Color(0xFF696969),
-                              ),
-                            ),
-                            labelText: 'Confirm password',
-                            labelStyle: TextStyle(
-                              color: Color(0xFF696969),
-                              fontSize: 20,
-                            ),
-                          ),
-                          style:
-                              GoogleFonts.roboto(fontWeight: FontWeight.w300),
-                        ),
-                      ),
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      height: 50,
-                      width: 300,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 0, horizontal: 4),
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          String username = userCtrl.text;
-                          String email = mailCtrl.text;
-                          String pass = passCtrl.text;
-                          //String confirmPass = confPassCtrl.text;
-
-                          registerUser(email, username, pass, context);
-                          // UserModel user = await registerUser(
-                          //     username, email, pass, confirmPass, context);
-                          userCtrl.text = '';
-                          mailCtrl.text = '';
-                          passCtrl.text = '';
-                          confPassCtrl.text = '';
-                          // setState(() {
-                          //   userModel = user;
-                          // });
-                        },
-                        child: Text(
-                          'SIGN UP',
-                          style: GoogleFonts.oswald(
-                              fontSize: 28, fontWeight: FontWeight.normal),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color(0xFF871801),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 26,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: <Widget>[
-                        Text(
-                          "Already have an account?",
-                          style: GoogleFonts.roboto(
-                              textStyle: const TextStyle(
-                                  color: Color(0xFFFFFFFF), letterSpacing: .5),
-                              fontSize: 15.00,
-                              fontWeight: FontWeight.w300),
-                          textAlign: TextAlign.center,
-                        ),
-
+                      Card(
                         // ignore: prefer_const_constructors
-                        InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 10),
+                          child: TextFormField(
+                            cursorColor: Color(0xFF75AB98),
+                            controller: userCtrl,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'please enter your username';
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(horizontal: 0,
+                                  vertical: 5),
+                              border: InputBorder.none,
+                              prefixIcon: Align(
+                                widthFactor: 1.0,
+                                heightFactor: 1.0,
+                                child: FaIcon(
+                                  FontAwesomeIcons.solidUser,
+                                  color: Color(0xFF696969),
+                                ),
+                              ),
+                              labelText: 'Username',
+                              labelStyle: TextStyle(
+                                color: Color(0xFF696969),
+                                fontSize: 20,
+                              ),
+                            ),
+                            style:
+                                GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                          ),
+                        ),
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Card(
+                        // ignore: prefer_const_constructors
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 10),
+                          child: TextFormField(
+                            cursorColor: Color(0xFF75AB98),
+                            controller: mailCtrl,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'please enter your email';
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(horizontal: 0,
+                                  vertical: 5),
+                              border: InputBorder.none,
+                              prefixIcon: Align(
+                                widthFactor: 1.0,
+                                heightFactor: 1.0,
+                                child: FaIcon(
+                                  FontAwesomeIcons.at,
+                                  color: Color(0xFF696969),
+                                ),
+                              ),
+                              labelText: 'Email',
+                              labelStyle: TextStyle(
+                                color: Color(0xFF696969),
+                                fontSize: 20,
+                              ),
+                            ),
+                            style:
+                                GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                          ),
+                        ),
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Card(
+                        // ignore: prefer_const_constructors
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 10),
+                          child: TextFormField(
+                            cursorColor: Color(0xFF75AB98),
+                            controller: passCtrl,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'please enter your password';
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(horizontal: 0,
+                                  vertical: 5),
+                              border: InputBorder.none,
+                              prefixIcon: Align(
+                                widthFactor: 1.0,
+                                heightFactor: 1.0,
+                                child: FaIcon(
+                                  FontAwesomeIcons.lock,
+                                  color: Color(0xFF696969),
+                                ),
+                              ),
+                              labelText: 'Password',
+                              labelStyle: TextStyle(
+                                color: Color(0xFF696969),
+                                fontSize: 20,
+                              ),
+                            ),
+                            style:
+                                GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                          ),
+                        ),
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Card(
+                        // ignore: prefer_const_constructors
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 0, horizontal: 10),
+                          child: TextFormField(
+                            cursorColor: Color(0xFF75AB98),
+                            controller: confPassCtrl,
+                            validator: (String? value) {
+                              if (value == null || value.isEmpty) {
+                                return 'please enter password';
+                              }
+                              return null;
+                            },
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(horizontal: 0,
+                                  vertical: 5),
+                              border: InputBorder.none,
+                              prefixIcon: Align(
+                                widthFactor: 1.0,
+                                heightFactor: 1.0,
+                                child: FaIcon(
+                                  FontAwesomeIcons.lock,
+                                  color: Color(0xFF696969),
+                                ),
+                              ),
+                              labelText: 'Confirm password',
+                              labelStyle: TextStyle(
+                                color: Color(0xFF696969),
+                                fontSize: 20,
+                              ),
+                            ),
+                            style:
+                                GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                          ),
+                        ),
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        height: 50,
+                        width: 300,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 4),
+                        child: ElevatedButton(
+                          onPressed: () async {
+
+                            if (!_formKey.currentState!.validate())
+                              return;
+
+                            final snackBar = SnackBar(
+                                content: Text(
+                                    "passwords doesnt seem to match")
+                            );
+
+                            String username = userCtrl.text;
+                            String email = mailCtrl.text;
+                            String pass = passCtrl.text;
+                            String confirmPass = confPassCtrl.text;
+
+
+                            if (pass != confirmPass){
+                              rootScaffoldMessengerKey.currentState!.showSnackBar(snackBar);
+                              return;
+                            }
+
+
+                            registerUser(email, username, pass, confirmPass, context);
+                            // UserModel user = await registerUser(
+                            //     username, email, pass, confirmPass, context);
+                            userCtrl.text = '';
+                            mailCtrl.text = '';
+                            passCtrl.text = '';
+                            confPassCtrl.text = '';
+                            // setState(() {
+                            //   userModel = user;
+                            // });
+
+                          },
                           child: Text(
-                            " Log in here",
+                            'SIGN UP',
+                            style: GoogleFonts.oswald(
+                                fontSize: 28, fontWeight: FontWeight.normal),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: const Color(0xFF871801),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 26,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: <Widget>[
+                          Text(
+                            "Already have an account?",
                             style: GoogleFonts.roboto(
                                 textStyle: const TextStyle(
-                                  color: Color(0xFF871801),
-                                ),
+                                    color: Color(0xFFFFFFFF), letterSpacing: .5),
                                 fontSize: 15.00,
-                                fontWeight: FontWeight.w500),
+                                fontWeight: FontWeight.w300),
                             textAlign: TextAlign.center,
                           ),
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                        )
-                      ],
-                    )
-                  ],
+
+                          // ignore: prefer_const_constructors
+                          InkWell(
+                            child: Text(
+                              " Log in here",
+                              style: GoogleFonts.roboto(
+                                  textStyle: const TextStyle(
+                                    color: Color(0xFF871801),
+                                  ),
+                                  fontSize: 15.00,
+                                  fontWeight: FontWeight.w500),
+                              textAlign: TextAlign.center,
+                            ),
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -315,9 +339,11 @@ class _SignUpState extends State<SignUp> {
   }
 
   Future<UserModel> registerUser(String email, String username, String password,
-      BuildContext context) async {
+      String confirmPass, BuildContext context) async {
+
     print("test");
-    Uri url = Uri.parse("http://192.168.0.14:8080/user/add?"
+    //Uri url = Uri.parse("http://192.168.0.14:8080/user/add?"
+    Uri url = Uri.parse("https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/user/add?" +
             "email=" +
         email +
         "&username=" +
@@ -333,6 +359,7 @@ class _SignUpState extends State<SignUp> {
       UserModel user =
           UserModel(email: email, userName: username, password: password);
       print(user.toString());
+
       return user;
     } else {
       throw "Error: " + response.statusCode.toString();
