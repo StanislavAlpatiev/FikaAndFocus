@@ -52,7 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     const PopupMenuItem<int>(
                       value: 0,
                       child: Text(
-                          'Account'), //Account - account settings such as change name or phonenumber
+                          'Settings'), //Account - account settings such as change name or phonenumber
                     ),
                     const PopupMenuDivider(),
                     PopupMenuItem<int>(
