@@ -31,7 +31,12 @@ class _AccountSettingsPageState extends State<AccountSettings> {
       body: SettingsList(
         sections: [
           SettingsSection(
-            title: const Text('Common'),
+            title: Text('Common',
+              style: GoogleFonts.roboto(
+                  textStyle: const TextStyle(
+                      color: Color(0xFF75AB98),
+                      letterSpacing: 0.5),
+                fontWeight: FontWeight.w500),),
             tiles: [
               SettingsTile(
                   title: const Text('Language'),
@@ -60,7 +65,12 @@ class _AccountSettingsPageState extends State<AccountSettings> {
             ],
           ),
           SettingsSection(
-            title: const Text('Account'),
+            title: Text('Account',
+              style: GoogleFonts.roboto(
+                  textStyle: const TextStyle(
+                      color: Color(0xFF75AB98),
+                      letterSpacing: 0.5),
+                  fontWeight: FontWeight.w500),),
             tiles: [
               //TODO - redirections should happen when pressed!
               SettingsTile(
