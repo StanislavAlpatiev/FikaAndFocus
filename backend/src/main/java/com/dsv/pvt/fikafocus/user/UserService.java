@@ -47,16 +47,6 @@ public class UserService {
         }
     }
 
-    public List<UserEntity> addNewUsers(List<UserEntity> newUsers) {
-        try {
-            return userRepo.saveAll(newUsers);
-        } catch (Exception e) {
-            System.out.println("Tried to add a list of users!");
-            throw e;
-        }
-    }
-
-
     public UserEntity updateUser(UserEntity user) {
         try {
             UserEntity existingUser = userRepo.findById(user.getEmail()).orElse(null);

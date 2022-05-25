@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -37,8 +36,9 @@ public class ReviewController {
 
 
     @PostMapping(path="/add") // Map ONLY POST Requests
-    public @ResponseBody String addNewReview (
-            @RequestParam Integer rating,
+    public @ResponseBody
+    Review addNewReview (
+            @RequestParam String rating,
             @RequestParam String reviewText,
             @RequestParam String cafeId,
             @RequestParam String userEmail
@@ -63,8 +63,7 @@ public class ReviewController {
         cafeTemp.addReview(review);
         userTemp.addReview(review);
 
-        reviewRepository.save(review);
-        return "Saved";
+        return reviewRepository.save(review);
     }
 
     @GetMapping(path="/users/{user}")
@@ -75,7 +74,7 @@ public class ReviewController {
         return null;
     }
 
-    @PostMapping(path="/add/test") // Map ONLY POST Requests
+ /*   @PostMapping(path="/add/test") // Map ONLY POST Requests
     public @ResponseBody String testAddReview ()
     {
         Review review = new Review();
@@ -90,7 +89,7 @@ public class ReviewController {
         reviewRepository.save(review);
         return "Saved";
     }
-
+*/
     @GetMapping("/{id}")
     public Review reviewById(@PathVariable("id") Integer id ){
         Optional<Review> optionalReview = reviewRepository.findById(id);
@@ -102,7 +101,7 @@ public class ReviewController {
 
 
     @PutMapping("/{reviewId}/cafes/{cafeId}")
-    public String assignCafeToReview(
+    public Review assignCafeToReview(
             @PathVariable Integer reviewId,
             @PathVariable String cafeId
     ){
@@ -112,8 +111,7 @@ public class ReviewController {
        review.get().setCafe(cafe.get());
        cafe.get().addReview(review.get());
 
-       reviewRepository.save(review.get());
-       return "Saved";
+       return reviewRepository.save(review.get());
     }
 
 }

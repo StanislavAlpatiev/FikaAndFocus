@@ -23,7 +23,7 @@ public class Cafe2 {
         this.address = address;
     }
 
-    public Cafe2(String id,String name, String address, String lat,String lng, String rating, String price){
+    public Cafe2(String id,String name,String address,String lat,String lng,String rating,String price){
         this.id = id;
         this.name = name;
         this.address = address;
@@ -43,9 +43,7 @@ public class Cafe2 {
     private String rating;
     private String price;
 
-    public String getLat(){
-        return lat;
-    }
+   /* public String getLat(){return lat;}
 
     public String getLng(){
         return lng;
@@ -58,7 +56,7 @@ public class Cafe2 {
     public String getPrice(){
         return price;
     }
-
+*/
     public void setLat(String lat){
         this.lat = lat;
     }
@@ -75,10 +73,10 @@ public class Cafe2 {
         this.price = price;
     }
 
-    public void setReviewSet(Set<Review> reviewSet){
+  /*  public void setReviewSet(Set<Review> reviewSet){
         this.reviewSet = reviewSet;
     }
-
+*/
     @JsonIgnore // to avoid recursive problem in relationship
     @OneToMany(mappedBy = "cafe2")
     private Set<Review> reviewSet = new HashSet<Review>();
@@ -100,11 +98,11 @@ public class Cafe2 {
     private Set<UserEntity> users = new HashSet<>();
 
 
-    public Set<Review> getReviewSet() {
+    public Set<Review> getReviewSet(){
         return reviewSet;
     }
 
-    public void addReview(Review review) {
+    public void addReview(Review review){
         reviewSet.add(review);
     }
 
@@ -117,20 +115,20 @@ public class Cafe2 {
     }
 
 
-    public String getId() {
+    public String getId(){
         return id;
     }
 
 
-    public void setId(String id) {
+    public void setId(String id){
         this.id = id;
     }
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name){
         this.name = name;
     }
 }

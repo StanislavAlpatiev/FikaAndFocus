@@ -91,7 +91,7 @@ public class UserController {
         return userService.deleteAll();
     }
 
-    private String sendAPIRequest(String url){
+ /*   private String sendAPIRequest(String url){
         try {
             URL testUrl = new URL(url);
             URLConnection urlConnection = testUrl.openConnection();
@@ -111,5 +111,5 @@ public class UserController {
             return e.getMessage();
         }
     }
-
+*/
 }

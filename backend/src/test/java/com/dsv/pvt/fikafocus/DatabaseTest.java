@@ -131,7 +131,7 @@ public class DatabaseTest {
         }
         assertEquals("abc123 abc123@gmail.com", s);
     }
-
+/*
     @Test
     void userAppearsInDataBaseAfterAddingWithHTTP() throws IOException, SQLException{
         String data = "email=abc123@gmail.com&username=abc123&password=123abc";
@@ -280,7 +280,7 @@ public class DatabaseTest {
     }
 
     @Test
-    void removingFavouriteByHTTP() throws IOException, SQLException{
+    void removingFavouriteByHTTPRemovesCafe() throws IOException, SQLException{
         String sqlInsert = "insert into cafe2 (id, address, name, lat, lng, price, rating) " +
                 "values ('abc123', 'café street 123', 'café abc123', '123.456', '1.01101', '4', '3')";
         stmt.executeUpdate(sqlInsert);
@@ -339,5 +339,5 @@ public class DatabaseTest {
         assertEquals("\"excellent coffee\"", cafe);
     }
 
-
+*/
 }
