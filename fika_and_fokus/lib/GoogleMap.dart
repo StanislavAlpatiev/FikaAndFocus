@@ -85,21 +85,30 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
 
       Positioned(
           bottom: 11,
-          right: 60,
+          right: 30,
           child: ElevatedButton(
-              child: Icon(Icons.attribution, color: Colors.deepOrangeAccent),
-              style: TextButton.styleFrom(backgroundColor: Colors.white),
+              child: Icon(Icons.attribution, color: Color(0xFFB95815)),
+              style: ElevatedButton.styleFrom(primary: Color(0xFFFFFFFF),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  )
+              ),
               onPressed: _animateToUser)),
 
       Positioned(
           bottom: 11,
-          right: 140,
+          right: 110,
           child: Visibility(
             visible: true,
             maintainInteractivity: false,
             child: ElevatedButton(
-                child: Icon(Icons.search, color: Colors.white),
-                style: TextButton.styleFrom(backgroundColor: Colors.blue),
+                child: Icon(Icons.search, color: Color(0xFFFFFFFF)),
+                // style: TextButton.styleFrom(backgroundColor: Colors.blue),
+                style: ElevatedButton.styleFrom(primary: Color(0xFF75AB98),
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  )
+                ),
                 onPressed: _changeVisibility),
           )),
 

@@ -1,6 +1,8 @@
 import 'package:fika_and_fokus/LogIn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'AccountSettings.dart';
 import 'SignOut.dart';
 import 'package:provider/provider.dart';
@@ -25,27 +27,13 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: const Color(0xFFE0DBCF), //BACKGROUND COLOR
       appBar: AppBar(
-        title: const Text(
-          'Profile',
-          style: TextStyle(
-            fontFamily: 'Roboto',
-          ),
+        title: Text('Profile',
+          style: GoogleFonts.roboto(fontWeight: FontWeight.normal),
         ),
         backgroundColor: const Color(0xFF75AB98),
         automaticallyImplyLeading: false,
         centerTitle: true,
         actions: [
-          // Temporary button - testing state management
-          // TextButton(
-          //   child: Text('Logout'),
-          //   onPressed: () {
-          //     final provider = Provider.of<GoogleSignInProvider>(
-          //         context, listen: false);
-          //     provider.signOutWithGoogle();
-          //     // Navigator.of(context).push(MaterialPageRoute(builder:
-          //     //     (context) => LogIn()));
-          //   },
-          // ),
           PopupMenuButton<int>(
               onSelected: (item) => onSelected(context, item),
               itemBuilder: (context) => [
@@ -71,98 +59,141 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            const Text('                           '), //Creates space
-            const Text('                           '), //Creates space
-            Center(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 100,
-                    // backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
-                    backgroundImage: AssetImage('images/profile_picture.png'),
-                  ),
-                   Text(
-                    // 'WELCOME ' + user.displayName!,
-                     'WELCOME ' + widget.user.getEmail,
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w500,
-                      color: Color(0xFF75AB98),
-                      letterSpacing: 2.5,
-                      height: 2,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 60, 0, 0),
+              child: Center(
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 100,
+                      // backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
+                      backgroundImage: AssetImage('images/profile_coffee.jpg'),
                     ),
-                  ),
-                  const Text(
-                    '___________________________________________________________',
-                    style: TextStyle(color: Color(0xFF75AB98)),
-                  ),
-                  Text('                     '),
-                  Text('                     '),
-                  Text('                     '),
-                  Text('                     '),
-                  Text('                     '),
-                ],
+                     Padding(
+                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                       child: Text(
+                        // 'WELCOME ' + user.displayName!,
+                         'Hi ' + widget.user.getEmail + ' !',
+                         style: GoogleFonts.oswald(
+                           fontWeight: FontWeight.normal,
+                           fontSize: 25,
+                           color: const Color(0xFF696969),
+                           letterSpacing: 2.5,
+                           height: 2,
+                        ),
+                       ),
+                     ),
+                    const Text(
+                      '___________________________________________________________',
+                      style: TextStyle(color: Color(0xFF696969)),
+                    ),
+                  ],
+                ),
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: const [
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(text: '     '), //Creates space
-                      WidgetSpan(
-                        child: Icon(
-                          Icons.local_cafe_rounded,
-                          color: Color(0xFF75AB98),
-                          size: 35,
-                        ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 60, 20, 0),
+              child: Center(
+                child: Column(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Row(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(left: 50),
+                            child: FaIcon(
+                              Icons.coffee,
+                              color: Color(0xFF75AB98),
+                              size: 35,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Text('Visited cafés: ',
+                              style: GoogleFonts.oswald(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w300,
+                                color: const Color(0xFF696969),
+                                letterSpacing: 2.5,
+                                ),
+                            )
+                          ),
+                          Text('10',
+                            style: GoogleFonts.oswald(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w300,
+                              color: const Color(0xFF75AB98),
+                              letterSpacing: 2.5,
+                            ),
+                          )
+                        ]
                       ),
-                      TextSpan(
-                        //TODO get name of individual
-                        text: '   Visited cafés: -NR-',
-
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w300,
-                          color: Color(0xFF75AB98),
-                          letterSpacing: 2.5,
-                          height: 4,
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Row(
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(left: 50),
+                              child: FaIcon(
+                                Icons.rate_review,
+                                color: Color(0xFF75AB98),
+                                size: 35,
+                              ),
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Text('Posted reviews: ',
+                                  style: GoogleFonts.oswald(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.w300,
+                                    color: const Color(0xFF696969),
+                                    letterSpacing: 2.5,
+                                  ),
+                                )
+                            ),
+                            Text('10',
+                              style: GoogleFonts.oswald(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w300,
+                                color: const Color(0xFF75AB98),
+                                letterSpacing: 2.5,
+                              ),
+                            )
+                          ]
                       ),
-                    ],
-                  ),
+                    ),//Creates space
+                    // Text.rich(
+                    //   TextSpan(
+                    //     children: [
+                    //       TextSpan(text: '     '), //Creates space
+                    //       WidgetSpan(
+                    //         child: Icon(
+                    //           Icons.rate_review,
+                    //           color: Color(0xFF75AB98),
+                    //           size: 35,
+                    //         ),
+                    //       ),
+                    //       TextSpan(
+                    //         text: '  Posted reviews: -NR- ',
+                    //         style: TextStyle(
+                    //           fontSize: 25,
+                    //           fontFamily: 'Roboto',
+                    //           fontWeight: FontWeight.w300,
+                    //           color: Color(0xFF75AB98),
+                    //           letterSpacing: 2.5,
+                    //           height: 2,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                  ],
                 ),
-                Text('   '), //Creates space
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(text: '     '), //Creates space
-                      WidgetSpan(
-                        child: Icon(
-                          Icons.rate_review,
-                          color: Color(0xFF75AB98),
-                          size: 35,
-                        ),
-                      ),
-                      TextSpan(
-                        //TODO get name of individual
-                        text: '  Posted reviews: -NR- ',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.w300,
-                          color: Color(0xFF75AB98),
-                          letterSpacing: 2.5,
-                          height: 2,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           ],
         ),

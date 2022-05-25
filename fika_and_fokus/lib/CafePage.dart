@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'CafeItemModel.dart';
+import 'GoogleMapMarkerInfoWindow.dart';
 import 'ReviewPage.dart';
 import 'UserModel.dart';
 
@@ -42,99 +43,109 @@ class _CafePageState extends State<CafePage> {
         backgroundColor: const Color(0xFF75AB98),
         automaticallyImplyLeading: true,
       ),
-      body: Stack(children: [
-        CustomScrollView(slivers: [
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                Text(widget.cafeItem.name),
-                Row(),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ReviewPage(widget.cafeItem, widget.user)));
-                    },
-                    child: Text(
-                      'POST A REVIEW',
-                      style: GoogleFonts.oswald(
-                          fontSize: 18, fontWeight: FontWeight.normal),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFF696969),
-                    ),
-                  ),
-                ]),
-              ],
-            ),
+      body: CustomScrollView(
+        slivers: [
+        SliverAppBar(
+          expandedHeight: 300,
+          backgroundColor: Colors.deepPurple,
+          leading: Icon(Icons.arrow_back),
+          floating: true,
+          pinned: true,
+          flexibleSpace: FlexibleSpaceBar(
+            title: Text('F A N C Y A P P B A R'),
+            background: Container(color: Colors.deepPurple[700]),
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-                //itemCount: reviews.length, //attribute from Listview
-                (BuildContext context, int index) => Container(
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20)),
-                        color: Color(0xFF75AB98),
-                        // .all(Radius.circular(20))
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: RefreshIndicator(
-                          onRefresh: refreshReviews,
-                          child: Container(
-                            margin: const EdgeInsets.all(5),
-                            //height: 100,
-                            decoration: _getBoxStyle(),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                ListTile(
-                                  //style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
-                                  leading: const CircleAvatar(
-                                    radius: 10,
-                                    // backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
-                                    backgroundImage: AssetImage(
-                                        'images/profile_picture.png'),
+        ),
+        SliverToBoxAdapter(
+          child: Column(
+            children: [
+              Text(widget.cafeItem.name),
+              Row(),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ReviewPage(widget.cafeItem, widget.user)));
+                  },
+                  child: Text(
+                    'POST A REVIEW',
+                    style: GoogleFonts.oswald(
+                        fontSize: 18, fontWeight: FontWeight.normal),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: const Color(0xFF696969),
+                  ),
+                ),
+              ]),
+            ],
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+              //itemCount: reviews.length, //attribute from Listview
+              (BuildContext context, int index) => Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20)),
+                      color: Color(0xFF75AB98),
+                      // .all(Radius.circular(20))
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: RefreshIndicator(
+                        onRefresh: refreshReviews,
+                        child: Container(
+                          margin: const EdgeInsets.all(5),
+                          //height: 100,
+                          decoration: _getBoxStyle(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              ListTile(
+                                //style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                                leading: const CircleAvatar(
+                                  radius: 10,
+                                  // backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
+                                  backgroundImage: AssetImage(
+                                      'images/profile_picture.png'),
+                                ),
+                                title: reviews[index].buildUser(context),
+                                trailing: reviews[index].buildDate(context),
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: RatingBarIndicator(
+                                  rating: reviews[index].buildRating(context),
+                                  direction: Axis.horizontal,
+                                  itemCount: 5,
+                                  itemSize: 10.0,
+                                  itemPadding:
+                                      const EdgeInsets.fromLTRB(0, 0, 4, 5),
+                                  itemBuilder: (context, _) => const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
                                   ),
-                                  title: reviews[index].buildUser(context),
-                                  trailing: reviews[index].buildDate(context),
                                 ),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                  child: RatingBarIndicator(
-                                    rating: reviews[index].buildRating(context),
-                                    direction: Axis.horizontal,
-                                    itemCount: 5,
-                                    itemSize: 10.0,
-                                    itemPadding:
-                                        const EdgeInsets.fromLTRB(0, 0, 4, 5),
-                                    itemBuilder: (context, _) => const Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                                  child: reviews[index].buildReview(context),
-                                ),
-                              ],
-                            ),
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                                child: reviews[index].buildReview(context),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
-                childCount: reviews.length),
-          ),
-        ]),
+                  ),
+              childCount: reviews.length),
+        ),
       ]),
     );
   }
