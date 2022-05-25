@@ -51,7 +51,7 @@ class _NavBarState extends State<NavBar> {
             //backgroundColor: Colors.black,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
+            icon: Icon(Icons.favorite),
             label: 'Favorites',
             // backgroundColor: Colors.black,
           ),
