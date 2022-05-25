@@ -11,7 +11,7 @@ public class Review {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-    private Integer rating;
+    private String rating;
     private String review_string;
     private String date;
 
@@ -51,11 +51,11 @@ public class Review {
         this.id = id;
     }
 
-    public Integer getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 
