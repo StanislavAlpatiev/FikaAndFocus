@@ -8,7 +8,6 @@ class UserModel {
   String _email = "";
   String _userName = "";
   String _password = "";
-
   UserModel({
     required userName,
     required email,

@@ -10,10 +10,21 @@ import 'GoogleSignIn.dart';
 import 'signup.dart';
 import 'UserModel.dart';
 
+class EmailFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'Email can\'t be empty' : '';
+  }
+}
+
+class PasswordFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'Password can\'t be empty' : '';
+  }
+}
+
 //Test
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
-
 
   @override
   State<LogIn> createState() => _LogInState();
@@ -23,10 +34,9 @@ class _LogInState extends State<LogIn> {
   final _formKey = GlobalKey<FormState>(); //a globalkey for validation.
 
   UserModel user = UserModel.login("", ""); //For creating a user.
-  UserModel getLoggedInUser(){
+  UserModel getLoggedInUser() {
     return user;
   }
-
 
   // TextEditingController userCtrl =
   //     TextEditingController(); //A variable to store username
@@ -50,7 +60,7 @@ class _LogInState extends State<LogIn> {
                 // ignore: prefer_const_literals_to_create_immutables
                 children: <Widget>[
                   // ignore: prefer_const_constructors
-                  Image.asset('images/logo-white.png',width:600,height:200),
+                  Image.asset('images/logo-white.png', width: 600, height: 200),
                   Center(
                     child: Text(
                       "ACCOUNT LOGIN",
@@ -67,8 +77,8 @@ class _LogInState extends State<LogIn> {
                       child: TextFormField(
                         cursorColor: Color(0xFF75AB98),
                         decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(horizontal: 0,
-                              vertical: 5),
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                           border: InputBorder.none,
                           prefixIcon: Align(
                             widthFactor: 1.0,
@@ -79,16 +89,14 @@ class _LogInState extends State<LogIn> {
                             ),
                           ),
                           labelText: 'Email',
-                          labelStyle: TextStyle(color: Color(0xFF696969),
+                          labelStyle: TextStyle(
+                            color: Color(0xFF696969),
                             fontSize: 20,
                           ),
                         ),
                         style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Email is empty';
-                          }
-                          return '';
+                          EmailFieldValidator.validate(value!);
                         },
                         controller: TextEditingController(text: user.getEmail),
                         onChanged: (val) {
@@ -108,8 +116,8 @@ class _LogInState extends State<LogIn> {
                         cursorColor: Color(0xFF75AB98),
                         obscureText: true,
                         decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(horizontal: 0,
-                              vertical: 5),
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                           border: InputBorder.none,
                           prefixIcon: Align(
                             widthFactor: 1.0,
@@ -120,18 +128,17 @@ class _LogInState extends State<LogIn> {
                             ),
                           ),
                           labelText: 'Password',
-                          labelStyle: TextStyle(color: Color(0xFF696969),
+                          labelStyle: TextStyle(
+                            color: Color(0xFF696969),
                             fontSize: 20,
                           ),
                         ),
                         style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Password is empty';
-                          }
-                          return '';
+                          PasswordFieldValidator.validate(value!);
                         },
-                        controller: TextEditingController(text: user.getPassword),
+                        controller:
+                            TextEditingController(text: user.getPassword),
                         onChanged: (val) {
                           user.password = val;
                         },
@@ -150,17 +157,15 @@ class _LogInState extends State<LogIn> {
                         onPressed: () {
                           // save();
 
-
                           login(user.getEmail, user.getPassword).then((value) {
-                            setState((){
+                            setState(() {
                               loginMessage = value;
 
-                              final snackBar = SnackBar(
-                                  content: Text(loginMessage)
-                              );
+                              final snackBar =
+                                  SnackBar(content: Text(loginMessage));
 
-                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             });
                           });
 
@@ -170,14 +175,11 @@ class _LogInState extends State<LogIn> {
                           //     builder: (context) => const NavBar(),
                           //   ),
                           // );
-
                         },
                         child: Text(
                           'LOG IN',
                           style: GoogleFonts.oswald(
-                              fontSize: 28,
-                              fontWeight: FontWeight.normal
-                          ),
+                              fontSize: 28, fontWeight: FontWeight.normal),
                         ),
                         style: ElevatedButton.styleFrom(
                           primary: Color(0xFF696969),
@@ -191,13 +193,14 @@ class _LogInState extends State<LogIn> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                     child: ElevatedButton.icon(
-                      icon: Image.asset("images/google_logo.png",
+                      icon: Image.asset(
+                        "images/google_logo.png",
                         width: 32,
                       ),
-                      label: Text('Log in with Google',
-                          style: GoogleFonts.roboto(
-                          fontSize: 20.00,
-                          fontWeight: FontWeight.w300),
+                      label: Text(
+                        'Log in with Google',
+                        style: GoogleFonts.roboto(
+                            fontSize: 20.00, fontWeight: FontWeight.w300),
                       ),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -209,7 +212,8 @@ class _LogInState extends State<LogIn> {
                       ),
                       onPressed: () {
                         final provider = Provider.of<GoogleSignInProvider>(
-                            context, listen: false);
+                            context,
+                            listen: false);
                         provider.loginWithGoogle();
                       },
                     ),
@@ -219,8 +223,8 @@ class _LogInState extends State<LogIn> {
                     child: Text(
                       "Forgotten password/username?",
                       style: GoogleFonts.roboto(
-                          textStyle: const TextStyle(color: Color(0xFF871801),
-                              letterSpacing: .5),
+                          textStyle: const TextStyle(
+                              color: Color(0xFF871801), letterSpacing: .5),
                           fontSize: 15.00,
                           fontWeight: FontWeight.w300),
                       textAlign: TextAlign.center,
@@ -228,7 +232,7 @@ class _LogInState extends State<LogIn> {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(100, 0, 100, 0),
-                    child:Container(
+                    child: Container(
                       height: 50,
                       child: ElevatedButton(
                         onPressed: () {
@@ -242,8 +246,7 @@ class _LogInState extends State<LogIn> {
                         child: Text(
                           'SIGN UP',
                           style: GoogleFonts.oswald(
-                              fontSize: 28.00,
-                              fontWeight: FontWeight.normal),
+                              fontSize: 28.00, fontWeight: FontWeight.normal),
                         ),
                         style: ElevatedButton.styleFrom(
                           primary: Color(0xFF75AB98),
@@ -263,18 +266,16 @@ class _LogInState extends State<LogIn> {
     );
   }
 
-
   Future<String> login(String email, String password) async {
+    if (email.isEmpty) return "Email is empty";
+    if (password.isEmpty) return "Password is empty";
 
-    if (email.isEmpty)
-      return "Email is empty";
-    if (password.isEmpty)
-      return "Password is empty";
-
-    Uri url = Uri.parse("https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/user/login?"
-        "email=" + email +
-        "&password=" + password
-    );
+    Uri url = Uri.parse(
+        "https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/user/login?"
+                "email=" +
+            email +
+            "&password=" +
+            password);
 
     var response = await http.get(url);
     print(response.toString());
@@ -290,9 +291,7 @@ class _LogInState extends State<LogIn> {
     } else {
       print("login failed: wrong username or password");
       return "login failed: wrong username or password";
-
     }
     return "";
   }
-
 }
