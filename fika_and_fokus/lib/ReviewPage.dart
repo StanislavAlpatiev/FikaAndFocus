@@ -51,7 +51,7 @@ class _ReviewPageState extends State<ReviewPage> {
   final TextEditingController _controller = TextEditingController();
   Future<Review>? _futureReview;
   final _formKey = GlobalKey<FormState>();
-  int rating = 0;
+  double rating = 0;
 
   @override
   void initState() {
@@ -98,7 +98,7 @@ class _ReviewPageState extends State<ReviewPage> {
     final response = await http.put(reviewsToCafeUrl);
   }
 
-  Future<Review> createReview(int rating, String review) async {
+  Future<Review> createReview(double rating, String review) async {
     //Uri new_review = Uri.parse(
     //    'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText="jättefint"&cafeId=${widget.cafeItem.id}');
 
@@ -113,7 +113,7 @@ class _ReviewPageState extends State<ReviewPage> {
      */
 
     Uri new_review = Uri.parse(
-        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=${rating}&reviewText=$review&cafeId=${widget.cafeItem.id}&userEmail=${widget.user.getEmail}');
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=${rating.toString()}&reviewText=$review&cafeId=${widget.cafeItem.id}&userEmail=${widget.user.getEmail}');
 
     final response = await http.post(new_review);
 
@@ -197,7 +197,7 @@ class _ReviewPageState extends State<ReviewPage> {
                                     )),
                                 onRatingUpdate: (value) {
                                   setState(() {
-                                    rating = value.toInt();
+                                    rating = value;
                                   });
                                 }),
                           ),
