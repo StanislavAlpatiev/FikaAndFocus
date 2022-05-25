@@ -32,7 +32,7 @@ class Review {
 
   factory Review.fromJson(Map<String, dynamic> json) {
     return Review(json['user'].values.elementAt(1), json['review_string'],
-        json['date'], json['rating'].toDouble());
+        json['date'], double.parse(json['rating']));
   }
 }
 

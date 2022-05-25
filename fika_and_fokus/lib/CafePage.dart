@@ -48,7 +48,7 @@ class _CafePageState extends State<CafePage> {
         SliverAppBar(
           expandedHeight: 300,
           backgroundColor: Colors.deepPurple,
-          leading: Icon(Icons.arrow_back),
+          // leading: Icon(Icons.arrow_back),
           floating: true,
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
@@ -88,14 +88,14 @@ class _CafePageState extends State<CafePage> {
               //itemCount: reviews.length, //attribute from Listview
               (BuildContext context, int index) => Container(
                     decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20)),
+                      // borderRadius: BorderRadius.only(
+                      //     topLeft: Radius.circular(20),
+                      //     topRight: Radius.circular(20)),
                       color: Color(0xFF75AB98),
                       // .all(Radius.circular(20))
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                       child: RefreshIndicator(
                         onRefresh: refreshReviews,
                         child: Container(
