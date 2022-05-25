@@ -11,7 +11,7 @@ public class Review {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-    private String rating;
+    private Integer rating;
     private String review_string;
     private String date;
 
@@ -30,10 +30,10 @@ public class Review {
         return user;
     }
 
-   /* public Cafe2 getCafe() {
+    public Cafe2 getCafe() {
         return cafe2;
     }
-*/
+
     public void setCafe(Cafe2 cafe){
         this.cafe2 = cafe;
     }
@@ -51,26 +51,26 @@ public class Review {
         this.id = id;
     }
 
-  /*  public Integer getRating() {
+    public Integer getRating() {
         return rating;
     }
-*/
-    public void setRating(String rating) {
+
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
-/*
+
     public String getReview_string() {
         return review_string;
     }
-*/
+
     public void setReview_string(String review_string) {
         this.review_string = review_string;
     }
 
- /*   public String getDate() {
+    public String getDate() {
         return date;
     }
-*/
+
     public void setDate(String date) {
         this.date = date;
     }

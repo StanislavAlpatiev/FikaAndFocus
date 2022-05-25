@@ -38,7 +38,7 @@ public class ReviewController {
     @PostMapping(path="/add") // Map ONLY POST Requests
     public @ResponseBody
     Review addNewReview (
-            @RequestParam String rating,
+            @RequestParam Integer rating,
             @RequestParam String reviewText,
             @RequestParam String cafeId,
             @RequestParam String userEmail

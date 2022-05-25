@@ -43,7 +43,7 @@ public class Cafe2 {
     private String rating;
     private String price;
 
-   /* public String getLat(){return lat;}
+   public String getLat(){return lat;}
 
     public String getLng(){
         return lng;
@@ -56,7 +56,7 @@ public class Cafe2 {
     public String getPrice(){
         return price;
     }
-*/
+
     public void setLat(String lat){
         this.lat = lat;
     }
@@ -73,10 +73,10 @@ public class Cafe2 {
         this.price = price;
     }
 
-  /*  public void setReviewSet(Set<Review> reviewSet){
+   public void setReviewSet(Set<Review> reviewSet){
         this.reviewSet = reviewSet;
     }
-*/
+
     @JsonIgnore // to avoid recursive problem in relationship
     @OneToMany(mappedBy = "cafe2")
     private Set<Review> reviewSet = new HashSet<Review>();
