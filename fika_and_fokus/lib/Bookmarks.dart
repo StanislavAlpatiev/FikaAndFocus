@@ -1,6 +1,7 @@
 import 'package:fika_and_fokus/UserModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'Cafe.dart';
@@ -61,11 +62,8 @@ class _BookmarksPageState extends State<BookmarksPage> {
         backgroundColor: const Color(0xFFE0DBCF),
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
-            'Favorites',
-            style: TextStyle(
-              fontFamily: 'Roboto',
-            ),
+          title: Text('Favorites',
+            style: GoogleFonts.roboto(fontWeight: FontWeight.normal),
           ),
           backgroundColor: const Color(0xFF75AB98),
           automaticallyImplyLeading: false,
@@ -95,7 +93,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
                     leading: const Icon(
                       Icons.coffee,
                       size: 56.0,
-                      color: Color(0xFF696969),
+                      color: Color(0xFFB95815),
                     ),
                     title: cafes[index].buildTitle(context),
                     subtitle: cafes[index].buildPrice(context),

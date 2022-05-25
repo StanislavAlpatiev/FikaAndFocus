@@ -15,7 +15,9 @@ class _ChangeLanguagePageState extends State<ChangeLanguage> {
     return Scaffold(
       backgroundColor: const Color(0xFFE0DBCF),
       appBar: AppBar(
-        title: const Text('Change language'),
+        title: Text('Change language',
+          style: GoogleFonts.roboto(fontWeight: FontWeight.normal),
+        ),
         automaticallyImplyLeading: true,
         backgroundColor: const Color(0xFF75AB98),
       ),

@@ -6,6 +6,9 @@ import 'package:fika_and_fokus/ChangeUsername.dart';
 import 'package:fika_and_fokus/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class AccountSettings extends StatefulWidget {
   const AccountSettings({Key? key}) : super(key: key);
@@ -18,19 +21,29 @@ class _AccountSettingsPageState extends State<AccountSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFE0DBCF),
       appBar: AppBar(
-        title: const Text('Settings'),
-        backgroundColor: Color(0xFF75AB98),
+        title: Text('Settings',
+          style: GoogleFonts.roboto(fontWeight: FontWeight.normal),
+        ),
+        backgroundColor: const Color(0xFF75AB98),
       ),
       body: SettingsList(
         sections: [
           SettingsSection(
-            title: const Text('Common'),
+            title: Text('Common',
+              style: GoogleFonts.roboto(
+                  textStyle: const TextStyle(
+                      color: Color(0xFF75AB98),
+                      letterSpacing: 0.5),
+                fontWeight: FontWeight.w500),),
             tiles: [
               SettingsTile(
                   title: const Text('Language'),
                   //subtitle: 'English',
-                  leading: const Icon(Icons.language),
+                  leading: const FaIcon(FontAwesomeIcons.globe,
+                    color: Color(0xFF696969),
+                    size: 20),
                   onPressed: (context) => {
                         Navigator.push(
                             context,
@@ -52,12 +65,20 @@ class _AccountSettingsPageState extends State<AccountSettings> {
             ],
           ),
           SettingsSection(
-            title: const Text('Account'),
+            title: Text('Account',
+              style: GoogleFonts.roboto(
+                  textStyle: const TextStyle(
+                      color: Color(0xFF75AB98),
+                      letterSpacing: 0.5),
+                  fontWeight: FontWeight.w500),),
             tiles: [
               //TODO - redirections should happen when pressed!
               SettingsTile(
                   title: const Text('Username'),
-                  leading: const Icon(Icons.person),
+                  leading: const FaIcon(FontAwesomeIcons.solidUser,
+                    color: Color(0xFF696969),
+                    size: 20,
+                  ),
                   enabled: true,
                   onPressed: (context) => {
                         Navigator.push(
@@ -68,7 +89,9 @@ class _AccountSettingsPageState extends State<AccountSettings> {
                       }),
               SettingsTile(
                   title: const Text('Phone number'),
-                  leading: const Icon(Icons.phone),
+                  leading: const FaIcon(FontAwesomeIcons.phone,
+                      color: Color(0xFF696969),
+                      size: 20),
                   enabled: true,
                   onPressed: (context) => {
                         Navigator.push(
@@ -79,7 +102,9 @@ class _AccountSettingsPageState extends State<AccountSettings> {
                       }),
               SettingsTile(
                   title: const Text('Email'),
-                  leading: const Icon(Icons.email),
+                  leading: const FaIcon(FontAwesomeIcons.solidEnvelope,
+                      color: Color(0xFF696969),
+                      size: 20),
                   onPressed: (context) => {
                         Navigator.push(
                             context,
@@ -88,8 +113,10 @@ class _AccountSettingsPageState extends State<AccountSettings> {
                             ))
                       }),
               SettingsTile(
-                  title: const Text('Password'),
-                  leading: const Icon(Icons.lock),
+                  title: Text('Password'),
+                  leading: const FaIcon(FontAwesomeIcons.lock,
+                      color: Color(0xFF696969),
+                      size: 20),
                   onPressed: (context) => {
                         Navigator.push(
                             context,
