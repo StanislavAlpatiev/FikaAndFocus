@@ -1,6 +1,7 @@
 import 'package:fika_and_fokus/AccountSettings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ChangeUserName extends StatefulWidget {
   const ChangeUserName({Key? key}) : super(key: key);
@@ -15,7 +16,9 @@ class _ChangeUserNamePageState extends State<ChangeUserName> {
     return Scaffold(
       backgroundColor: const Color(0xFFE0DBCF),
       appBar: AppBar(
-        title: const Text('Change username'),
+        title: Text('Change username',
+          style: GoogleFonts.roboto(fontWeight: FontWeight.normal),
+        ),
         automaticallyImplyLeading: true,
         backgroundColor: const Color(0xFF75AB98),
       ),
@@ -25,27 +28,36 @@ class _ChangeUserNamePageState extends State<ChangeUserName> {
           crossAxisAlignment: CrossAxisAlignment.start,
           //mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            const Text('   '),
-            const Text(
-              '  FROM: ', //TODO - here we need unit test to check that the correct name is called!
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  fontSize: 25, fontFamily: 'Roboto', color: Color(0xFF75AB98)),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+              child: Text(
+                '  Current username: ',
+                //TODO - here we need unit test to check that the correct name is called!
+                textAlign: TextAlign.left,
+                style: GoogleFonts.roboto(
+                    textStyle: const TextStyle(
+                        color: Color(0xFF696969),
+                        letterSpacing: 0.5),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300),
+              ),
             ),
             Center(
               child: Card(
                 child: TextFormField(
                   obscureText: true,
+                  cursorColor: Color(0xFF75AB98),
                   decoration: const InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 100, vertical: 0),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 0,
+                        vertical: 5),
                     border: InputBorder.none,
                     prefixIcon: Align(
                       widthFactor: 1.0,
                       heightFactor: 1.0,
-                      child: Icon(
-                        Icons.person,
+                      child: FaIcon(
+                        FontAwesomeIcons.solidUser,
                         color: Color(0xFF696969),
+                        size: 20,
                       ),
                     ),
                     labelText: 'Username',
@@ -72,27 +84,34 @@ class _ChangeUserNamePageState extends State<ChangeUserName> {
                 ),
               ),
             ),
-            const Text('   '),
-            const Text('   '),
-            const Text(
-              '  TO: ',
-              style: TextStyle(
-                  fontSize: 25, fontFamily: 'Roboto', color: Color(0xFF75AB98)),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+              child: Text(
+                '  New username: ',
+                style: GoogleFonts.roboto(
+                    textStyle: const TextStyle(
+                      color: Color(0xFF696969),
+                      letterSpacing: 0.5),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300),
+              ),
             ),
             Center(
               child: Card(
                 child: TextFormField(
                   obscureText: true,
+                  cursorColor: Color(0xFF75AB98),
                   decoration: const InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 100, vertical: 0),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 0,
+                        vertical: 5),
                     border: InputBorder.none,
                     prefixIcon: Align(
                       widthFactor: 1.0,
                       heightFactor: 1.0,
-                      child: Icon(
-                        Icons.person,
+                      child: FaIcon(
+                        FontAwesomeIcons.solidUser,
                         color: Color(0xFF696969),
+                        size: 20,
                       ),
                     ),
                     labelText: 'Username',
@@ -119,23 +138,35 @@ class _ChangeUserNamePageState extends State<ChangeUserName> {
                 ),
               ),
             ),
-            const Text('   '),
-            const Text('   '),
-            Center(
-                child: Card(
-                    child: TextButton(
-                        onPressed: () => {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const AccountSettings(),
-                                  ))
-                            },
-                        child: const Text(
-                          'SAVE',
-                          style:
-                              TextStyle(fontSize: 40, color: Color(0xFF75AB98)),
-                        ))))
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+              child: Center(
+                  child: Container(
+                      child: TextButton(
+                          onPressed: () => {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) => const AccountSettings(),
+                            ))
+                          },
+                          style: ElevatedButton.styleFrom(
+                            primary: Color(0xFF696969),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                            child: Text('SAVE',
+                              style: GoogleFonts.oswald(
+                                  textStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                                  fontSize: 28.00,
+                                  fontWeight: FontWeight.normal),
+                            ),
+                          )
+                      )
+                  )
+              ),
+            )
           ],
         ),
       ),
