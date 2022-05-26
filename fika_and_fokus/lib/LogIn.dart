@@ -4,6 +4,7 @@ import 'package:fika_and_fokus/NavBar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'GoogleSignIn.dart';
@@ -211,10 +212,11 @@ class _LogInState extends State<LogIn> {
                         minimumSize: Size(double.infinity, 50),
                       ),
                       onPressed: () {
-                        final provider = Provider.of<GoogleSignInProvider>(
-                            context,
-                            listen: false);
-                        provider.loginWithGoogle();
+                        googleLogin();
+                        // final provider = Provider.of<GoogleSignInProvider>(
+                        //     context,
+                        //     listen: false);
+                        // provider.loginWithGoogle();
                       },
                     ),
                   ),
@@ -293,5 +295,32 @@ class _LogInState extends State<LogIn> {
       return "login failed: wrong username or password";
     }
     return "";
+  }
+  Future googleLogin() async {
+    final user = await GoogleSignInProvider.login();
+    UserModel googleUserUserModel = GoogleUser(googleUser: user).getUserModelFromGoogleUser();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => NavBar(user: googleUserUserModel),
+      ),
+    );
+  }
+}
+
+class GoogleUser extends StatelessWidget {
+  late final GoogleSignInAccount? googleUser;
+  GoogleUser({Key? key, required this.googleUser}) : super(key: key){
+    googleUser = googleUser!;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+
+  UserModel getUserModelFromGoogleUser() {
+    return UserModel(email: googleUser?.email, userName: googleUser?.displayName, password: "aisudhyno213c89yashdncjkaewx");
   }
 }
