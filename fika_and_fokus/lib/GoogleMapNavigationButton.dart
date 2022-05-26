@@ -65,7 +65,7 @@ class _WalkButtonState extends State<WalkButton> {
       },
       iconSize: 44,
       icon: FaIcon(
-        FontAwesomeIcons.personWalking,
+        FontAwesomeIcons.personWalkingArrowRight,
         color: Colors.white,
       ),
     );
