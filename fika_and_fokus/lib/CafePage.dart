@@ -34,169 +34,172 @@ class _CafePageState extends State<CafePage> {
     final price = widget.cafeItem.buildPrice(context).data;
     return Scaffold(
       backgroundColor: Color(0xFFE0DBCF),
-      body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              expandedHeight: 300,
-              backgroundColor: Color(0xFF75AB98),
-              floating: true,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                centerTitle: true,
-                title: Text(
-                  widget.cafeItem.name,
-                  style: GoogleFonts.oswald(
-                      color: Color(0xFFFFFFFF),
-                      fontWeight: FontWeight.w300),
-                ),
-                background: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    CircleAvatar(
-                        radius: 100,
-                        backgroundImage: AssetImage("images/test_cafe.jpg")
-                    )
-                  ],
-                ),
-              ),
-            ),
-
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-                      child: IntrinsicHeight(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              widget.cafeItem.address,
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.oswald(
-                                  fontSize: 16,
-                                  letterSpacing: 0.6,
-                                  color: Color(0xFF696969),
-                                  fontWeight: FontWeight.w300),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                      decoration: BoxDecoration(
-                        color: Color(0x22696969),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: IntrinsicHeight(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              widget.cafeItem.rating.toString(),
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.roboto(
-                                  fontSize: 25,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.normal),
-                            ),
-                            const Icon(
-                              Icons.star,
-                              color: Colors.white,
-                              size: 25,
-                            ),
-                            const VerticalDivider(
-                                width: 20,
-                                indent: 20,
-                                endIndent: 20,
-                                thickness: 1,
-                                color: Color(0xFF696969)
-                            ),
-                            Text(price!,
-                            style: GoogleFonts.roboto(
-                                fontSize: 25,
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal),
-                            ),
-                            const VerticalDivider(
-                                width: 20,
-                                indent: 20,
-                                endIndent: 20,
-                                thickness: 1,
-                                color: Color(0xFF696969)
-                            ),
-                            Transform.scale(
-                              scale: 0.6,
-                              child: WalkButton(currentCafe: widget.cafeItem),
-                            ),
-                            const VerticalDivider(
-                                width: 20,
-                                indent: 20,
-                                endIndent: 20,
-                                thickness: 1,
-                                color: Color(0xFF696969)
-                            ),
-                            Transform.scale(
-                                scale: 0.6,
-                                child: Heart(currentCafe: widget.cafeItem,
-                                    user: widget.user)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+      body: SafeArea(
+        child: Expanded(
+          child: RefreshIndicator(
+            onRefresh: refreshReviews,
+            child: CustomScrollView(slivers: [
+              SliverAppBar(
+                expandedHeight: 300,
+                backgroundColor: Color(0xFF75AB98),
+                floating: true,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  title: Text(
+                    widget.cafeItem.name,
+                    style: GoogleFonts.oswald(
+                        color: Color(0xFFFFFFFF), fontWeight: FontWeight.w300),
+                  ),
+                  background: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      CircleAvatar(
+                          radius: 100,
+                          backgroundImage: AssetImage("images/test_cafe.jpg"))
+                    ],
+                  ),
                 ),
               ),
-            ),
 
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    ElevatedButton(
-                      onPressed: () {Navigator.push(context, MaterialPageRoute(
-                          builder: (context) =>
-                              ReviewPage(widget.cafeItem, widget.user)));
-                      },
-                      child: Text(
-                        'POST A REVIEW',
-                        style: GoogleFonts.oswald(
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 18, fontWeight: FontWeight.normal),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+                        child: IntrinsicHeight(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                widget.cafeItem.address,
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.oswald(
+                                    fontSize: 16,
+                                    letterSpacing: 0.6,
+                                    color: Color(0xFF696969),
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF696969),
-                        shape: RoundedRectangleBorder(
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+                        decoration: BoxDecoration(
+                          color: Color(0x22696969),
                           borderRadius: BorderRadius.circular(30),
                         ),
+                        child: IntrinsicHeight(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                widget.cafeItem.rating.toString(),
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.roboto(
+                                    fontSize: 25,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                              const Icon(
+                                Icons.star,
+                                color: Colors.white,
+                                size: 25,
+                              ),
+                              const VerticalDivider(
+                                  width: 20,
+                                  indent: 20,
+                                  endIndent: 20,
+                                  thickness: 1,
+                                  color: Color(0xFF696969)),
+                              Text(
+                                price!,
+                                style: GoogleFonts.roboto(
+                                    fontSize: 25,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.normal),
+                              ),
+                              const VerticalDivider(
+                                  width: 20,
+                                  indent: 20,
+                                  endIndent: 20,
+                                  thickness: 1,
+                                  color: Color(0xFF696969)),
+                              Transform.scale(
+                                scale: 0.6,
+                                child: WalkButton(currentCafe: widget.cafeItem),
+                              ),
+                              const VerticalDivider(
+                                  width: 20,
+                                  indent: 20,
+                                  endIndent: 20,
+                                  thickness: 1,
+                                  color: Color(0xFF696969)),
+                              Transform.scale(
+                                  scale: 0.6,
+                                  child: Heart(
+                                      currentCafe: widget.cafeItem,
+                                      user: widget.user)),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
-                  ]),
-                ],
+                    ],
+                  ),
+                ),
               ),
-            ),
-            // sliver items 2
 
-            SliverList(
-              // itemCount: reviews.length, //attribute from Listview
-              delegate: SliverChildBuilderDelegate((BuildContext context, int index){
-                return Container(
-                    decoration: const BoxDecoration(
-                      // borderRadius: BorderRadius.only(
-                      //     topLeft: Radius.circular(20),
-                      //     topRight: Radius.circular(20)),
-                      color: Color(0xFFE0DBCF),
-                      // .all(Radius.circular(20))
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: RefreshIndicator(
-                        onRefresh: refreshReviews,
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ReviewPage(
+                                      widget.cafeItem, widget.user)));
+                        },
+                        child: Text(
+                          'POST A REVIEW',
+                          style: GoogleFonts.oswald(
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 18,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xFF696969),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ],
+                ),
+              ),
+              // sliver items 2
+
+              SliverList(
+                // itemCount: reviews.length, //attribute from Listview
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return Container(
+                      decoration: const BoxDecoration(
+                        // borderRadius: BorderRadius.only(
+                        //     topLeft: Radius.circular(20),
+                        //     topRight: Radius.circular(20)),
+                        color: Color(0xFFE0DBCF),
+                        // .all(Radius.circular(20))
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
                         child: Container(
                           margin: const EdgeInsets.all(5),
                           //height: 100,
@@ -210,8 +213,8 @@ class _CafePageState extends State<CafePage> {
                                 leading: const CircleAvatar(
                                   radius: 10,
                                   // backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
-                                  backgroundImage: AssetImage(
-                                      'images/profile_picture.png'),
+                                  backgroundImage:
+                                      AssetImage('images/profile_picture.png'),
                                 ),
                                 title: reviews[index].buildUser(context),
                                 trailing: reviews[index].buildDate(context),
@@ -224,7 +227,7 @@ class _CafePageState extends State<CafePage> {
                                   itemCount: 5,
                                   itemSize: 10.0,
                                   itemPadding:
-                                  const EdgeInsets.fromLTRB(0, 0, 4, 5),
+                                      const EdgeInsets.fromLTRB(0, 0, 4, 5),
                                   itemBuilder: (context, _) => const Icon(
                                     Icons.star,
                                     color: Colors.amber,
@@ -233,21 +236,22 @@ class _CafePageState extends State<CafePage> {
                               ),
                               Container(
                                 margin:
-                                const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                                    const EdgeInsets.fromLTRB(20, 0, 20, 20),
                                 child: reviews[index].buildReview(context),
                               ),
                             ],
                           ),
                         ),
                       ),
-                    ),
-                  );
-                  // childCount: reviews.length),
-                },
-                childCount: reviews.length ,
-              ),
-            )
-          ]
+                    );
+                    // childCount: reviews.length),
+                  },
+                  childCount: reviews.length,
+                ),
+              )
+            ]),
+          ),
+        ),
       ),
     );
   }
