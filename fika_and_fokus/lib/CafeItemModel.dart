@@ -19,7 +19,7 @@ class CafeItem {
     return Text(name);
   }
 
-  Widget buildPrice(BuildContext context) {
+  Text buildPrice(BuildContext context) {
     return Text(price);
   }
 

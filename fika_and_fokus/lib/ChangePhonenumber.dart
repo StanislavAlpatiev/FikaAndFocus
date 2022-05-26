@@ -154,14 +154,11 @@ class _ChangePhonenumberPageState extends State<ChangePhonenumber> {
                               borderRadius: BorderRadius.circular(30),
                             ),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                            child: Text('SAVE',
-                              style: GoogleFonts.oswald(
-                                  textStyle: TextStyle(color: Color(0xFFFFFFFF)),
-                                  fontSize: 28.00,
-                                  fontWeight: FontWeight.normal),
-                            ),
+                          child: Text('SAVE',
+                            style: GoogleFonts.oswald(
+                                textStyle: TextStyle(color: Color(0xFFFFFFFF)),
+                                fontSize: 18.00,
+                                fontWeight: FontWeight.normal),
                           )
                       )
                   )
