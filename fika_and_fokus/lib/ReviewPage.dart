@@ -47,7 +47,6 @@ class ReviewPage extends StatefulWidget {
 }
 
 class _ReviewPageState extends State<ReviewPage> {
-  //var reviews = [];
   final TextEditingController _controller = TextEditingController();
   Future<Review>? _futureReview;
   final _formKey = GlobalKey<FormState>();
@@ -55,7 +54,6 @@ class _ReviewPageState extends State<ReviewPage> {
 
   @override
   void initState() {
-    //refreshReviews();
     super.initState();
   }
 
@@ -85,53 +83,6 @@ class _ReviewPageState extends State<ReviewPage> {
     );
   }
 
-  void addReviewToCafe() async {
-    /**
-     * lägg till review till cafe
-     * på formen:
-     * "/{reviewId}/cafes/{cafeId}"
-     */
-
-    Uri reviewsToCafeUrl = Uri.parse(
-        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/${widget.cafeItem.id}/all');
-
-    final response = await http.put(reviewsToCafeUrl);
-  }
-
-  Future<Review> createReview(double rating, String review) async {
-    //Uri new_review = Uri.parse(
-    //    'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=5&reviewText="jättefint"&cafeId=${widget.cafeItem.id}');
-
-    //  OBS: MÅSTE ÄNDRA SÅ ATT DET ÄR "...group-1-75.." - URL:en
-
-    /*
-    Required parameters:
-      @RequestParam Integer rating,
-      @RequestParam String reviewText,
-      @RequestParam String cafeId,
-      @RequestParam String userEmail
-     */
-
-    Uri new_review = Uri.parse(
-        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=${rating.toString()}&reviewText=$review&cafeId=${widget.cafeItem.id}&userEmail=${widget.user.getEmail}');
-
-    final response = await http.post(new_review);
-
-    //final response = await http.post(
-    //Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.cafeItem.id}/all'),
-
-    if (response.statusCode == 200) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
-      return Review.fromJson(jsonDecode(response.body));
-    } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      throw Exception(
-          'Failed to create review.  ' + response.statusCode.toString());
-    }
-  }
-
   Column buildColumn() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -158,7 +109,7 @@ class _ReviewPageState extends State<ReviewPage> {
                               fontSize: 25,
                               fontWeight: FontWeight.normal,
                               color: Color(0xFF75AB98) // Color(0xFF696969)
-                              ),
+                          ),
                         )),
                   ]),
                   Row(children: [
@@ -185,7 +136,7 @@ class _ReviewPageState extends State<ReviewPage> {
                                 itemCount: 5,
                                 itemSize: 25.0,
                                 itemPadding:
-                                    const EdgeInsets.fromLTRB(0, 0, 4, 5),
+                                const EdgeInsets.fromLTRB(0, 0, 4, 5),
                                 ratingWidget: RatingWidget(
                                     full: const Icon(Icons.star,
                                         color: Colors.amber),
@@ -207,7 +158,7 @@ class _ReviewPageState extends State<ReviewPage> {
                           maxLength: 150,
                           maxLines: 3,
                           style:
-                              GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                          GoogleFonts.roboto(fontWeight: FontWeight.w300),
                           cursorColor: const Color(0xFF75AB98),
                           decoration: const InputDecoration(
                             hintText: 'Share your experiences and help others',
@@ -234,13 +185,14 @@ class _ReviewPageState extends State<ReviewPage> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate() &&
                                       rating != 0) {
-                                    // ScaffoldMessenger.of(context).showSnackBar(
-                                    //   const SnackBar(content: Text('Processing Data')),
-                                    // );
                                     setState(() {
                                       _futureReview = createReview(
                                           rating, _controller.text);
                                     });
+                                    // ScaffoldMessenger.of(context).showSnackBar(
+                                    //   const SnackBar(content: Text('Thank you!')),
+                                    // );
+                                    Navigator.pop(context);
                                   }
                                 },
                                 child: Text(
@@ -279,5 +231,45 @@ class _ReviewPageState extends State<ReviewPage> {
         return const CircularProgressIndicator();
       },
     );
+  }
+
+  void addReviewToCafe() async {
+    /**
+     * lägg till review till cafe
+     * på formen:
+     * "/{reviewId}/cafes/{cafeId}"
+     */
+
+    Uri reviewsToCafeUrl = Uri.parse(
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/${widget.cafeItem.id}/all');
+
+    final response = await http.put(reviewsToCafeUrl);
+  }
+
+  Future<Review> createReview(double rating, String review) async {
+
+    /*
+    Required parameters:
+      @RequestParam String rating,
+      @RequestParam String reviewText,
+      @RequestParam String cafeId,
+      @RequestParam String userEmail
+     */
+
+    Uri newReview = Uri.parse(
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=${rating.toString()}&reviewText=$review&cafeId=${widget.cafeItem.id}&userEmail=${widget.user.getEmail}');
+
+    final response = await http.post(newReview);
+
+    if (response.statusCode == 200) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      return Review.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception(
+          'Failed to create review.  ' + response.statusCode.toString());
+    }
   }
 }
