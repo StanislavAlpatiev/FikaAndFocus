@@ -272,6 +272,9 @@ class _CafePageState extends State<CafePage> {
       for (var i = 0; i < data.length; i++) {
         _reviewsTemp.add(Review.fromJson(data[i]));
       }
+
+      _reviewsTemp.sort((a, b) => (b.id) - (a.id));
+
       setState(() {
         reviews = _reviewsTemp;
       });

@@ -8,11 +8,12 @@ import 'UserModel.dart';
 
 class Review {
   final Object user;
+  final int id;
   final String review;
   final String date;
   final double rating;
 
-  Review(this.user, this.review, this.date, this.rating);
+  Review(this.user, this.id, this.review, this.date, this.rating);
 
   Widget buildUser(BuildContext context) {
     return Text(user.toString());
@@ -31,7 +32,7 @@ class Review {
   }
 
   factory Review.fromJson(Map<String, dynamic> json) {
-    return Review(json['user'].values.elementAt(1), json['review_string'],
+    return Review(json['user'].values.elementAt(1), json['id'], json['review_string'],
         json['date'], double.parse(json['rating']));
   }
 }
