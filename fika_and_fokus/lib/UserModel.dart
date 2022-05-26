@@ -15,8 +15,8 @@ class UserModel {
   });
 
   UserModel.login(String username, String pass) {
-    username = username;
-    password = pass;
+    _userName = username;
+    _password = pass;
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
