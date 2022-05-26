@@ -51,12 +51,25 @@ class _CafePageState extends State<CafePage> {
                     style: GoogleFonts.oswald(
                         color: Color(0xFFFFFFFF), fontWeight: FontWeight.w300),
                   ),
-                  background: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircleAvatar(
-                          radius: 100,
-                          backgroundImage: AssetImage("images/test_cafe.jpg"))
+                  background: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Positioned(
+                        top: 15,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            // color: Colors.white,
+                            shape: BoxShape.circle,
+                            boxShadow: [BoxShadow(
+                              blurRadius: 10,
+                              color: Colors.black54,
+                              spreadRadius: 3)
+                            ],
+                          ),
+                          child: const CircleAvatar(radius: 110,
+                            backgroundImage: AssetImage("images/test_cafe.jpg")),
+                        ),
+                      )
                     ],
                   ),
                 ),
