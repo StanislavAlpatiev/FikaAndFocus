@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:fika_and_fokus/GoogleMapNavigationButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Heart.dart';
 import 'CafeItemModel.dart';
 import 'UserModel.dart';
+import 'GoogleMapNavigationButton.dart';
 
 class MarkerInfoWindow extends StatefulWidget {
   CafeItem currentCafe;
@@ -149,49 +151,7 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                         Container(
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                            child: IconButton(
-                              onPressed: () async {
-                                // if (await MapLauncher.isMapAvailable(MapType.google)) {
-                                // await MapLauncher.showMarker(
-                                //   mapType: MapType.google,
-                                //   coords: Coords(widget.markedLat, widget.markedLong),
-                                //   title: "going to " + widget.markedVenueName,
-                                //   // description: description,
-                                // );
-                                if (MapLauncher != null) {
-                                  if (await MapLauncher.isMapAvailable(
-                                      MapType.googleGo) as bool) {
-                                    await MapLauncher.showDirections(
-                                      mapType: MapType.googleGo,
-                                      destination: Coords(
-                                          widget.currentCafe.lat,
-                                          widget.currentCafe.long),
-                                      //origin: Coords(59.2971115,17.7642534);
-                                      destinationTitle:
-                                          "going to " + widget.currentCafe.name,
-                                      // description: description,
-                                    );
-                                  } else if (await MapLauncher.isMapAvailable(
-                                      MapType.google) as bool) {
-                                    await MapLauncher.showDirections(
-                                      mapType: MapType.google,
-                                      destination: Coords(
-                                          widget.currentCafe.lat,
-                                          widget.currentCafe.long),
-                                      //origin: Coords(59.2971115,17.7642534);
-                                      destinationTitle:
-                                          "going to " + widget.currentCafe.name,
-                                      // description: description,
-                                    );
-                                  }
-                                }
-                              },
-                              iconSize: 44,
-                              icon: FaIcon(
-                                FontAwesomeIcons.personWalking,
-                                color: Colors.white,
-                              ),
-                            ),
+                            child: WalkButton(currentCafe: widget.currentCafe),
                           ),
                         ),
                       ],
