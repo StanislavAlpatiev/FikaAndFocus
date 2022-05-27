@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: title,
         // theme: ThemeData.dark().copyWith(),
-        home: HomePageGoogle(),
+        home: const LogIn(),
       )
   );
 }

@@ -12,25 +12,15 @@
           "package_name": "com.example.fika_and_fokus"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "899923085246-9l4rvptmaapjm0mjrb08q001o1orjf8t.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAahRJeCsUn8Fsa1wsnj7C_PZGVuW1dm9U"
+          "current_key": "AIzaSyDR9nWZjEM07n2f8ZdjG7AW_htKITtKRd0"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "899923085246-9l4rvptmaapjm0mjrb08q001o1orjf8t.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
