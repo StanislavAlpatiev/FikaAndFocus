@@ -187,11 +187,11 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             businessLevel +
             "&radius=" +
             radius +
-            "&lng=" +
-            "18.068326509937545" +
-            "&lat=" +
-            "59.32967345111922"
-        // "&lng=" + _currentPosition.longitude.toString() + "&lat=" + _currentPosition.latitude.toString()
+            // "&lng=" +
+            // "18.068326509937545" +
+            // "&lat=" +
+            // "59.32967345111922"
+        "&lng=" + _currentPosition.longitude.toString() + "&lat=" + _currentPosition.latitude.toString()
         );
     final response = await http.get(sampleFriendsURI);
     if (response.statusCode == 200) {
