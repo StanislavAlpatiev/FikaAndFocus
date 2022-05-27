@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CafeItem {
   final String id;
-  late final String name;
+  final String name;
   final String address;
   final double lat;
   final double long;

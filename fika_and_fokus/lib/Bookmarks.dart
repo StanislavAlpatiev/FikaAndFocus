@@ -4,7 +4,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'Cafe.dart';
 import 'CafePage.dart';
 import 'CafeItemModel.dart';
 
@@ -29,47 +28,21 @@ class _BookmarksPageState extends State<BookmarksPage> {
     super.initState();
   }
 
-  Future refreshCafes() async {
-    Uri favoriteCafesURI = Uri.parse(
-        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/' +
-            widget.user.getEmail +
-            '/favourites');
-    // Uri favoriteCafesURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/sten@gmail.com/favourites');
-
-    final response = await http.get(favoriteCafesURI);
-
-    if (response.statusCode == 200) {
-      String source = Utf8Decoder().convert(response.bodyBytes);
-      //var data = json.decode(response.body);
-      var data = json.decode(source);
-
-      cafes = [];
-      var _cafesTemp = [];
-      for (var i = 0; i < data.length; i++) {
-        _cafesTemp.add(CafeItem.fromJson(data[i]));
-      }
-      setState(() {
-        cafes = _cafesTemp;
-      });
-    } else {
-      throw Exception('Failed to load favorite cafés');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xFFE0DBCF),
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('Favorites',
-            style: GoogleFonts.roboto(fontWeight: FontWeight.normal),
-          ),
-          backgroundColor: const Color(0xFF75AB98),
-          automaticallyImplyLeading: false,
+      backgroundColor: const Color(0xFFE0DBCF),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Favorites',
+          style: GoogleFonts.roboto(fontWeight: FontWeight.normal),
         ),
-        body: SafeArea(
-            child: Expanded(
+        backgroundColor: const Color(0xFF75AB98),
+        automaticallyImplyLeading: false,
+      ),
+      body: SafeArea(
+        child: Expanded(
           child: RefreshIndicator(
             onRefresh: refreshCafes,
             child: ListView.builder(
@@ -120,7 +93,39 @@ class _BookmarksPageState extends State<BookmarksPage> {
               ),
             ),
           ),
-        )));
+        ),
+      ),
+    );
+  }
+
+  Future refreshCafes() async {
+    Uri favoriteCafesURI = Uri.parse(
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/' +
+            widget.user.getEmail +
+            '/favourites');
+    // Uri favoriteCafesURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/sten@gmail.com/favourites');
+
+    final response = await http.get(favoriteCafesURI);
+
+    if (response.statusCode == 200) {
+      String source = Utf8Decoder().convert(response.bodyBytes);
+      //var data = json.decode(response.body);
+      var data = json.decode(source);
+
+      cafes = [];
+      var _cafesTemp = [];
+      for (var i = 0; i < data.length; i++) {
+        _cafesTemp.add(CafeItem.fromJson(data[i]));
+      }
+
+      _cafesTemp.sort((a, b) => a.name.compareTo(b.name));
+
+      setState(() {
+        cafes = _cafesTemp;
+      });
+    } else {
+      throw Exception('Failed to load favorite cafés');
+    }
   }
 
   _deleteCafeFromFavorites(String mvid) async {
