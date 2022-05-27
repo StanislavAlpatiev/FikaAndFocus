@@ -10,13 +10,12 @@ class GoogleSignInProvider extends ChangeNotifier {
   GoogleSignInAccount? _user;
   GoogleSignInAccount get user => _user!;
 
-  Future loginWithGoogle() async {
+  Future<bool> loginWithGoogle() async {
     try {
       final googleUser = await googleSignIn.signIn();
       log("Google user id: ");
-      if(googleUser == null) return;
+      if (googleUser == null) return false;
       _user = googleUser;
-
 
       final googleAuth = await googleUser.authentication;
 
@@ -37,16 +36,28 @@ class GoogleSignInProvider extends ChangeNotifier {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
+
+      log("google user: "+ _user.toString());
+      log("verkar ha funkat, slutet av: loginGoogle");
+
+      if (googleUser == null){
+        return false;
+      }
+      return true;
+
     } catch (e) {
       print("Error: " + e.toString());
     }
 
+    return false;
     // updates UI
     notifyListeners();
   }
 
   Future signOutWithGoogle() async {
-    await googleSignIn.disconnect();
-    await FirebaseAuth.instance.signOut();
+    try {
+      await googleSignIn.disconnect();
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {print("Error: " + e.toString());}
   }
 }

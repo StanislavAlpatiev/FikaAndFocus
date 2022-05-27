@@ -72,8 +72,11 @@ class _ProfilePageState extends State<ProfilePage> {
                      Padding(
                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                        child: Text(
+
+
                         // 'WELCOME ' + user.displayName!,
                          'Hi ' + widget.user.getEmail + ' !',
+
                          style: GoogleFonts.oswald(
                            fontWeight: FontWeight.normal,
                            fontSize: 25,

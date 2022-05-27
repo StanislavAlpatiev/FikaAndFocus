@@ -1,14 +1,17 @@
 import 'dart:convert';
 
+import 'package:fika_and_fokus/GoogleMap.dart';
 import 'package:fika_and_fokus/NavBar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'GoogleSignIn.dart';
 import 'signup.dart';
 import 'UserModel.dart';
+import 'dart:developer';
 
 class EmailFieldValidator {
   static String validate(String value) {
@@ -214,7 +217,20 @@ class _LogInState extends State<LogIn> {
                         final provider = Provider.of<GoogleSignInProvider>(
                             context,
                             listen: false);
-                        provider.loginWithGoogle();
+                        final isloggedInWithGoogle = provider.loginWithGoogle();
+                        log("kommer jag hit???");
+                        //bool isLoggedInWithGoogle = false;
+                        //provider.loginWithGoogle().then((value) {
+
+                        //  isLoggedInWithGoogle = value;
+                        //} );
+                        //log("isLoggedInWithGoogle: "+ isLoggedInWithGoogle.toString());
+                        //if (isLoggedInWithGoogle)
+
+                        user.email = provider.user.email;
+                        user.password = "google";
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => NavBar(user: user)));
+
                       },
                     ),
                   ),

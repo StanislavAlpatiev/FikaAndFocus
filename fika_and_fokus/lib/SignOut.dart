@@ -1,7 +1,9 @@
+import 'package:fika_and_fokus/GoogleSignIn.dart';
 import 'package:fika_and_fokus/LogIn.dart';
 import 'package:fika_and_fokus/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignOut extends StatefulWidget {
   const SignOut({Key? key}) : super(key: key);
@@ -11,6 +13,8 @@ class SignOut extends StatefulWidget {
 }
 
 class _SignOutPageState extends State<SignOut> {
+  final googleSignIn = new GoogleSignInProvider();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,10 +80,11 @@ class _SignOutPageState extends State<SignOut> {
                     ],
                   ),
                 ),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LogIn()),
-                ),
+                onPressed: () {
+                  googleSignIn.signOutWithGoogle();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const LogIn()));
+                }
               ),
               TextButton(
                   child: Card(
