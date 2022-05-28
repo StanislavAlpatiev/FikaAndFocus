@@ -182,7 +182,7 @@ class _CafePageState extends State<CafePage> {
                           if(result.rating == 0) {
                             return;
                           } else {
-                            createReview(result.rating.toDouble(), result.review);
+                            createReview(result.rating.toDouble(), result.review, result.hideName);
                           }
                         },
                         child: Text(
@@ -299,7 +299,7 @@ class _CafePageState extends State<CafePage> {
     );
   }
 
-  Future<Review> createReview(double rating, String review) async {
+  Future<Review> createReview(double rating, String review, bool hideName) async {
 
     /*
     Required parameters:
@@ -309,8 +309,17 @@ class _CafePageState extends State<CafePage> {
       @RequestParam String userEmail
      */
 
+    String emailToPost = "anonymous";
+    if (!hideName)
+      emailToPost = widget.user.getEmail;
+
+
     Uri newReview = Uri.parse(
-        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=${rating.toString()}&reviewText=$review&cafeId=${widget.cafeItem.id}&userEmail=${widget.user.getEmail}');
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?'
+            'rating=${rating.toString()}'
+            '&reviewText=$review'
+            '&cafeId=${widget.cafeItem.id}'
+            '&userEmail=${emailToPost}');
 
     final response = await http.post(newReview);
 

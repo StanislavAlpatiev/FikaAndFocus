@@ -6,8 +6,9 @@ import 'CafeItemModel.dart';
 class ReviewDialogResult {
   double rating;
   String review;
+  bool hideName;
 
-  ReviewDialogResult(this.rating, this.review);
+  ReviewDialogResult(this.rating, this.review, this.hideName);
 }
 
 class ReviewDialog extends StatefulWidget {
@@ -123,7 +124,7 @@ class _ReviewDialogState extends State<ReviewDialog> {
             onPressed: () {
               if (_rating != 0) {
                 Navigator.of(context)
-                    .pop(ReviewDialogResult(_rating, _controller.text));
+                    .pop(ReviewDialogResult(_rating, _controller.text, hideNameChecked));
               }
             },
             child: Text(
