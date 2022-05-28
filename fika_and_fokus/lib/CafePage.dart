@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'CafeItemModel.dart';
 import 'GoogleMapMarkerInfoWindow.dart';
 import 'Heart.dart';
+import 'ReviewDialog.dart';
 import 'ReviewPage.dart';
 import 'UserModel.dart';
 
@@ -27,6 +28,7 @@ class _CafePageState extends State<CafePage> {
   void initState() {
     refreshReviews();
     super.initState();
+
   }
 
   @override
@@ -172,6 +174,34 @@ class _CafePageState extends State<CafePage> {
                   children: [
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       ElevatedButton(
+                        onPressed: () async {
+                          ReviewDialogResult result = await showDialog(
+                              context: context,
+                              builder: (_) => ReviewDialog(widget.cafeItem)
+                          );
+                          if(result.rating == 0) {
+                            return;
+                          } else {
+                            createReview(result.rating.toDouble(), result.review);
+                          }
+                        },
+                        child: Text(
+                          'RATE THIS CAFÉ',
+                          style: GoogleFonts.oswald(
+                              color: Color(0xFFFFFFFF),
+                              fontSize: 18,
+                              fontWeight: FontWeight.normal),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color(0xFF696969),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                        ),
+                      ),
+                    ]),
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                      ElevatedButton(
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -267,6 +297,33 @@ class _CafePageState extends State<CafePage> {
         ),
       ),
     );
+  }
+
+  Future<Review> createReview(double rating, String review) async {
+
+    /*
+    Required parameters:
+      @RequestParam String rating,
+      @RequestParam String reviewText,
+      @RequestParam String cafeId,
+      @RequestParam String userEmail
+     */
+
+    Uri newReview = Uri.parse(
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=${rating.toString()}&reviewText=$review&cafeId=${widget.cafeItem.id}&userEmail=${widget.user.getEmail}');
+
+    final response = await http.post(newReview);
+
+    if (response.statusCode == 200) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      return Review.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception(
+          'Failed to create review.  ' + response.statusCode.toString());
+    }
   }
 
   Future refreshReviews() async {
