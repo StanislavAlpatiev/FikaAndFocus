@@ -22,7 +22,7 @@ class ReviewDialog extends StatefulWidget {
 class _ReviewDialogState extends State<ReviewDialog> {
   double _rating = 0;
   final TextEditingController _controller = TextEditingController();
-
+  bool hideNameChecked = false;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -109,8 +109,17 @@ class _ReviewDialogState extends State<ReviewDialog> {
         ],
       ),
       actions: <Widget>[
-        Center(
-          child: ElevatedButton(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Hide my name"),
+            Checkbox(value: hideNameChecked, onChanged: (bool? newValue) {
+              print(newValue);
+              setState(() {
+                hideNameChecked = newValue!;
+              });
+            } ),
+            ElevatedButton(
             onPressed: () {
               if (_rating != 0) {
                 Navigator.of(context)
@@ -130,7 +139,7 @@ class _ReviewDialogState extends State<ReviewDialog> {
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-          ),
+          ),]
         ),
       ],
     );

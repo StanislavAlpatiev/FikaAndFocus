@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,6 +54,7 @@ class _ReviewPageState extends State<ReviewPage> {
   Future<Review>? _futureReview;
   final _formKey = GlobalKey<FormState>();
   double rating = 0;
+  bool hideNameChecked = false;
 
   @override
   void initState() {
@@ -181,14 +184,22 @@ class _ReviewPageState extends State<ReviewPage> {
                         ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            // crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              Text("Hide my name"),
+                              Checkbox(value: hideNameChecked, onChanged: (bool? newValue) {
+                                print(newValue);
+                                setState(() {
+                                  hideNameChecked = newValue!;
+                                });
+                              } ),
                               ElevatedButton(
                                 onPressed: () {
                                   if (_formKey.currentState!.validate() &&
                                       rating != 0) {
                                     setState(() {
                                       _futureReview = createReview(
-                                          rating, _controller.text);
+                                          rating, _controller.text, hideNameChecked);
                                     });
                                     // ScaffoldMessenger.of(context).showSnackBar(
                                     //   const SnackBar(content: Text('Thank you!')),
@@ -247,7 +258,7 @@ class _ReviewPageState extends State<ReviewPage> {
     final response = await http.put(reviewsToCafeUrl);
   }
 
-  Future<Review> createReview(double rating, String review) async {
+  Future<Review> createReview(double rating, String review, bool hideName) async {
 
     /*
     Required parameters:
@@ -256,9 +267,16 @@ class _ReviewPageState extends State<ReviewPage> {
       @RequestParam String cafeId,
       @RequestParam String userEmail
      */
+    String emailToPost = "anonymous";
+    if (!hideName)
+      emailToPost = widget.user.getEmail;
 
     Uri newReview = Uri.parse(
-        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?rating=${rating.toString()}&reviewText=$review&cafeId=${widget.cafeItem.id}&userEmail=${widget.user.getEmail}');
+        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?'
+            'rating=${rating.toString()}'
+            '&reviewText=$review'
+            '&cafeId=${widget.cafeItem.id}'
+            '&userEmail=${emailToPost}');
 
     final response = await http.post(newReview);
 
