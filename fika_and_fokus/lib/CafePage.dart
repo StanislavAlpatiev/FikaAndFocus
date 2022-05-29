@@ -37,7 +37,7 @@ class _CafePageState extends State<CafePage> {
     return Scaffold(
       backgroundColor: Color(0xFFE0DBCF),
       body: SafeArea(
-        child: Expanded(
+        child: Container(
           child: RefreshIndicator(
             onRefresh: refreshReviews,
             child: CustomScrollView(slivers: [

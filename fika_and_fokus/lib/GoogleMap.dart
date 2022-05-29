@@ -174,6 +174,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
   }
 
   _animateToUser() async {
+    _disableInfoVisibility(); // hindrar info window att visas
     _getCurrentPosition();
     mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
       target: LatLng(_currentPosition.latitude, _currentPosition.longitude),
