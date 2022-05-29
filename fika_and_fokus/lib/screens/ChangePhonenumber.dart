@@ -1,22 +1,22 @@
-import 'package:fika_and_fokus/AccountSettings.dart';
+import 'package:fika_and_fokus/screens/AccountSettings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ChangeEmail extends StatefulWidget {
-  const ChangeEmail({Key? key}) : super(key: key);
+class ChangePhonenumber extends StatefulWidget {
+  const ChangePhonenumber({Key? key}) : super(key: key);
 
   @override
-  State<ChangeEmail> createState() => _ChangeEmailPageState();
+  State<ChangePhonenumber> createState() => _ChangePhonenumberPageState();
 }
 
-class _ChangeEmailPageState extends State<ChangeEmail> {
+class _ChangePhonenumberPageState extends State<ChangePhonenumber> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFE0DBCF),
       appBar: AppBar(
-        title: Text('Change email',
+        title: Text('Change phone number',
           style: GoogleFonts.roboto(fontWeight: FontWeight.normal),
         ),
         automaticallyImplyLeading: true,
@@ -28,20 +28,20 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           //mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-             Padding(
-               padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-               child: Text(
-                '  Current email: ',
-                 //TODO - here we need unit test to check that the correct email is called!
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+              child: Text(
+                '  Current phone number: ',
+                //TODO - here we need unit test to check that the correct number is called!
                 textAlign: TextAlign.left,
                 style: GoogleFonts.roboto(
-                  textStyle: const TextStyle(
-                    color: Color(0xFF696969),
-                    letterSpacing: 0.5),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w300),
-               ),
-             ),
+                    textStyle: const TextStyle(
+                        color: Color(0xFF696969),
+                        letterSpacing: 0.5),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300),
+              ),
+            ),
             Center(
               child: Card(
                 child: TextFormField(
@@ -55,12 +55,12 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
                       widthFactor: 1.0,
                       heightFactor: 1.0,
                       child: FaIcon(
-                        FontAwesomeIcons.solidEnvelope,
+                        FontAwesomeIcons.phone,
                         color: Color(0xFF696969),
                         size: 20,
                       ),
                     ),
-                    labelText: 'Email',
+                    labelText: 'Phone number',
                     labelStyle: TextStyle(
                       color: Color(0xFF696969),
                       fontSize: 20,
@@ -69,7 +69,7 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
                   style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Email is empty';
+                      return 'Phone number is empty';
                     }
                     return '';
                   },
@@ -84,18 +84,18 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
                 ),
               ),
             ),
-             Padding(
-               padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-               child: Text(
-                '  New email: ',
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+              child: Text(
+                '  New phone number: ',
                 style: GoogleFonts.roboto(
                     textStyle: const TextStyle(
-                      color: Color(0xFF696969),
-                      letterSpacing: 0.5),
+                        color: Color(0xFF696969),
+                        letterSpacing: 0.5),
                     fontSize: 20,
                     fontWeight: FontWeight.w300),
+              ),
             ),
-             ),
             Center(
               child: Card(
                 child: TextFormField(
@@ -109,12 +109,12 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
                       widthFactor: 1.0,
                       heightFactor: 1.0,
                       child: FaIcon(
-                        FontAwesomeIcons.solidEnvelope,
+                        FontAwesomeIcons.phone,
                         color: Color(0xFF696969),
                         size: 20,
                       ),
                     ),
-                    labelText: 'Email',
+                    labelText: 'Phone number',
                     labelStyle: TextStyle(
                       color: Color(0xFF696969),
                       fontSize: 20,
@@ -123,7 +123,7 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
                   style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Email is empty';
+                      return 'Phonenumber is empty';
                     }
                     return '';
                   },
@@ -145,7 +145,7 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
                       child: TextButton(
                           onPressed: () => {
                             Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) => const AccountSettings(),
+                              builder: (context) => const AccountSettings(),
                             ))
                           },
                           style: ElevatedButton.styleFrom(

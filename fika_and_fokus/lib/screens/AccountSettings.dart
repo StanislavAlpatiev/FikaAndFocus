@@ -1,9 +1,9 @@
-import 'package:fika_and_fokus/ChangeEmail.dart';
-import 'package:fika_and_fokus/ChangeLanguage.dart';
-import 'package:fika_and_fokus/ChangePassword.dart';
-import 'package:fika_and_fokus/ChangePhonenumber.dart';
-import 'package:fika_and_fokus/ChangeUsername.dart';
-import 'package:fika_and_fokus/Profile.dart';
+import 'package:fika_and_fokus/screens/ChangeEmail.dart';
+import 'package:fika_and_fokus/screens/ChangeLanguage.dart';
+import 'package:fika_and_fokus/screens/ChangePassword.dart';
+import 'package:fika_and_fokus/screens/ChangePhonenumber.dart';
+import 'package:fika_and_fokus/screens/ChangeUsername.dart';
+import 'package:fika_and_fokus/screens/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:google_fonts/google_fonts.dart';

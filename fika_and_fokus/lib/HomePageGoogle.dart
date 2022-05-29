@@ -1,11 +1,11 @@
-import 'package:fika_and_fokus/HomePage.dart';
-import 'package:fika_and_fokus/Profile.dart';
-import 'package:fika_and_fokus/SignOut.dart';
-import 'package:fika_and_fokus/SignUp.dart';
+import 'package:fika_and_fokus/misc/HomePage.dart';
+import 'package:fika_and_fokus/screens/Profile.dart';
+import 'package:fika_and_fokus/screens/SignOut.dart';
+import 'package:fika_and_fokus/screens/SignUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'LogIn.dart';
-import 'UserModel.dart';
+import 'screens/LogIn.dart';
+import 'models/UserModel.dart';
 
 class HomePageGoogle extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(

@@ -1,4 +1,4 @@
-import 'package:fika_and_fokus/AccountSettings.dart';
+import 'package:fika_and_fokus/screens/AccountSettings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

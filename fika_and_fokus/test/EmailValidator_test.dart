@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:fika_and_fokus/LogIn.dart';
+import 'package:fika_and_fokus/screens/LogIn.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

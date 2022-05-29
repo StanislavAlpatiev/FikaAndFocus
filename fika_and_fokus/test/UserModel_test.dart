@@ -1,4 +1,4 @@
-import 'package:fika_and_fokus/UserModel.dart';
+import 'package:fika_and_fokus/models/UserModel.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

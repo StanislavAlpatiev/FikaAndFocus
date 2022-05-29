@@ -1,9 +1,9 @@
 import 'package:fika_and_fokus/HomePageGoogle.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'SignUp.dart';
-import 'LogIn.dart';
-import 'GoogleMapMarkerInfoWindow.dart';
+import 'screens/SignUp.dart';
+import 'screens/LogIn.dart';
+import 'widgets/GoogleMapMarkerInfoWindow.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'GoogleSignIn.dart';
 
