@@ -24,8 +24,8 @@ class _BookmarksPageState extends State<BookmarksPage> {
 
   @override
   void initState() {
-    refreshCafes();
     super.initState();
+    refreshCafes();
   }
 
   @override
@@ -42,7 +42,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
         automaticallyImplyLeading: false,
       ),
       body: SafeArea(
-        child: Expanded(
+        child: Container(
           child: RefreshIndicator(
             onRefresh: refreshCafes,
             child: ListView.builder(
@@ -105,6 +105,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
             '/favourites');
     // Uri favoriteCafesURI = Uri.parse('https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/sten@gmail.com/favourites');
 
+    
     final response = await http.get(favoriteCafesURI);
 
     if (response.statusCode == 200) {
@@ -119,7 +120,7 @@ class _BookmarksPageState extends State<BookmarksPage> {
       }
 
       _cafesTemp.sort((a, b) => a.name.compareTo(b.name));
-
+      print(_cafesTemp.toString());
       setState(() {
         cafes = _cafesTemp;
       });

@@ -239,6 +239,7 @@ class _LogInState extends State<LogIn> {
 
                         // user details to be sent to navbar
                         user.email = provider.user.email.toString();
+                        print("user.email is " + user.getEmail + ".");
                         user.userName = provider.user.displayName.toString();
                         user.password = "google";
 
