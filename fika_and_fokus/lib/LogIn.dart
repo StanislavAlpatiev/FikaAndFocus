@@ -227,8 +227,21 @@ class _LogInState extends State<LogIn> {
                         //log("isLoggedInWithGoogle: "+ isLoggedInWithGoogle.toString());
                         //if (isLoggedInWithGoogle)
 
-                        user.email = provider.user.email;
+                        // user.email = provider.user.email;
+                        // user.password = "google";
+
+                        // user details to be saved in database
+                        registerUser(
+                            provider.user.email,
+                            provider.user.displayName!,
+                            "google",
+                            );
+
+                        // user details to be sent to navbar
+                        user.email = provider.user.email.toString();
+                        user.userName = provider.user.displayName.toString();
                         user.password = "google";
+
                         Navigator.push(context, MaterialPageRoute(builder: (context) => NavBar(user: user)));
 
                       },
@@ -309,5 +322,27 @@ class _LogInState extends State<LogIn> {
       return "login failed: wrong username or password";
     }
     return "";
+  }
+
+  Future<UserModel> registerUser(String email, String username, String password) async {
+
+    print("test");
+    //Uri url = Uri.parse("http://192.168.0.14:8080/user/add?"
+    Uri url = Uri.parse("https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/user/add?" +
+        "email=" +
+        email +
+        "&username=" +
+        username +
+        "&password=" +
+        password);
+    print(url.toString());
+    final response = await http.post(url);
+
+    if (response.statusCode == 200) {
+      print("success, status code 200 when adding user");
+      return UserModel(email: email, userName: username, password: password);
+    } else {
+      throw "Error: " + response.statusCode.toString();
+    }
   }
 }

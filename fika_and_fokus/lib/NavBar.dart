@@ -10,7 +10,10 @@ class NavBar extends StatefulWidget {
   UserModel user = new UserModel(userName: "", email: "", password: "");
   NavBar({Key? key, UserModel? user}) : super(key: key){
     this.user = user!;
+    print("in navbar");
   }
+
+
   @override
   State<NavBar> createState() => _NavBarState();
 }
