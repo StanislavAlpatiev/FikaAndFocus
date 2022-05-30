@@ -82,6 +82,31 @@ public class DatabaseTest {
         stmt.executeUpdate(sqlInsert);
     }
 
+    private StringBuilder doGetRequest(URL url) throws IOException{
+        URLConnection connection = url.openConnection();
+        HttpURLConnection http = (HttpURLConnection) connection;
+        http.setRequestMethod("GET");
+        http.setDoOutput(true);
+        StringBuilder informationString = new StringBuilder();
+        Scanner scanner = new Scanner(url.openStream());
+        while (scanner.hasNext()) {
+            informationString.append(scanner.nextLine());
+        }
+        scanner.close();
+        return informationString;
+    }
+
+
+    private void doPostOrDeleteRequest(String data,URL url,String post) throws IOException{
+        URLConnection connection = url.openConnection();
+        HttpURLConnection http = (HttpURLConnection) connection;
+        http.setRequestMethod(post);
+        http.setDoOutput(true);
+        connection.getOutputStream().write(data.getBytes(StandardCharsets.UTF_8));
+        connection.getInputStream();
+    }
+
+
     @Test
     void cafeAppearsInDatabaseAfterAddingWithSQLQuery() throws SQLException{
         insertTestCafe();
@@ -141,12 +166,7 @@ public class DatabaseTest {
     void userAppearsInDataBaseAfterAddingWithHTTP() throws IOException, SQLException{
         String data = "email=abc123@gmail.com&username=abc123&password=123abc";
         URL url = new URL("http://127.0.0.1:8080/user/add");
-        URLConnection connection = url.openConnection();
-        HttpURLConnection http = (HttpURLConnection) connection;
-        http.setRequestMethod("POST");
-        http.setDoOutput(true);
-        connection.getOutputStream().write(data.getBytes(StandardCharsets.UTF_8));
-        connection.getInputStream();
+        doPostOrDeleteRequest(data,url,"POST");
         ResultSet myRs = stmt.executeQuery("select * from user");
         String s = null;
         if ( myRs.next() ) {
@@ -160,12 +180,7 @@ public class DatabaseTest {
     void cafeAppearsInDataBaseAfterAddingWithHTTP() throws IOException, SQLException{
         String data = "id=abc123&address=café street 123&name=café abc123&lat=123.456&lng=1.01101&price=4&rating=3";
         URL url = new URL("http://127.0.0.1:8080/cafes/add");
-        URLConnection connection = url.openConnection();
-        HttpURLConnection http = (HttpURLConnection) connection;
-        http.setRequestMethod("POST");
-        http.setDoOutput(true);
-        connection.getOutputStream().write(data.getBytes(StandardCharsets.UTF_8));
-        connection.getInputStream();
+        doPostOrDeleteRequest(data,url,"POST");
         ResultSet myRs = stmt.executeQuery("select * from cafe2");
         String s = null;
         if ( myRs.next() ) {
@@ -183,12 +198,7 @@ public class DatabaseTest {
         insertTestUser();
         String data = "";
         URL url = new URL("http://127.0.0.1:8080/cafes/abc123@gmail.com/addfavourite/abc123");
-        URLConnection connection = url.openConnection();
-        HttpURLConnection http = (HttpURLConnection) connection;
-        http.setRequestMethod("POST");
-        http.setDoOutput(true);
-        connection.getOutputStream().write(data.getBytes(StandardCharsets.UTF_8));
-        connection.getInputStream();
+        doPostOrDeleteRequest(data,url,"POST");
         ResultSet myRs = stmt.executeQuery("select * from favourites");
         String s = null;
         if ( myRs.next() ) {
@@ -203,12 +213,7 @@ public class DatabaseTest {
         insertTestUser();
         String data = "rating=4&reviewText=excellent coffee&cafeId=abc123&userEmail=abc123@gmail.com";
         URL url = new URL("http://127.0.0.1:8080/reviews/add");
-        URLConnection connection = url.openConnection();
-        HttpURLConnection http = (HttpURLConnection) connection;
-        http.setRequestMethod("POST");
-        http.setDoOutput(true);
-        connection.getOutputStream().write(data.getBytes(StandardCharsets.UTF_8));
-        connection.getInputStream();
+        doPostOrDeleteRequest(data,url,"POST");
         ResultSet myRs = stmt.executeQuery("select * from review");
         String s = null;
         String date = LocalDate.now().toString();
@@ -227,16 +232,7 @@ public class DatabaseTest {
         insertTestUser();
         insertTestFavourite();
         URL url = new URL("http://127.0.0.1:8080/cafes/abc123@gmail.com/favourites");
-        URLConnection connection = url.openConnection();
-        HttpURLConnection http = (HttpURLConnection) connection;
-        http.setRequestMethod("GET");
-        http.setDoOutput(true);
-        StringBuilder informationString = new StringBuilder();
-        Scanner scanner = new Scanner(url.openStream());
-        while (scanner.hasNext()) {
-            informationString.append(scanner.nextLine());
-        }
-        scanner.close();
+        StringBuilder informationString = doGetRequest(url);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(String.valueOf(informationString));
         String cafe = jsonNode.at("/0/id").toString();
@@ -249,16 +245,7 @@ public class DatabaseTest {
         insertTestUser();
         insertTestFavourite();
         URL url = new URL("http://127.0.0.1:8080/cafes/abc123/favouritesbycafe");
-        URLConnection connection = url.openConnection();
-        HttpURLConnection http = (HttpURLConnection) connection;
-        http.setRequestMethod("GET");
-        http.setDoOutput(true);
-        StringBuilder informationString = new StringBuilder();
-        Scanner scanner = new Scanner(url.openStream());
-        while (scanner.hasNext()) {
-            informationString.append(scanner.nextLine());
-        }
-        scanner.close();
+        StringBuilder informationString = doGetRequest(url);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(String.valueOf(informationString));
         String cafe = jsonNode.at("/0/email").toString();
@@ -268,22 +255,17 @@ public class DatabaseTest {
     @Test
     void removingFavouriteByHTTPRemovesFavourite() throws IOException, SQLException{
         insertTestCafe();
-        String sqlInsert4 = "insert into cafe2 (id, address, name, lat, lng, price, rating) " +
+        String sqlInsert = "insert into cafe2 (id, address, name, lat, lng, price, rating) " +
                 "values ('abc1234', 'café street 123', 'café abc1234', '123.456', '1.01101', '4', '3')";
-        stmt.executeUpdate(sqlInsert4);
+        stmt.executeUpdate(sqlInsert);
         insertTestUser();
         insertTestFavourite();
-        String sqlInsert5 = "insert into favourites (cafe_id, user_id) " +
+        String sqlInsert2 = "insert into favourites (cafe_id, user_id) " +
                 "values ('abc1234', 'abc123@gmail.com')";
-        stmt.executeUpdate(sqlInsert5);
+        stmt.executeUpdate(sqlInsert2);
         String data = "";
         URL url = new URL("http://127.0.0.1:8080/cafes/abc123@gmail.com/removefavourite/abc1234");
-        URLConnection connection = url.openConnection();
-        HttpURLConnection http = (HttpURLConnection) connection;
-        http.setRequestMethod("DELETE");
-        http.setDoOutput(true);
-        connection.getOutputStream().write(data.getBytes(StandardCharsets.UTF_8));
-        connection.getInputStream();
+        doPostOrDeleteRequest(data,url,"DELETE");
         ResultSet myRs = stmt.executeQuery("select * from favourites");
         String s = null;
         if ( myRs.next() ) {
@@ -298,16 +280,7 @@ public class DatabaseTest {
         insertTestUser();
         insertTestReview();
         URL url = new URL("http://127.0.0.1:8080/reviews/users/abc123@gmail.com");
-        URLConnection connection = url.openConnection();
-        HttpURLConnection http = (HttpURLConnection) connection;
-        http.setRequestMethod("GET");
-        http.setDoOutput(true);
-        StringBuilder informationString = new StringBuilder();
-        Scanner scanner = new Scanner(url.openStream());
-        while (scanner.hasNext()) {
-            informationString.append(scanner.nextLine());
-        }
-        scanner.close();
+        StringBuilder informationString = doGetRequest(url);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(String.valueOf(informationString));
         String cafe = jsonNode.at("/0/review_string").toString();
