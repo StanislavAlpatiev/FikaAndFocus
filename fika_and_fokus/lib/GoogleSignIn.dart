@@ -51,7 +51,6 @@ class GoogleSignInProvider extends ChangeNotifier {
 
     return false;
     // updates UI
-    notifyListeners();
   }
 
   Future signOutWithGoogle() async {

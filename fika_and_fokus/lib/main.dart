@@ -12,11 +12,6 @@ Future main() async{
   await Firebase.initializeApp();
 
   runApp(
-    // const MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   title: "Fika&Focus",
-    //   home: LogIn(),
-    // ),
       MyApp()
   );
 }

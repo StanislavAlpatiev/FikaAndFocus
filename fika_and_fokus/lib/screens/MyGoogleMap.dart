@@ -188,10 +188,6 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             businessLevel +
             "&radius=" +
             radius +
-            // "&lng=" +
-            // "18.068326509937545" +
-            // "&lat=" +
-            // "59.32967345111922"
         "&lng=" + _currentPosition.longitude.toString() + "&lat=" + _currentPosition.latitude.toString()
         );
     final response = await http.get(sampleFriendsURI);
@@ -214,7 +210,6 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             snippet: venue.cafeItem.address,
           ),
           onTap: () {
-            // info-window related - Anton
             setState(() {
               currentCafe = venue.cafeItem;
             });
@@ -233,17 +228,14 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     }
   }
 
-  // info window related - Anton
   _enableInfoVisibility() async {
     setState(() {
-      // isInfoVisible = !isInfoVisible;
       if (!isInfoVisible) {
         isInfoVisible = true;
       }
     });
   }
 
-  // info window related - Anton
   _disableInfoVisibility() async {
     setState(() {
       // isInfoVisible = !isInfoVisible;
@@ -257,14 +249,6 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     setState(() {
       allMarkers.clear();
     });
-  }
-
-  _search() async {
-    Position location = await GeolocatorPlatform.instance.getCurrentPosition();
-    mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-      target: LatLng(location.latitude, location.longitude),
-      zoom: 17.0,
-    )));
   }
 
   _changeVisibility() async {
