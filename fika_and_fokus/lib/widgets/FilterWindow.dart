@@ -11,12 +11,10 @@ class FilterWindow extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<FilterWindow> createState() => _FilterWindowState(); //callback: callback
+  State<FilterWindow> createState() => _FilterWindowState();
 }
 
 class _FilterWindowState extends State<FilterWindow> {
-  //_FilterWindowState({required this.callback});
-
   double priceValue = 0;
   double minRating = 1;
   double maxRating = 5;
@@ -25,8 +23,6 @@ class _FilterWindowState extends State<FilterWindow> {
   double busynessSliderValue = 20;
   double ratingRangeStart = 1;
   double ratingRangeEnd = 3;
-
-  //final Function callback;
 
   @override
   Widget build(BuildContext context) {
@@ -41,171 +37,185 @@ class _FilterWindowState extends State<FilterWindow> {
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           boxShadow: [
             BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(2, 3))
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(2, 3),
+            ),
           ],
         ),
-        child:
-            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
-            child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "PRICE",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.roboto(
+                        textStyle: const TextStyle(letterSpacing: 3.0),
+                        fontSize: 15.00,
+                        fontWeight: FontWeight.w300),
+                  ),
+                ],
+              ),
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "PRICE",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.roboto(
-                      textStyle: const TextStyle(letterSpacing: 3.0),
-                      fontSize: 15.00,
-                      fontWeight: FontWeight.w300),
-                )
+                SfSliderTheme(
+                  data: SfSliderThemeData(
+                    thumbColor: const Color(0xFF75AB98),
+                    activeTrackColor: const Color(0xFF75AB98),
+                    inactiveTrackColor: const Color(0x22696969),
+                  ),
+                  child: SfSlider(
+                    value: priceValue,
+                    min: 0,
+                    max: 2,
+                    stepSize: 1,
+                    interval: 1,
+                    showTicks: true,
+                    showLabels: true,
+                    labelFormatterCallback:
+                        (dynamic actualValue, String formattedText) {
+                      switch (actualValue) {
+                        case 0:
+                          return '\$';
+                        case 1:
+                          return '\$\$';
+                        case 2:
+                          return '\$\$\$';
+                      }
+                      return actualValue.toString();
+                    },
+                    onChanged: (dynamic newValue) {
+                      setState(() {
+                        priceValue = newValue;
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SfSliderTheme(
-              data: SfSliderThemeData(
-                thumbColor: const Color(0xFF75AB98),
-                activeTrackColor: const Color(0xFF75AB98),
-                inactiveTrackColor: const Color(0x22696969),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "RATING",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.roboto(
+                        textStyle: const TextStyle(letterSpacing: 3.0),
+                        fontSize: 15.00,
+                        fontWeight: FontWeight.w300),
+                  ),
+                ],
               ),
-              child: SfSlider(
-                value: priceValue,
-                min: 0,
-                max: 2,
-                stepSize: 1,
-                interval: 1,
-                showTicks: true,
-                showLabels: true,
-                labelFormatterCallback:
-                    (dynamic actualValue, String formattedText) {
-                  switch (actualValue) {
-                    case 0:
-                      return '\$';
-                    case 1:
-                      return '\$\$';
-                    case 2:
-                      return '\$\$\$';
-                  }
-                  return actualValue.toString();
-                },
-                onChanged: (dynamic newValue) {
-                  setState(() {
-                    priceValue = newValue;
-                  });
-                },
-              ),
-            )
-          ]),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Row(
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "RATING",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.roboto(
-                      textStyle: const TextStyle(letterSpacing: 3.0),
-                      fontSize: 15.00,
-                      fontWeight: FontWeight.w300),
-                )
+                SfSliderTheme(
+                  data: SfSliderThemeData(
+                    thumbColor: const Color(0xFF75AB98),
+                    activeTrackColor: const Color(0xFF75AB98),
+                    inactiveTrackColor: const Color(0x22696969),
+                  ),
+                  child: SfSlider(
+                    value: ratingRangeStart,
+                    min: 1.0,
+                    max: 5.0,
+                    interval: 1,
+                    showTicks: true,
+                    showLabels: true,
+                    onChanged: (dynamic newValue) {
+                      setState(() {
+                        ratingRangeStart = newValue;
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            SfSliderTheme(
-              data: SfSliderThemeData(
-                thumbColor: const Color(0xFF75AB98),
-                activeTrackColor: const Color(0xFF75AB98),
-                inactiveTrackColor: const Color(0x22696969),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "DISTANCE",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.roboto(
+                        textStyle: const TextStyle(letterSpacing: 3.0),
+                        fontSize: 15.00,
+                        fontWeight: FontWeight.w300),
+                  ),
+                ],
               ),
-              child: SfSlider(
-                value: ratingRangeStart,
-                min: 1.0,
-                max: 5.0,
-                interval: 1,
-                showTicks: true,
-                showLabels: true,
-                onChanged: (dynamic newValue) {
-                  setState(() {
-                    ratingRangeStart = newValue;
-                  });
-                },
-              ),
-            )
-          ]),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Row(
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "DISTANCE",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.roboto(
-                      textStyle: const TextStyle(letterSpacing: 3.0),
-                      fontSize: 15.00,
-                      fontWeight: FontWeight.w300),
-                )
+                Slider(
+                  value: distanceSliderValue,
+                  max: 10000,
+                  divisions: 5,
+                  activeColor: const Color(0xFF75AB98),
+                  inactiveColor: const Color(0x22696969),
+                  label: distanceSliderValue.round().toString() + ' m',
+                  onChanged: (double value) {
+                    setState(() {
+                      distanceSliderValue = value;
+                    });
+                  },
+                ),
               ],
             ),
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Slider(
-              value: distanceSliderValue,
-              max: 10000,
-              divisions: 5,
-              activeColor: const Color(0xFF75AB98),
-              inactiveColor: const Color(0x22696969),
-              label: distanceSliderValue.round().toString() + ' m',
-              onChanged: (double value) {
-                setState(() {
-                  distanceSliderValue = value;
-                });
-              },
-            )
-          ]),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-            child: Row(
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "BUSYNESS",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.roboto(
+                        textStyle: const TextStyle(letterSpacing: 3.0),
+                        fontSize: 15.00,
+                        fontWeight: FontWeight.w300),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Slider(
+                  value: busynessSliderValue,
+                  max: 100,
+                  divisions: 10,
+                  activeColor: const Color(0xFF75AB98),
+                  inactiveColor: const Color(0x22696969),
+                  label: busynessSliderValue.round().toString() + ' %',
+                  onChanged: (double value) {
+                    setState(() {
+                      busynessSliderValue = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "BUSYNESS",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.roboto(
-                      textStyle: const TextStyle(letterSpacing: 3.0),
-                      fontSize: 15.00,
-                      fontWeight: FontWeight.w300),
-                )
-              ],
-            ),
-          ),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            Slider(
-              value: busynessSliderValue,
-              max: 100,
-              divisions: 10,
-              activeColor: const Color(0xFF75AB98),
-              inactiveColor: const Color(0x22696969),
-              label: busynessSliderValue.round().toString() + ' %',
-              onChanged: (double value) {
-                setState(() {
-                  busynessSliderValue = value;
-                });
-              },
-            )
-          ]),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: ElevatedButton(
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: const Color(0xFF75AB98),
                       shape: RoundedRectangleBorder(
@@ -223,9 +233,10 @@ class _FilterWindowState extends State<FilterWindow> {
                           textStyle: const TextStyle(letterSpacing: 3.0),
                           fontSize: 15.00,
                           fontWeight: FontWeight.w300),
-                    )),
-              ),
-              Padding(
+                    ),
+                  ),
+                ),
+                Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -246,11 +257,12 @@ class _FilterWindowState extends State<FilterWindow> {
                           fontSize: 15.00,
                           fontWeight: FontWeight.w300),
                     ),
-                  ))
-            ],
-          )
-        ] //child: widget.child,
+                  ),
                 ),
+              ],
+            ),
+          ], //child: widget.child,
+        ),
       ),
     );
   }
