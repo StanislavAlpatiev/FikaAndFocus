@@ -14,7 +14,7 @@ class ReviewDialogResult {
 class ReviewDialog extends StatefulWidget {
   final CafeModel cafeItem;
 
-  ReviewDialog(this.cafeItem, {Key? key}) : super(key: key);
+  const ReviewDialog(this.cafeItem, {Key? key}) : super(key: key);
 
   @override
   _ReviewDialogState createState() => _ReviewDialogState();
@@ -24,6 +24,7 @@ class _ReviewDialogState extends State<ReviewDialog> {
   double _rating = 0;
   final TextEditingController _controller = TextEditingController();
   bool hideNameChecked = false;
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -61,7 +62,7 @@ class _ReviewDialogState extends State<ReviewDialog> {
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             Padding(
-              padding: EdgeInsets.fromLTRB(2, 0, 0, 5),
+              padding: const EdgeInsets.fromLTRB(2, 0, 0, 5),
               child: RatingBar(
                   initialRating: 0,
                   direction: Axis.horizontal,
@@ -100,48 +101,41 @@ class _ReviewDialogState extends State<ReviewDialog> {
                 borderSide: BorderSide(color: Color(0xFF75AB98), width: 2.0),
               ),
             ),
-            // validator: (value) {
-            //   if (value == null || value.isEmpty) {
-            //     return 'Required';
-            //   }
-            //   return null;
-            // },
           ),
         ],
       ),
       actions: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Hide my name"),
-            Checkbox(value: hideNameChecked, onChanged: (bool? newValue) {
-              print(newValue);
-              setState(() {
-                hideNameChecked = newValue!;
-              });
-            } ),
-            ElevatedButton(
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          const Text("Hide my name"),
+          Checkbox(
+              value: hideNameChecked,
+              onChanged: (bool? newValue) {
+                setState(() {
+                  hideNameChecked = newValue!;
+                });
+              }),
+          ElevatedButton(
             onPressed: () {
               if (_rating != 0) {
-                Navigator.of(context)
-                    .pop(ReviewDialogResult(_rating, _controller.text, hideNameChecked));
+                Navigator.of(context).pop(ReviewDialogResult(
+                    _rating, _controller.text, hideNameChecked));
               }
             },
             child: Text(
               'SUBMIT',
               style: GoogleFonts.oswald(
-                  color: Color(0xFFFFFFFF),
+                  color: const Color(0xFFFFFFFF),
                   fontSize: 18,
                   fontWeight: FontWeight.normal),
             ),
             style: ElevatedButton.styleFrom(
-              primary: Color(0xFF696969),
+              primary: const Color(0xFF696969),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-          ),]
-        ),
+          ),
+        ]),
       ],
     );
   }
