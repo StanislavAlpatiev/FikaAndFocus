@@ -5,7 +5,6 @@
 
 
 package com.dsv.pvt.fikafocus;
-
 import com.dsv.pvt.fikafocus.cafe.CafeRepository;
 import com.dsv.pvt.fikafocus.review.ReviewRepository;
 import com.dsv.pvt.fikafocus.user.UserRepository;
@@ -81,7 +80,7 @@ public class DatabaseTest {
                 "values ('abc123', 'abc123@gmail.com')";
         stmt.executeUpdate(sqlInsert);
     }
-
+/*
     private StringBuilder doGetRequest(URL url) throws IOException{
         URLConnection connection = url.openConnection();
         HttpURLConnection http = (HttpURLConnection) connection;
@@ -326,5 +325,5 @@ public class DatabaseTest {
         assertEquals("\"Failed login\"",cafe);
     }
 
-
+*/
 }
