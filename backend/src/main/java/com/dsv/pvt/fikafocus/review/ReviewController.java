@@ -5,7 +5,7 @@ package com.dsv.pvt.fikafocus.review;
  *
  */
 
-import com.dsv.pvt.fikafocus.cafe.Cafe2;
+import com.dsv.pvt.fikafocus.cafe.Cafe;
 import com.dsv.pvt.fikafocus.cafe.CafeRepository;
 import com.dsv.pvt.fikafocus.user.UserEntity;
 import com.dsv.pvt.fikafocus.user.UserRepository;
@@ -54,7 +54,7 @@ public class ReviewController {
             date.toString()
         );
 
-        Cafe2 cafeTemp = cafeRepository.findById(cafeId).get();
+        Cafe cafeTemp = cafeRepository.findById(cafeId).get();
         UserEntity userTemp = userRepository.findById(userEmail).get();
 
         review.setUser(userTemp);
@@ -105,7 +105,7 @@ public class ReviewController {
             @PathVariable Integer reviewId,
             @PathVariable String cafeId
     ){
-       Optional<Cafe2> cafe = cafeRepository.findById(cafeId);
+       Optional<Cafe> cafe = cafeRepository.findById(cafeId);
        Optional<Review> review = reviewRepository.findById(reviewId);
 
        review.get().setCafe(cafe.get());

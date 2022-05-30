@@ -2,7 +2,7 @@ package com.dsv.pvt.fikafocus.user;//package com.dsv.pvt.fikafocus;
 
 import javax.persistence.*;
 
-import com.dsv.pvt.fikafocus.cafe.Cafe2;
+import com.dsv.pvt.fikafocus.cafe.Cafe;
 import com.dsv.pvt.fikafocus.review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -41,9 +41,9 @@ public class UserEntity {
 
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
-    private Set<Cafe2> cafes = new HashSet<>();
+    private Set<Cafe> cafes = new HashSet<>();
 
-    public void addFavourite(Cafe2 cafe2){
+    public void addFavourite(Cafe cafe2){
         cafes.add(cafe2);
     }
 
@@ -51,7 +51,7 @@ public class UserEntity {
         reviewSet.add(review);
     }
 
-    public void removeFavourite(Cafe2 cafe2){
+    public void removeFavourite(Cafe cafe2){
         cafes.remove(cafe2);
     }
 

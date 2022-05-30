@@ -1,21 +1,13 @@
 package com.dsv.pvt.fikafocus.cafe;
 
-import com.dsv.pvt.fikafocus.review.Review;
 import com.dsv.pvt.fikafocus.user.UserEntity;
 import com.dsv.pvt.fikafocus.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
@@ -40,7 +32,7 @@ public class CafeController {
             @RequestParam String price,
             @RequestParam String rating
     ) {
-        Cafe2 cafe = new Cafe2();
+        Cafe cafe = new Cafe();
         cafe.setId(id);
         cafe.setAddress(address);
         cafe.setName(name);
@@ -54,7 +46,7 @@ public class CafeController {
 
     @GetMapping(path = "/all")
     public @ResponseBody
-    Iterable<Cafe2> getAllCafes() {
+    Iterable<Cafe> getAllCafes() {
         // This returns a JSON or XML with the users
         return cafeRepository.findAll();
     }
@@ -68,7 +60,7 @@ public class CafeController {
      */
     @GetMapping("/{id}/all")
     public Collection getAllReviewsForCafesById(@PathVariable("id") String id) {
-        Optional<Cafe2> optionalCafe2 = cafeRepository.findById(id);
+        Optional<Cafe> optionalCafe2 = cafeRepository.findById(id);
         if (optionalCafe2.isPresent()) {
             return optionalCafe2.get().getReviewSet();
         }
@@ -86,7 +78,7 @@ public class CafeController {
 
     @GetMapping("/{id}/favouritesbycafe")
     public Collection getAllFavouritesForCafesByCafeId(@PathVariable("id") String id) {
-        Optional<Cafe2> optionalCafe = cafeRepository.findById(id);
+        Optional<Cafe> optionalCafe = cafeRepository.findById(id);
         if (optionalCafe.isPresent()) {
             return optionalCafe.get().getUsers();
         }
@@ -98,7 +90,7 @@ public class CafeController {
             @PathVariable String userId,
             @PathVariable String cafeId
     ) {
-        Optional<Cafe2> cafe = cafeRepository.findById(cafeId);
+        Optional<Cafe> cafe = cafeRepository.findById(cafeId);
         Optional<UserEntity> user = userRepository.findById(userId);
 
         user.get().addFavourite(cafe.get());
@@ -112,7 +104,7 @@ public class CafeController {
             @PathVariable String userId,
             @PathVariable String cafeId
     ) {
-        Optional<Cafe2> cafe = cafeRepository.findById(cafeId);
+        Optional<Cafe> cafe = cafeRepository.findById(cafeId);
         Optional<UserEntity> user = userRepository.findById(userId);
         user.get().removeFavourite(cafe.get());
         cafe.get().removeFavourite(user.get());
@@ -129,8 +121,8 @@ public class CafeController {
 
     //hämta review med visst id
     @GetMapping("/{id}")
-    public Cafe2 reviewById(@PathVariable("id") String id) {
-        Optional<Cafe2> optionalCafe2 = cafeRepository.findById(id);
+    public Cafe reviewById(@PathVariable("id") String id) {
+        Optional<Cafe> optionalCafe2 = cafeRepository.findById(id);
         if (optionalCafe2.isPresent()) {
             return optionalCafe2.get();
         }

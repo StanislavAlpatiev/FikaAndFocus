@@ -55,12 +55,12 @@ public class DatabaseTest {
     void truncateTables() throws SQLException{
         stmt.executeQuery("delete from favourites");
         stmt.executeQuery("delete from review");
-        stmt.executeQuery("delete from cafe2");
+        stmt.executeQuery("delete from cafe");
         stmt.executeQuery("delete from user");
     }
 
     void insertTestCafe() throws SQLException{
-        String sqlInsert = "insert into cafe2 (id, address, name, lat, lng, price, rating) " +
+        String sqlInsert = "insert into cafe (id, address, name, lat, lng, price, rating) " +
                 "values ('abc123', 'café street 123', 'café abc123', '123.456', '1.01101', '4', '3')";
         stmt.executeUpdate(sqlInsert);
     }
@@ -110,7 +110,7 @@ public class DatabaseTest {
     @Test
     void cafeAppearsInDatabaseAfterAddingWithSQLQuery() throws SQLException{
         insertTestCafe();
-        ResultSet myRs = stmt.executeQuery("select * from cafe2");
+        ResultSet myRs = stmt.executeQuery("select * from cafe");
         String s = null;
         if ( myRs.next() ) {
             s = myRs.getString("id") + " " + myRs.getString("address") +
@@ -181,7 +181,7 @@ public class DatabaseTest {
         String data = "id=abc123&address=café street 123&name=café abc123&lat=123.456&lng=1.01101&price=4&rating=3";
         URL url = new URL("http://127.0.0.1:8080/cafes/add");
         doPostOrDeleteRequest(data,url,"POST");
-        ResultSet myRs = stmt.executeQuery("select * from cafe2");
+        ResultSet myRs = stmt.executeQuery("select * from cafe");
         String s = null;
         if ( myRs.next() ) {
             s = myRs.getString("id") + " " + myRs.getString("address") +
@@ -255,7 +255,7 @@ public class DatabaseTest {
     @Test
     void removingFavouriteByHTTPRemovesFavourite() throws IOException, SQLException{
         insertTestCafe();
-        String sqlInsert = "insert into cafe2 (id, address, name, lat, lng, price, rating) " +
+        String sqlInsert = "insert into cafe (id, address, name, lat, lng, price, rating) " +
                 "values ('abc1234', 'café street 123', 'café abc1234', '123.456', '1.01101', '4', '3')";
         stmt.executeUpdate(sqlInsert);
         insertTestUser();

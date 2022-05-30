@@ -9,9 +9,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Cafe2 {
+public class Cafe {
 
-    public Cafe2(){
+    public Cafe(){
     }
 
 
@@ -23,7 +23,7 @@ public class Cafe2 {
         this.address = address;
     }
 
-    public Cafe2(String id,String name,String address,String lat,String lng,String rating,String price){
+    public Cafe(String id,String name,String address,String lat,String lng,String rating,String price){
         this.id = id;
         this.name = name;
         this.address = address;
@@ -78,7 +78,7 @@ public class Cafe2 {
     }
 
     @JsonIgnore // to avoid recursive problem in relationship
-    @OneToMany(mappedBy = "cafe2")
+    @OneToMany(mappedBy = "cafe")
     private Set<Review> reviewSet = new HashSet<Review>();
 
 

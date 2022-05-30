@@ -1,6 +1,6 @@
 package com.dsv.pvt.fikafocus.review;
 
-import com.dsv.pvt.fikafocus.cafe.Cafe2;
+import com.dsv.pvt.fikafocus.cafe.Cafe;
 import com.dsv.pvt.fikafocus.user.UserEntity;
 
 import javax.persistence.*;
@@ -19,7 +19,7 @@ public class Review {
     @ManyToOne(cascade = CascadeType.ALL)
     //name: vad foreginkey kolumn ska heta, referencedColumnname: vilken kolumn som är forgein key
     @JoinColumn(name="cafe", referencedColumnName = "id")
-    private Cafe2 cafe2;
+    private Cafe cafe;
 
 
     @ManyToOne
@@ -30,12 +30,12 @@ public class Review {
         return user;
     }
 
-    public Cafe2 getCafe() {
-        return cafe2;
+    public Cafe getCafe() {
+        return cafe;
     }
 
-    public void setCafe(Cafe2 cafe){
-        this.cafe2 = cafe;
+    public void setCafe(Cafe cafe){
+        this.cafe = cafe;
     }
 
 
