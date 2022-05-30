@@ -331,10 +331,12 @@ class _CafePageState extends State<CafePage> {
   String _changePriceStringToDollarSign() {
     switch (widget.cafeItem.price) {
       case "0":
-        return '\$';
+        return 'N/A';
       case "1":
-        return '\$\$';
+        return '\$';
       case "2":
+        return '\$\$';
+      case "3":
         return '\$\$\$';
     }
     return widget.cafeItem.price;

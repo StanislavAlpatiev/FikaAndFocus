@@ -15,7 +15,7 @@ class FilterWindow extends StatefulWidget {
 }
 
 class _FilterWindowState extends State<FilterWindow> {
-  double priceValue = 0;
+  double priceValue = 1;
   double minRating = 1;
   double maxRating = 5;
   double ratingSliderValue = 1;
@@ -74,8 +74,8 @@ class _FilterWindowState extends State<FilterWindow> {
                   ),
                   child: SfSlider(
                     value: priceValue,
-                    min: 0,
-                    max: 2,
+                    min: 1,
+                    max: 3,
                     stepSize: 1,
                     interval: 1,
                     showTicks: true,
@@ -83,11 +83,11 @@ class _FilterWindowState extends State<FilterWindow> {
                     labelFormatterCallback:
                         (dynamic actualValue, String formattedText) {
                       switch (actualValue) {
-                        case 0:
-                          return '\$';
                         case 1:
-                          return '\$\$';
+                          return '\$';
                         case 2:
+                          return '\$\$';
+                        case 3:
                           return '\$\$\$';
                       }
                       return actualValue.toString();

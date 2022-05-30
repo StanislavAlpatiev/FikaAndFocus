@@ -172,10 +172,12 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
   String _changePriceStringToDollarSign() {
       switch (widget.currentCafe.price) {
         case "0":
-          return '\$';
+          return '';
         case "1":
-          return '\$\$';
+          return '\$';
         case "2":
+          return '\$\$';
+        case "3":
           return '\$\$\$';
       }
       return widget.currentCafe.price;
