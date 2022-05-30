@@ -3,6 +3,7 @@ package com.dsv.pvt.fikafocus.cafe;
 import com.dsv.pvt.fikafocus.user.UserEntity;
 import com.dsv.pvt.fikafocus.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedReader;

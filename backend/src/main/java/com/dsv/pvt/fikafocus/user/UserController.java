@@ -4,10 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.dsv.pvt.fikafocus.cafe.Cafe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -77,6 +76,24 @@ public class UserController {
     @PutMapping(path="/update")
     public @ResponseBody com.dsv.pvt.fikafocus.user.UserEntity updateUser(@RequestBody com.dsv.pvt.fikafocus.user.UserEntity entity){
         return userService.updateUser(entity);
+    }
+
+    @GetMapping("/{userId}/favourites/{cafeId}")
+    public ResponseEntity getAllFavouritesForCafesByUserIdAndCafeId(
+            @PathVariable("userId") String userId,
+            @PathVariable("cafeId") String cafeId
+
+    )
+    {
+        UserEntity user = userService.getUserById(userId);
+        if (user!= null) {
+            Set<Cafe> cafes = user.getCafes();
+            for (Cafe c: cafes) {
+                if(c.getId().equals(cafeId));
+                return ResponseEntity.ok().build();
+            }
+        }
+        return null;
     }
 
     //Remove
