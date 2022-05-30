@@ -131,6 +131,7 @@ class _FilterWindowState extends State<FilterWindow> {
                     min: 1.0,
                     max: 5.0,
                     interval: 1,
+                    stepSize: 0.5,
                     showTicks: true,
                     showLabels: true,
                     onChanged: (dynamic newValue) {
@@ -224,7 +225,7 @@ class _FilterWindowState extends State<FilterWindow> {
                     ),
                     onPressed: () {
                       widget.callback(
-                          busynessSliderValue, distanceSliderValue, "search");
+                          busynessSliderValue, distanceSliderValue, priceValue, ratingSliderValue, "search");
                     },
                     child: Text(
                       "OK",
@@ -247,7 +248,7 @@ class _FilterWindowState extends State<FilterWindow> {
                     ),
                     onPressed: () {
                       widget.callback(
-                          busynessSliderValue, distanceSliderValue, "cancel");
+                          busynessSliderValue, distanceSliderValue, priceValue, ratingSliderValue, "cancel");
                     },
                     child: Text(
                       "CANCEL",
@@ -268,10 +269,10 @@ class _FilterWindowState extends State<FilterWindow> {
   }
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
-        value: item,
-        child: Text(
-          item,
-          style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 10),
-        ),
-      );
+    value: item,
+    child: Text(
+      item,
+      style: const TextStyle(fontWeight: FontWeight.normal, fontSize: 10),
+    ),
+  );
 }

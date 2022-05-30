@@ -20,10 +20,10 @@ import 'package:permission_handler/permission_handler.dart';
 
 class MyGoogleMap extends StatefulWidget {
   late UserModel user = new UserModel(userName: "", email: "", password: "");
-  MyGoogleMap(UserModel user, {Key? key}) : super(key: key){
+
+  MyGoogleMap(UserModel user, {Key? key}) : super(key: key) {
     this.user = user;
   }
-
 
   // @override
   State<MyGoogleMap> createState() => _MyGoogleMapState();
@@ -47,111 +47,97 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     _getCurrentPosition();
   }
 
-  //callback from FilterWindow Widget/Class
-  callback(businessLevel, radius, callbackStatus) {
-    setState(() {
-      if (callbackStatus == "search") {
-        _createMarkers(
-            businessLevel.round().toString(), radius.round().toString());
-      }
-      _changeVisibility();
-      //test för att se i konsollen
-      print(businessLevel);
-      print(radius);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [
-      // SearchBar(),
-      GoogleMap(
-        initialCameraPosition: CameraPosition(
-            target: LatLng(59.32967345111922, 18.068326509937545), zoom: 17.0),
-        zoomControlsEnabled: false,
-        myLocationEnabled: true,
-        myLocationButtonEnabled: false,
-        onMapCreated: _onMapCreated,
-        compassEnabled: false,
-        mapToolbarEnabled: false,
-        // myLocationEnabled: true,
-        buildingsEnabled: true,
-        tiltGesturesEnabled: false,
-        markers: Set<Marker>.of(allMarkers),
-        // mapToolbarEnabled: true,
-        padding: EdgeInsets.only(top: 0, right: 0),
-      ),
+          // SearchBar(),
+          GoogleMap(
+            initialCameraPosition: CameraPosition(
+                target: LatLng(59.32967345111922, 18.068326509937545), zoom: 17.0),
+            zoomControlsEnabled: false,
+            myLocationEnabled: true,
+            myLocationButtonEnabled: false,
+            onMapCreated: _onMapCreated,
+            compassEnabled: false,
+            mapToolbarEnabled: false,
+            // myLocationEnabled: true,
+            buildingsEnabled: true,
+            tiltGesturesEnabled: false,
+            markers: Set<Marker>.of(allMarkers),
+            // mapToolbarEnabled: true,
+            padding: EdgeInsets.only(top: 0, right: 0),
+          ),
 
-      Positioned(
-          bottom: 11,
-          right: 30,
-          child: ElevatedButton(
-              child: Icon(Icons.attribution, color: Color(0xFFB95815)),
-              style: ElevatedButton.styleFrom(primary: Color(0xFFFFFFFF),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  )
-              ),
-              onPressed: _animateToUser)),
+          Positioned(
+              bottom: 11,
+              right: 30,
+              child: ElevatedButton(
+                  child: Icon(Icons.attribution, color: Color(0xFFB95815)),
+                  style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFFFFFFF),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      )),
+                  onPressed: _animateToUser)),
 
-      Positioned(
-          bottom: 11,
-          right: 110,
-          child: Visibility(
-            visible: true,
-            maintainInteractivity: false,
-            child: ElevatedButton(
-                child: Icon(Icons.search, color: Color(0xFFFFFFFF)),
-                // style: TextButton.styleFrom(backgroundColor: Colors.blue),
-                style: ElevatedButton.styleFrom(primary: Color(0xFF75AB98),
-                  shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  )
-                ),
-                onPressed: _changeVisibility),
-          )),
-
-      Align(
-        alignment: Alignment.topRight,
-        child: Visibility(
-          visible: isVisible,
-          maintainInteractivity: false,
-          child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-              child: FilterWindow(
+          Positioned(
+              bottom: 11,
+              right: 110,
+              child: Visibility(
+                visible: true,
+                maintainInteractivity: false,
                 child: ElevatedButton(
-                    onPressed: _changeVisibility, child: Text("cancel")),
-                callback: callback,
+                    child: Icon(Icons.search, color: Color(0xFFFFFFFF)),
+                    // style: TextButton.styleFrom(backgroundColor: Colors.blue),
+                    style: ElevatedButton.styleFrom(
+                        primary: Color(0xFF75AB98),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        )),
+                    onPressed: _changeVisibility),
               )),
-        ),
-      ),
 
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: Dismissible(
-          child: Visibility(
-            // visible: true, // for development purposes, so you don't need to click markers
-            visible: isInfoVisible, // correct one
-            maintainInteractivity: false,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-              child: GestureDetector(
-                  child: MarkerInfoWindow(
-                    user: widget.user,
-                    currentCafe: currentCafe,
-              )),
+          Align(
+            alignment: Alignment.topRight,
+            child: Visibility(
+              visible: isVisible,
+              maintainInteractivity: false,
+              child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  child: FilterWindow(
+                    child: ElevatedButton(
+                        onPressed: _changeVisibility, child: Text("cancel")),
+                    callback: callback,
+                  )),
             ),
           ),
-          direction: DismissDirection.vertical,
-          key: UniqueKey(),
-          onDismissed: (DismissDirection direction) {
-            print("dismissed");
-            // _disableInfoVisibility();
-          },
-        ),
-      )
-    ]));
+
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Dismissible(
+              child: Visibility(
+                // visible: true, // for development purposes, so you don't need to click markers
+                visible: isInfoVisible, // correct one
+                maintainInteractivity: false,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  child: GestureDetector(
+                      child: MarkerInfoWindow(
+                        user: widget.user,
+                        currentCafe: currentCafe,
+                      )),
+                ),
+              ),
+              direction: DismissDirection.vertical,
+              key: UniqueKey(),
+              onDismissed: (DismissDirection direction) {
+                print("dismissed");
+                // _disableInfoVisibility();
+              },
+            ),
+          )
+        ]));
   }
 
   _onMapCreated(GoogleMapController controller) {
@@ -182,14 +168,38 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     )));
   }
 
-  Future _createMarkers(String businessLevel, String radius) async {
+  //callback from FilterWindow Widget/Class
+  callback(businessLevel, radius, priceMax, ratingMin, callbackStatus) {
+    setState(() {
+      if (callbackStatus == "search") {
+        _createMarkers(
+            businessLevel.round().toString(),
+            radius.round().toString(),
+            priceMax.toString(),
+            ratingMin.toString());
+      }
+      _changeVisibility();
+      //test för att se i konsollen
+      print(businessLevel);
+      print(radius);
+    });
+  }
+
+  Future _createMarkers(String businessLevel, String radius, String priceMax,
+      String ratingMin) async {
     Uri sampleFriendsURI = Uri.parse(
         "https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/locations?busy_min=0&busy_max=" +
             businessLevel +
             "&radius=" +
             radius +
-        "&lng=" + _currentPosition.longitude.toString() + "&lat=" + _currentPosition.latitude.toString()
-        );
+            "&price=" +
+            priceMax +
+            "&rating=" +
+            ratingMin +
+            "&lng=" +
+            _currentPosition.longitude.toString() +
+            "&lat=" +
+            _currentPosition.latitude.toString());
     final response = await http.get(sampleFriendsURI);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -198,8 +208,9 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
       _removeMarker();
       Map<String, dynamic> responseJson = json.decode(response.body);
       List venues = responseJson['venues'];
-      List<GoogleMapMarkerModel> venuesData =
-          venues.map((dynamic item) => GoogleMapMarkerModel.fromJson(item)).toList();
+      List<GoogleMapMarkerModel> venuesData = venues
+          .map((dynamic item) => GoogleMapMarkerModel.fromJson(item))
+          .toList();
       List<Marker> _markers = [];
       for (GoogleMapMarkerModel venue in venuesData) {
         _markers.add(Marker(
@@ -264,7 +275,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
 
     // Test if location services are enabled.
     serviceEnabled =
-        await GeolocatorPlatform.instance.isLocationServiceEnabled();
+    await GeolocatorPlatform.instance.isLocationServiceEnabled();
     if (!serviceEnabled) {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
