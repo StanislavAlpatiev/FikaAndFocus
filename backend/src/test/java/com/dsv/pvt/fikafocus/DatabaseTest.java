@@ -1,6 +1,8 @@
 /**
  * application.properties in /src/main/resources needs to be changed to direct to test_data database before running tests
  * You will also need to run spring boot locally and use local urls instead of tomcat
+ * Additionally the tests will need to be commented out when creating a war-file as these should run against test database
+ * Otherwise the war-file won't be created as these tests will fail due to them being run on the main database
  */
 
 
@@ -80,7 +82,7 @@ public class DatabaseTest {
                 "values ('abc123', 'abc123@gmail.com')";
         stmt.executeUpdate(sqlInsert);
     }
-/*
+
     private StringBuilder doGetRequest(URL url) throws IOException{
         URLConnection connection = url.openConnection();
         HttpURLConnection http = (HttpURLConnection) connection;
@@ -325,5 +327,5 @@ public class DatabaseTest {
         assertEquals("\"Failed login\"",cafe);
     }
 
-*/
+
 }
