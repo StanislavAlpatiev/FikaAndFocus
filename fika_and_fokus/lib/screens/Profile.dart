@@ -10,9 +10,8 @@ import '../GoogleSignIn.dart';
 import '../models/UserModel.dart';
 
 class ProfilePage extends StatefulWidget {
-
   late UserModel user = new UserModel(userName: "", email: "", password: "");
-  ProfilePage(UserModel user, {Key? key}) : super(key: key){
+  ProfilePage(UserModel user, {Key? key}) : super(key: key) {
     this.user = user;
   }
 
@@ -27,7 +26,8 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: const Color(0xFFE0DBCF), //BACKGROUND COLOR
       appBar: AppBar(
-        title: Text('Profile',
+        title: Text(
+          'Profile',
           style: GoogleFonts.roboto(fontWeight: FontWeight.normal),
         ),
         backgroundColor: const Color(0xFF75AB98),
@@ -70,23 +70,21 @@ class _ProfilePageState extends State<ProfilePage> {
                       backgroundImage: widget.user.profilePicture,
                       // backgroundImage: AssetImage('images/profile_coffee.jpg'),
                     ),
-                     Padding(
-                       padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                       child: Text(
-
-
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: Text(
                         // 'WELCOME ' + user.displayName!,
-                         'Hi ' + widget.user.getEmail + ' !',
+                        'Hi ' + widget.user.getEmail + ' !',
 
-                         style: GoogleFonts.oswald(
-                           fontWeight: FontWeight.normal,
-                           fontSize: 25,
-                           color: const Color(0xFF696969),
-                           letterSpacing: 2.5,
-                           height: 2,
+                        style: GoogleFonts.oswald(
+                          fontWeight: FontWeight.normal,
+                          fontSize: 25,
+                          color: const Color(0xFF696969),
+                          letterSpacing: 2.5,
+                          height: 2,
                         ),
-                       ),
-                     ),
+                      ),
+                    ),
                     const Text(
                       '___________________________________________________________',
                       style: TextStyle(color: Color(0xFF696969)),
@@ -104,72 +102,70 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
-                      child: Row(
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(left: 50),
-                            child: FaIcon(
-                              Icons.coffee,
-                              color: Color(0xFF75AB98),
-                              size: 35,
-                            ),
+                      child: Row(children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 50),
+                          child: FaIcon(
+                            Icons.coffee,
+                            color: Color(0xFF75AB98),
+                            size: 35,
                           ),
-                          Padding(
+                        ),
+                        Padding(
                             padding: EdgeInsets.only(left: 10),
-                            child: Text('Visited cafés: ',
+                            child: Text(
+                              'Visited cafés: ',
                               style: GoogleFonts.oswald(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w300,
                                 color: const Color(0xFF696969),
                                 letterSpacing: 2.5,
-                                ),
-                            )
+                              ),
+                            )),
+                        Text(
+                          '10',
+                          style: GoogleFonts.oswald(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w300,
+                            color: const Color(0xFF75AB98),
+                            letterSpacing: 2.5,
                           ),
-                          Text('10',
-                            style: GoogleFonts.oswald(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w300,
-                              color: const Color(0xFF75AB98),
-                              letterSpacing: 2.5,
-                            ),
-                          )
-                        ]
-                      ),
+                        )
+                      ]),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
-                      child: Row(
-                          children: [
-                            const Padding(
-                              padding: EdgeInsets.only(left: 50),
-                              child: FaIcon(
-                                Icons.rate_review,
-                                color: Color(0xFF75AB98),
-                                size: 35,
-                              ),
-                            ),
-                            Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child: Text('Posted reviews: ',
-                                  style: GoogleFonts.oswald(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w300,
-                                    color: const Color(0xFF696969),
-                                    letterSpacing: 2.5,
-                                  ),
-                                )
-                            ),
-                            Text('10',
+                      child: Row(children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 50),
+                          child: FaIcon(
+                            Icons.rate_review,
+                            color: Color(0xFF75AB98),
+                            size: 35,
+                          ),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Text(
+                              'Posted reviews: ',
                               style: GoogleFonts.oswald(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w300,
-                                color: const Color(0xFF75AB98),
+                                color: const Color(0xFF696969),
                                 letterSpacing: 2.5,
                               ),
-                            )
-                          ]
-                      ),
-                    ),//Creates space
+                            )),
+                        Text(
+                          '10',
+                          style: GoogleFonts.oswald(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w300,
+                            color: const Color(0xFF75AB98),
+                            letterSpacing: 2.5,
+                          ),
+                        )
+                      ]),
+                    ), //Creates space
                     // Text.rich(
                     //   TextSpan(
                     //     children: [
@@ -214,11 +210,9 @@ class _ProfilePageState extends State<ProfilePage> {
         break;
       case 1:
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const SignOut()),
+          MaterialPageRoute(builder: (context) => SignOut()),
         );
         break;
     }
   }
-
-
 }

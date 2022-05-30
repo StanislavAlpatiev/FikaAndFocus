@@ -5,9 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'package:fika_and_fokus/screens/LogIn.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'AccountSettings.dart';
+import 'SignOut.dart';
+import 'package:provider/provider.dart';
+import '../GoogleSignIn.dart';
+import '../models/UserModel.dart';
 
 class SignOut extends StatefulWidget {
-  const SignOut({Key? key}) : super(key: key);
+  late UserModel user = new UserModel(userName: "", email: "", password: "");
+  SignOut({Key? key}) : super(key: key) {
+    this.user = user;
+  }
 
   @override
   State<SignOut> createState() => _SignOutPageState();
@@ -32,9 +45,9 @@ class _SignOutPageState extends State<SignOut> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 100,
-                backgroundImage: AssetImage('images/profile_picture.png'),
+                backgroundImage: widget.user.profilePicture,
               ),
               const Text('  '), //Creates space
               const Card(
@@ -50,48 +63,45 @@ class _SignOutPageState extends State<SignOut> {
               ),
               const Text(' '), //Creates space
               TextButton(
-                child: Card(
-                  child: Column(
-                    children: const [
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(text: '     '), //Creates space
-                            WidgetSpan(
-                              child: Icon(
-                                Icons.thumb_up,
-                                color: Color(0xFF75AB98),
-                                size: 35,
+                  child: Card(
+                    child: Column(
+                      children: const [
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(text: '     '), //Creates space
+                              WidgetSpan(
+                                child: Icon(
+                                  Icons.thumb_up,
+                                  color: Color(0xFF75AB98),
+                                  size: 35,
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              //TODO get name of individual
-                              text: '   YES ',
+                              TextSpan(
+                                //TODO get name of individual
+                                text: '   YES ',
 
-                              style: TextStyle(
-                                fontSize: 40,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF75AB98),
+                                style: TextStyle(
+                                  fontSize: 40,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF75AB98),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                onPressed: () {
-
-                  final provider = Provider.of<GoogleSignInProvider>(
-                      context,
-                      listen: false);
-                  provider.signOutWithGoogle();
-                  //googleSignIn.signOutWithGoogle(); // doesn't seem to work
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const LogIn()));
-                }
-              ),
+                  onPressed: () {
+                    final provider = Provider.of<GoogleSignInProvider>(context,
+                        listen: false);
+                    provider.signOutWithGoogle();
+                    //googleSignIn.signOutWithGoogle(); // doesn't seem to work
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const LogIn()));
+                  }),
               TextButton(
                   child: Card(
                     child: Column(
@@ -129,8 +139,7 @@ class _SignOutPageState extends State<SignOut> {
                         MaterialPageRoute(
                           builder: (context) => const LogIn(),
                         ),
-                      )
-              ),
+                      )),
             ],
           ),
         ),
