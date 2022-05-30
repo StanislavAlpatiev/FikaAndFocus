@@ -89,9 +89,10 @@ public class UserController {
         if (user!= null) {
             Set<Cafe> cafes = user.getCafes();
             for (Cafe c: cafes) {
-                if(c.getId().equals(cafeId));
-                return ResponseEntity.ok().build();
+                if(c.getId().equals(cafeId))
+                    return ResponseEntity.ok().build();
             }
+            return ResponseEntity.notFound().build();
         }
         return null;
     }
