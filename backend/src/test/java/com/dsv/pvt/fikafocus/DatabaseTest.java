@@ -275,6 +275,23 @@ public class DatabaseTest {
     }
 
     @Test
+    void removingUserByHTTPRemovesUser() throws IOException, SQLException{
+        insertTestUser();
+        String sqlInsert = "insert into user (email, username, pass) values ('abc1234@gmail.com', 'abc1234', '1234abc')";
+        stmt.executeUpdate(sqlInsert);
+        String data = "";
+        URL url = new URL("http://127.0.0.1:8080/user/remove/abc1234@gmail.com");
+        doPostOrDeleteRequest(data,url,"DELETE");
+        ResultSet myRs = stmt.executeQuery("select * from user");
+        String s = null;
+        if ( myRs.next() ) {
+            s = myRs.getString("email") + " " + myRs.getString("username") +
+                    " " + myRs.getString("pass");
+        }
+        assertEquals("abc123@gmail.com abc123 123abc",s);
+    }
+
+    @Test
     void reviewByUserIdReturnsCorrectJSON() throws IOException, SQLException{
         insertTestCafe();
         insertTestUser();
@@ -285,6 +302,28 @@ public class DatabaseTest {
         JsonNode jsonNode = objectMapper.readTree(String.valueOf(informationString));
         String cafe = jsonNode.at("/0/review_string").toString();
         assertEquals("\"excellent coffee\"",cafe);
+    }
+
+    @Test
+    void loggingInWithCorrectCredentialsReturnsCorrectResponse() throws IOException, SQLException{
+        insertTestUser();
+        URL url = new URL("http://127.0.0.1:8080/user/login?email=abc123@gmail.com&password=123abc");
+        StringBuilder informationString = doGetRequest(url);
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(String.valueOf(informationString));
+        String cafe = jsonNode.at("/message").toString();
+        assertEquals("\"Successfully login!\"",cafe);
+    }
+
+    @Test
+    void loggingInWithIncorrectCredentialsReturnsCorrectResponse() throws IOException, SQLException{
+        insertTestUser();
+        URL url = new URL("http://127.0.0.1:8080/user/login?email=abc123@gmail.com&password=123abcd");
+        StringBuilder informationString = doGetRequest(url);
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(String.valueOf(informationString));
+        String cafe = jsonNode.at("/message").toString();
+        assertEquals("\"Failed login\"",cafe);
     }
 
 

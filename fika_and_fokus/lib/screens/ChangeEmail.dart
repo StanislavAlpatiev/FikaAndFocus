@@ -16,7 +16,8 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
     return Scaffold(
       backgroundColor: const Color(0xFFE0DBCF),
       appBar: AppBar(
-        title: Text('Change email',
+        title: Text(
+          'Change email',
           style: GoogleFonts.roboto(fontWeight: FontWeight.normal),
         ),
         automaticallyImplyLeading: true,
@@ -26,30 +27,27 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          //mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-             Padding(
-               padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-               child: Text(
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+              child: Text(
                 '  Current email: ',
-                 //TODO - here we need unit test to check that the correct email is called!
                 textAlign: TextAlign.left,
                 style: GoogleFonts.roboto(
-                  textStyle: const TextStyle(
-                    color: Color(0xFF696969),
-                    letterSpacing: 0.5),
-                  fontSize: 20,
-                  fontWeight: FontWeight.w300),
-               ),
-             ),
+                    textStyle: const TextStyle(
+                        color: Color(0xFF696969), letterSpacing: 0.5),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w300),
+              ),
+            ),
             Center(
               child: Card(
                 child: TextFormField(
                   obscureText: true,
-                  cursorColor: Color(0xFF75AB98),
+                  cursorColor: const Color(0xFF75AB98),
                   decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 0,
-                        vertical: 5),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                     border: InputBorder.none,
                     prefixIcon: Align(
                       widthFactor: 1.0,
@@ -74,9 +72,6 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
                     return '';
                   },
                   controller: TextEditingController(),
-                  //onChanged: (val) {
-                  //user.password = val;
-                  //},
                 ),
                 color: const Color.fromARGB(255, 255, 255, 255),
                 shape: RoundedRectangleBorder(
@@ -84,26 +79,25 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
                 ),
               ),
             ),
-             Padding(
-               padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-               child: Text(
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+              child: Text(
                 '  New email: ',
                 style: GoogleFonts.roboto(
                     textStyle: const TextStyle(
-                      color: Color(0xFF696969),
-                      letterSpacing: 0.5),
+                        color: Color(0xFF696969), letterSpacing: 0.5),
                     fontSize: 20,
                     fontWeight: FontWeight.w300),
+              ),
             ),
-             ),
             Center(
               child: Card(
                 child: TextFormField(
                   obscureText: true,
-                  cursorColor: Color(0xFF75AB98),
+                  cursorColor: const Color(0xFF75AB98),
                   decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 0,
-                        vertical: 5),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 0, vertical: 5),
                     border: InputBorder.none,
                     prefixIcon: Align(
                       widthFactor: 1.0,
@@ -128,9 +122,6 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
                     return '';
                   },
                   controller: TextEditingController(),
-                  //onChanged: (val) {
-                  //user.password = val;
-                  //},
                 ),
                 color: const Color.fromARGB(255, 255, 255, 255),
                 shape: RoundedRectangleBorder(
@@ -141,28 +132,28 @@ class _ChangeEmailPageState extends State<ChangeEmail> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
               child: Center(
-                  child: Container(
-                      child: TextButton(
-                          onPressed: () => {
-                            Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) => const AccountSettings(),
-                            ))
+                  child: TextButton(
+                      onPressed: () => {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const AccountSettings(),
+                                ))
                           },
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF696969),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
-                          child: Text('SAVE',
-                            style: GoogleFonts.oswald(
-                                textStyle: TextStyle(color: Color(0xFFFFFFFF)),
-                                fontSize: 18.00,
-                                fontWeight: FontWeight.normal),
-                          )
-                      )
-                  )
-              ),
+                      style: ElevatedButton.styleFrom(
+                        primary: const Color(0xFF696969),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                      ),
+                      child: Text(
+                        'SAVE',
+                        style: GoogleFonts.oswald(
+                            textStyle:
+                                const TextStyle(color: Color(0xFFFFFFFF)),
+                            fontSize: 18.00,
+                            fontWeight: FontWeight.normal),
+                      ))),
             )
           ],
         ),
