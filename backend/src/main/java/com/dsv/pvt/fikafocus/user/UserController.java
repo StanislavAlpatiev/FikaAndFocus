@@ -94,7 +94,7 @@ public class UserController {
             }
             return ResponseEntity.notFound().build();
         }
-        return null;
+        return ResponseEntity.notFound().build();
     }
 
     //Remove
