@@ -109,6 +109,14 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                               size: 25,
                             ),
                           ),
+                          Text(
+                            widget.currentCafe.price.toString(),
+                            textAlign: TextAlign.left,
+                            style: GoogleFonts.roboto(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400),
+                          ),
                         ]),
                       ],
                     ),

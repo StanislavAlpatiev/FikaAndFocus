@@ -122,16 +122,16 @@ public class CafeController {
 
     @GetMapping("/locations")
     public String getLocations(@RequestParam String busy_min, @RequestParam String busy_max, @RequestParam String radius, @RequestParam String lng, @RequestParam String lat,  @RequestParam String price, @RequestParam String rating) throws IOException {
-        if(Integer.parseInt(rating) < 2) {
-            rating = "2";
+        if(Double.parseDouble(rating) < 2.0) {
+            rating = "2.0";
         }
-        if(Integer.parseInt(rating) > 4.5) {
+        if(Double.parseDouble(rating) > 4.5) {
             rating = "4.5";
         }
 
-        String url = "https://besttime.app/api/v1/venues/filter?api_key_private=pri_c84fd82d775d442883228456f021f11b&busy_min=" + busy_min + "&busy_max=" + busy_max + "&types=CAFE&lat=" + lat + "&lng=" + lng + "&radius=" + radius + "&price_max" + price + "&rating_min" +  rating + "&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0";
-        String urlHardCoded = "https://besttime.app/api/v1/venues/filter?api_key_private=pri_a00012d8b9394126beb8ecca2b673940&busy_min=" + busy_min + "&busy_max=" + busy_max + "&types=CAFE&lat=" + lat + "&lng=" + lng + "&radius=" + radius +  "&price_max=" + price + "&rating_min=" +  rating + "&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0";
-        return sendAPIRequest(urlHardCoded);
+//        String url = "https://besttime.app/api/v1/venues/filter?api_key_private=pri_c84fd82d775d442883228456f021f11b&busy_min=" + busy_min + "&busy_max=" + busy_max + "&types=CAFE&lat=" + lat + "&lng=" + lng + "&radius=" + radius + "&price_max" + price + "&rating_min" +  rating + "&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0";
+        String url = "https://besttime.app/api/v1/venues/filter?api_key_private=pri_a00012d8b9394126beb8ecca2b673940&busy_min=" + busy_min + "&busy_max=" + busy_max + "&types=CAFE&lat=" + lat + "&lng=" + lng + "&radius=" + radius +  "&price_max=" + price + "&rating_min=" +  rating + "&order_by=now%2Cnow&order=asc%2Cdesc&foot_traffic=both&limit=5&page=0";
+        return sendAPIRequest(url);
     }
 
     //hämta review med visst id

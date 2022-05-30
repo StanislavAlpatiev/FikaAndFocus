@@ -182,6 +182,8 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
       //test för att se i konsollen
       print(businessLevel);
       print(radius);
+      print(priceMax);
+      print(ratingMin);
     });
   }
 
@@ -200,6 +202,7 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
             _currentPosition.longitude.toString() +
             "&lat=" +
             _currentPosition.latitude.toString());
+    print(sampleFriendsURI.toString());
     final response = await http.get(sampleFriendsURI);
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,

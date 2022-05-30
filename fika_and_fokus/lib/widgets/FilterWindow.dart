@@ -225,7 +225,7 @@ class _FilterWindowState extends State<FilterWindow> {
                     ),
                     onPressed: () {
                       widget.callback(
-                          busynessSliderValue, distanceSliderValue, priceValue, ratingSliderValue, "search");
+                          busynessSliderValue, distanceSliderValue, priceValue.toInt(), ratingRangeStart, "search");
                     },
                     child: Text(
                       "OK",
