@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/CafeIModel.dart';
-import '../widgets/GoogleMapMarkerInfoWindow.dart';
 import '../widgets/Heart.dart';
 import '../widgets/ReviewDialog.dart';
 import '../misc/ReviewPage.dart';
@@ -29,7 +28,6 @@ class _CafePageState extends State<CafePage> {
   void initState() {
     refreshReviews();
     super.initState();
-
   }
 
   @override
@@ -63,14 +61,17 @@ class _CafePageState extends State<CafePage> {
                           decoration: const BoxDecoration(
                             // color: Colors.white,
                             shape: BoxShape.circle,
-                            boxShadow: [BoxShadow(
-                              blurRadius: 10,
-                              color: Colors.black54,
-                              spreadRadius: 3)
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 10,
+                                  color: Colors.black54,
+                                  spreadRadius: 3)
                             ],
                           ),
-                          child: const CircleAvatar(radius: 110,
-                            backgroundImage: AssetImage("images/test_cafe.jpg")),
+                          child: const CircleAvatar(
+                              radius: 110,
+                              backgroundImage:
+                                  AssetImage("images/test_cafe.jpg")),
                         ),
                       )
                     ],
@@ -148,7 +149,8 @@ class _CafePageState extends State<CafePage> {
                                   color: Color(0xFF696969)),
                               Transform.scale(
                                 scale: 0.6,
-                                child: DirectionButton(currentCafe: widget.cafeItem),
+                                child: DirectionButton(
+                                    currentCafe: widget.cafeItem),
                               ),
                               const VerticalDivider(
                                   width: 20,
@@ -176,14 +178,14 @@ class _CafePageState extends State<CafePage> {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       ElevatedButton(
                         onPressed: () async {
-                          ReviewDialogResult result = await showDialog(
+                          ReviewDialogResult? result = await showDialog(
                               context: context,
-                              builder: (_) => ReviewDialog(widget.cafeItem)
-                          );
-                          if(result.rating == 0) {
+                              builder: (_) => ReviewDialog(widget.cafeItem));
+                          if (result == null) {
                             return;
                           } else {
-                            createReview(result.rating.toDouble(), result.review, result.hideName);
+                            createReview(
+                                result.rating, result.review, result.hideName);
                           }
                         },
                         child: Text(
@@ -300,37 +302,23 @@ class _CafePageState extends State<CafePage> {
     );
   }
 
-  Future<ReviewModel> createReview(double rating, String review, bool hideName) async {
-
-    /*
-    Required parameters:
-      @RequestParam String rating,
-      @RequestParam String reviewText,
-      @RequestParam String cafeId,
-      @RequestParam String userEmail
-     */
-
+  Future<ReviewModel> createReview(
+      double rating, String review, bool hideName) async {
     String emailToPost = "anonymous";
-    if (!hideName)
-      emailToPost = widget.user.getEmail;
-
+    if (!hideName) emailToPost = widget.user.getEmail;
 
     Uri newReview = Uri.parse(
         'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/reviews/add?'
-            'rating=${rating.toString()}'
-            '&reviewText=$review'
-            '&cafeId=${widget.cafeItem.id}'
-            '&userEmail=${emailToPost}');
+        'rating=${rating.toString()}'
+        '&reviewText=$review'
+        '&cafeId=${widget.cafeItem.id}'
+        '&userEmail=${emailToPost}');
 
     final response = await http.post(newReview);
 
     if (response.statusCode == 200) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
       return ReviewModel.fromJson(jsonDecode(response.body));
     } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
       throw Exception(
           'Failed to create review.  ' + response.statusCode.toString());
     }
@@ -366,7 +354,6 @@ class _CafePageState extends State<CafePage> {
   BoxDecoration _getBoxStyle() {
     return BoxDecoration(
         color: Colors.white,
-        // border: Border.all(color: Colors.black),
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         boxShadow: [
           BoxShadow(
