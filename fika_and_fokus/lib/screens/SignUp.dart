@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,7 +20,8 @@ class _SignUpState extends State<SignUp> {
   TextEditingController confPassCtrl = TextEditingController();
   late UserModel userModel;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
+  final GlobalKey<ScaffoldMessengerState> rootScaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +38,6 @@ class _SignUpState extends State<SignUp> {
     return MaterialApp(
       scaffoldMessengerKey: rootScaffoldMessengerKey,
       home: Container(
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: const AssetImage("images/bg1.jpg"),
-        //     fit: BoxFit.cover,
-        //     colorFilter: ColorFilter.mode(
-        //         Colors.brown.withOpacity(0.5), BlendMode.dstATop),
-        //   ),
-        // ),
         child: SafeArea(
           child: Scaffold(
             backgroundColor: Color(0xFF75AB98),
@@ -55,16 +47,13 @@ class _SignUpState extends State<SignUp> {
                 child: Form(
                   key: _formKey,
                   child: Column(
-                    // ignore: prefer_const_literals_to_create_immutables
                     children: <Widget>[
-                      // ignore: prefer_const_constructors
                       Image.asset('images/logo-white.png',
                           width: 600, height: 200),
                       const SizedBox(
                         height: 10,
                       ),
                       Card(
-                        // ignore: prefer_const_constructors
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 0, horizontal: 10),
@@ -78,8 +67,8 @@ class _SignUpState extends State<SignUp> {
                               return null;
                             },
                             decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 0,
-                                  vertical: 5),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 0, vertical: 5),
                               border: InputBorder.none,
                               prefixIcon: Align(
                                 widthFactor: 1.0,
@@ -108,7 +97,6 @@ class _SignUpState extends State<SignUp> {
                         height: 10,
                       ),
                       Card(
-                        // ignore: prefer_const_constructors
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 0, horizontal: 10),
@@ -122,8 +110,8 @@ class _SignUpState extends State<SignUp> {
                               return null;
                             },
                             decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 0,
-                                  vertical: 5),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 0, vertical: 5),
                               border: InputBorder.none,
                               prefixIcon: Align(
                                 widthFactor: 1.0,
@@ -152,7 +140,6 @@ class _SignUpState extends State<SignUp> {
                         height: 10,
                       ),
                       Card(
-                        // ignore: prefer_const_constructors
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 0, horizontal: 10),
@@ -166,8 +153,8 @@ class _SignUpState extends State<SignUp> {
                               return null;
                             },
                             decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 0,
-                                  vertical: 5),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 0, vertical: 5),
                               border: InputBorder.none,
                               prefixIcon: Align(
                                 widthFactor: 1.0,
@@ -196,7 +183,6 @@ class _SignUpState extends State<SignUp> {
                         height: 10,
                       ),
                       Card(
-                        // ignore: prefer_const_constructors
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               vertical: 0, horizontal: 10),
@@ -210,8 +196,8 @@ class _SignUpState extends State<SignUp> {
                               return null;
                             },
                             decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 0,
-                                  vertical: 5),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 0, vertical: 5),
                               border: InputBorder.none,
                               prefixIcon: Align(
                                 widthFactor: 1.0,
@@ -246,38 +232,29 @@ class _SignUpState extends State<SignUp> {
                             vertical: 0, horizontal: 4),
                         child: ElevatedButton(
                           onPressed: () async {
-
-                            if (!_formKey.currentState!.validate())
-                              return;
+                            if (!_formKey.currentState!.validate()) return;
 
                             final snackBar = SnackBar(
-                                content: Text(
-                                    "passwords doesnt seem to match")
-                            );
+                                content: Text("passwords don't seem to match"));
 
                             String username = userCtrl.text;
                             String email = mailCtrl.text;
                             String pass = passCtrl.text;
                             String confirmPass = confPassCtrl.text;
 
-
-                            if (pass != confirmPass){
-                              rootScaffoldMessengerKey.currentState!.showSnackBar(snackBar);
+                            if (pass != confirmPass) {
+                              rootScaffoldMessengerKey.currentState!
+                                  .showSnackBar(snackBar);
                               return;
                             }
 
+                            registerUser(
+                                email, username, pass, confirmPass, context);
 
-                            registerUser(email, username, pass, confirmPass, context);
-                            // UserModel user = await registerUser(
-                            //     username, email, pass, confirmPass, context);
                             userCtrl.text = '';
                             mailCtrl.text = '';
                             passCtrl.text = '';
                             confPassCtrl.text = '';
-                            // setState(() {
-                            //   userModel = user;
-                            // });
-
                           },
                           child: Text(
                             'SIGN UP',
@@ -297,19 +274,18 @@ class _SignUpState extends State<SignUp> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        // ignore: prefer_const_literals_to_create_immutables
                         children: <Widget>[
                           Text(
                             "Already have an account?",
                             style: GoogleFonts.roboto(
                                 textStyle: const TextStyle(
-                                    color: Color(0xFFFFFFFF), letterSpacing: .5),
+                                    color: Color(0xFFFFFFFF),
+                                    letterSpacing: .5),
                                 fontSize: 15.00,
                                 fontWeight: FontWeight.w300),
                             textAlign: TextAlign.center,
                           ),
 
-                          // ignore: prefer_const_constructors
                           InkWell(
                             child: Text(
                               " Log in here",
@@ -340,16 +316,14 @@ class _SignUpState extends State<SignUp> {
 
   Future<UserModel> registerUser(String email, String username, String password,
       String confirmPass, BuildContext context) async {
-
-    print("test");
-    //Uri url = Uri.parse("http://192.168.0.14:8080/user/add?"
-    Uri url = Uri.parse("https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/user/add?" +
+    Uri url = Uri.parse(
+        "https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/user/add?" +
             "email=" +
-        email +
-        "&username=" +
-        username +
-        "&password=" +
-        password);
+            email +
+            "&username=" +
+            username +
+            "&password=" +
+            password);
     print(url.toString());
     final response = await http.post(url);
     print("passed request");

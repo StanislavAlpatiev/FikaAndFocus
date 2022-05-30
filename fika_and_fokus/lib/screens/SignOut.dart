@@ -2,19 +2,12 @@ import 'package:fika_and_fokus/GoogleSignIn.dart';
 import 'package:fika_and_fokus/screens/LogIn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:fika_and_fokus/screens/LogIn.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'AccountSettings.dart';
-import 'SignOut.dart';
-import 'package:provider/provider.dart';
 import '../GoogleSignIn.dart';
 import '../models/UserModel.dart';
 
 class SignOut extends StatefulWidget {
   late UserModel user = new UserModel(userName: "", email: "", password: "");
+
   SignOut({Key? key}) : super(key: key) {
     this.user = user;
   }
@@ -94,8 +87,8 @@ class _SignOutPageState extends State<SignOut> {
                   onPressed: () {
                     final provider = Provider.of<GoogleSignInProvider>(context,
                         listen: false);
-                    provider.signOutWithGoogle();
-                    //googleSignIn.signOutWithGoogle(); // doesn't seem to work
+                    provider
+                        .signOutWithGoogle(); // googleSignIn.signOutWithGoogle() didn't work.
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => const LogIn()));
                   }),
@@ -130,7 +123,6 @@ class _SignOutPageState extends State<SignOut> {
                       ],
                     ),
                   ),
-                  // onPressed: () => null,
                   onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
