@@ -67,7 +67,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     CircleAvatar(
                       radius: 100,
                       // backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
-                      backgroundImage: AssetImage('images/profile_coffee.jpg'),
+                      backgroundImage: NetworkImage(widget.user.profilePicture!),
+                      // backgroundImage: AssetImage('images/profile_coffee.jpg'),
                     ),
                      Padding(
                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),

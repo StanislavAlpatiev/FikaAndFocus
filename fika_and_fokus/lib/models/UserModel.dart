@@ -8,6 +8,7 @@ class UserModel {
   String _email = "";
   String _userName = "";
   String _password = "";
+  String? profilePicture = "";
   UserModel({
     required userName,
     required email,

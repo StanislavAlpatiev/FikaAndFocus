@@ -4,6 +4,7 @@ import 'package:fika_and_fokus/screens/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
 class SignOut extends StatefulWidget {
   const SignOut({Key? key}) : super(key: key);
@@ -81,7 +82,12 @@ class _SignOutPageState extends State<SignOut> {
                   ),
                 ),
                 onPressed: () {
-                  googleSignIn.signOutWithGoogle();
+
+                  final provider = Provider.of<GoogleSignInProvider>(
+                      context,
+                      listen: false);
+                  provider.signOutWithGoogle();
+                  //googleSignIn.signOutWithGoogle(); // doesn't seem to work
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const LogIn()));
                 }

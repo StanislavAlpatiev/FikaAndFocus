@@ -212,37 +212,45 @@ class _LogInState extends State<LogIn> {
                         onPrimary: Colors.black,
                         minimumSize: Size(double.infinity, 50),
                       ),
-                      onPressed: () {
-                        final provider = Provider.of<GoogleSignInProvider>(
+                      onPressed: () async {
+
+                        final provider = await Provider.of<GoogleSignInProvider>(
                             context,
                             listen: false);
-                        final isloggedInWithGoogle = provider.loginWithGoogle();
+                        await provider.signOutWithGoogle(); // apparently needed for login options dialog to show up
+                        final isloggedInWithGoogle = await  provider.loginWithGoogle();
                         log("kommer jag hit???");
-                        //bool isLoggedInWithGoogle = false;
-                        //provider.loginWithGoogle().then((value) {
+                        bool isLoggedInWithGoogle = false;
+                        await provider.loginWithGoogle().then((value) {
 
-                        //  isLoggedInWithGoogle = value;
-                        //} );
-                        //log("isLoggedInWithGoogle: "+ isLoggedInWithGoogle.toString());
-                        //if (isLoggedInWithGoogle)
+                         isLoggedInWithGoogle = value;
+                        } );
+                        log("isLoggedInWithGoogle: "+ isLoggedInWithGoogle.toString());
+                        if (isLoggedInWithGoogle){
+                          registerUser(
+                            provider.user.email,
+                            provider.user.displayName!,
+                            "google",
+                          );
+
+                          // user details to be sent to navbar
+                          user.email = provider.user.email.toString();
+                          print("user.email is " + user.getEmail + ".");
+                          user.userName = provider.user.displayName.toString();
+                          user.password = "google";
+                          user.profilePicture = await provider.user.photoUrl;
+                          if (user.profilePicture == null)
+                            user.profilePicture = 'images/profile_coffee.jpg';
+
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => NavBar(user: user)));
+
+                        }
 
                         // user.email = provider.user.email;
                         // user.password = "google";
 
                         // user details to be saved in database
-                        registerUser(
-                            provider.user.email,
-                            provider.user.displayName!,
-                            "google",
-                            );
 
-                        // user details to be sent to navbar
-                        user.email = provider.user.email.toString();
-                        print("user.email is " + user.getEmail + ".");
-                        user.userName = provider.user.displayName.toString();
-                        user.password = "google";
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => NavBar(user: user)));
 
                       },
                     ),
