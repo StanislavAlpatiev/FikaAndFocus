@@ -109,8 +109,11 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
                               size: 25,
                             ),
                           ),
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          ),
                           Text(
-                            widget.currentCafe.price.toString(),
+                            _changePriceStringToDollarSign(),
                             textAlign: TextAlign.left,
                             style: GoogleFonts.roboto(
                                 fontSize: 20,
@@ -164,5 +167,17 @@ class _MarkerInfoWindowState extends State<MarkerInfoWindow> {
             )),
       ),
     );
+  }
+
+  String _changePriceStringToDollarSign() {
+      switch (widget.currentCafe.price) {
+        case "0":
+          return '\$';
+        case "1":
+          return '\$\$';
+        case "2":
+          return '\$\$\$';
+      }
+      return widget.currentCafe.price;
   }
 }

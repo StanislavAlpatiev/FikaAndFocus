@@ -82,25 +82,28 @@ class _HeartState extends State<Heart> {
 
   Future<bool> _checkIfCafeIsFavorite() async {
     Uri getFavouritesUrl = Uri.parse(
-        'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.user.getEmail}/favourites');
+        // 'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/cafes/${widget.user.getEmail}/favourites');
+      'https://group-1-75.pvt.dsv.su.se/fikafocus-0.0.1-SNAPSHOT/user/${widget.user.getEmail}/favourites/${widget.currentCafe.id}');
 
     final response = await http.get(getFavouritesUrl);
 
     if (response.statusCode == 200) {
-      String source = const Utf8Decoder().convert(response.bodyBytes);
-      var data = json.decode(source);
+      // String source = const Utf8Decoder().convert(response.bodyBytes);
+      // var data = json.decode(source);
+      //
+      // List favorites = [];
+      // for (var i = 0; i < data.length; i++) {
+      //   favorites.add(CafeModel.fromJson(data[i]));
+      // }
+      //
+      // for (CafeModel item in favorites) {
+      //   if (item.id == widget.currentCafe.id) {
+      //     return true;
+      //   }
+      // }
 
-      List favorites = [];
-      for (var i = 0; i < data.length; i++) {
-        favorites.add(CafeModel.fromJson(data[i]));
-      }
-
-      for (CafeModel item in favorites) {
-        if (item.id == widget.currentCafe.id) {
-          return true;
-        }
-      }
-
+      return true;
+    } else if (response.statusCode == 404) {
       return false;
     } else {
       throw Exception('Failed to connect to database');
