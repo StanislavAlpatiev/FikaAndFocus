@@ -7,10 +7,12 @@ import 'dart:convert';
 import 'CafePage.dart';
 import '../models/CafeIModel.dart';
 
+//ignore: must_be_immutable
 class BookmarksPage extends StatefulWidget {
   UserModel user = UserModel(userName: "", email: "", password: "");
 
   BookmarksPage(UserModel user, {Key? key}) : super(key: key) {
+    // ignore: prefer_initializing_formals
     this.user = user;
   }
 
