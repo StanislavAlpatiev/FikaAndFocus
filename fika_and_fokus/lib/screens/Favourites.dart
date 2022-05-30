@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'CafePage.dart';
-import '../models/CafeIModel.dart';
+import '../models/CafeModel.dart';
 
 //ignore: must_be_immutable
 class BookmarksPage extends StatefulWidget {

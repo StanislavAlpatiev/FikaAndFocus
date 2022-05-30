@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../models/CafeIModel.dart';
+import '../models/CafeModel.dart';
 
 class ReviewDialogResult {
   double rating;

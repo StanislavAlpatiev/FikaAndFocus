@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:map_launcher/map_launcher.dart';
-import '../models/CafeIModel.dart';
+import '../models/CafeModel.dart';
 
 class DirectionButton extends StatefulWidget {
   final CafeModel currentCafe;

@@ -2,7 +2,7 @@ import 'package:fika_and_fokus/widgets/DirectionButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../models/CafeIModel.dart';
+import '../models/CafeModel.dart';
 import '../screens/CafePage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Heart.dart';

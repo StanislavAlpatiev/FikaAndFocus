@@ -5,7 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../models/CafeIModel.dart';
+import '../models/CafeModel.dart';
 import '../models/UserModel.dart';
 import '../models/ReviewModel.dart';
 

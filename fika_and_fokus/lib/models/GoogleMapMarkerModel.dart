@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'CafeIModel.dart';
+import 'CafeModel.dart';
 
 class GoogleMapMarkerModel {
   CafeModel cafeItem;
