@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 UserModel userModelJson(String str) => UserModel.fromJson(json.decode(str));
 
 String userModelToJSON(UserModel data) => json.encode(data.toJson());
@@ -8,7 +10,8 @@ class UserModel {
   String _email = "";
   String _userName = "";
   String _password = "";
-  String? profilePicture = "";
+  ImageProvider? profilePicture = AssetImage('images/profile_coffee.jpg'); // can be NetworkImage or AssetImage.
+
   UserModel({
     required userName,
     required email,

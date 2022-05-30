@@ -67,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     CircleAvatar(
                       radius: 100,
                       // backgroundImage: NetworkImage(user.photoURL!.replaceAll("s96-c", "s192-c")),
-                      backgroundImage: NetworkImage(widget.user.profilePicture!),
+                      backgroundImage: widget.user.profilePicture,
                       // backgroundImage: AssetImage('images/profile_coffee.jpg'),
                     ),
                      Padding(
@@ -219,4 +219,6 @@ class _ProfilePageState extends State<ProfilePage> {
         break;
     }
   }
+
+
 }

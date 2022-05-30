@@ -45,7 +45,7 @@ class _LogInState extends State<LogIn> {
   // TextEditingController passCtrl =
   //     TextEditingController(); //A variable to store password
 
-  String loginMessage = "hej";
+  String loginMessage = "";
 
   @override
   Widget build(BuildContext context) {
@@ -55,247 +55,255 @@ class _LogInState extends State<LogIn> {
           child: Scaffold(
             resizeToAvoidBottomInset: false,
             backgroundColor: Color(0xFFE0DBCF),
-            body: Padding(
-              padding: const EdgeInsets.fromLTRB(30, 50, 30, 0),
-              child: ListView(
-                shrinkWrap: true,
-                // ignore: prefer_const_literals_to_create_immutables
-                children: <Widget>[
-                  // ignore: prefer_const_constructors
-                  Image.asset('images/logo-white.png', width: 600, height: 200),
-                  Center(
-                    child: Text(
-                      "ACCOUNT LOGIN",
-                      style: GoogleFonts.oswald(
-                          textStyle: const TextStyle(color: Color(0xFF75AB98)),
-                          fontSize: 45.00,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    child: Card(
+            body: Builder( // this widget is needed for ScaffoldMessenger.of(context) to work.
+              builder: (context) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 50, 30, 0),
+                  child: ListView(
+                    shrinkWrap: true,
+                    // ignore: prefer_const_literals_to_create_immutables
+                    children: <Widget>[
                       // ignore: prefer_const_constructors
-                      child: TextFormField(
-                        cursorColor: Color(0xFF75AB98),
-                        decoration: const InputDecoration(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-                          border: InputBorder.none,
-                          prefixIcon: Align(
-                            widthFactor: 1.0,
-                            heightFactor: 1.0,
-                            child: FaIcon(
-                              FontAwesomeIcons.solidUser,
-                              color: Color(0xFF696969),
-                            ),
-                          ),
-                          labelText: 'Email',
-                          labelStyle: TextStyle(
-                            color: Color(0xFF696969),
-                            fontSize: 20,
-                          ),
-                        ),
-                        style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
-                        validator: (value) {
-                          EmailFieldValidator.validate(value!);
-                        },
-                        controller: TextEditingController(text: user.getEmail),
-                        onChanged: (val) {
-                          user.email = val;
-                        },
-                      ),
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    child: Card(
-                      child: TextFormField(
-                        cursorColor: Color(0xFF75AB98),
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          contentPadding:
-                              EdgeInsets.symmetric(horizontal: 0, vertical: 5),
-                          border: InputBorder.none,
-                          prefixIcon: Align(
-                            widthFactor: 1.0,
-                            heightFactor: 1.0,
-                            child: FaIcon(
-                              FontAwesomeIcons.lock,
-                              color: Color(0xFF696969),
-                            ),
-                          ),
-                          labelText: 'Password',
-                          labelStyle: TextStyle(
-                            color: Color(0xFF696969),
-                            fontSize: 20,
-                          ),
-                        ),
-                        style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
-                        validator: (value) {
-                          PasswordFieldValidator.validate(value!);
-                        },
-                        controller:
-                            TextEditingController(text: user.getPassword),
-                        onChanged: (val) {
-                          user.password = val;
-                        },
-                      ),
-                      color: const Color.fromARGB(255, 255, 255, 255),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Container(
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // save();
-
-                          login(user.getEmail, user.getPassword).then((value) {
-                            setState(() {
-                              loginMessage = value;
-
-                              final snackBar =
-                                  SnackBar(content: Text(loginMessage));
-
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                            });
-                          });
-
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => const NavBar(),
-                          //   ),
-                          // );
-                        },
+                      Image.asset('images/logo-white.png', width: 600, height: 200),
+                      Center(
                         child: Text(
-                          'LOG IN',
+                          "ACCOUNT LOGIN",
                           style: GoogleFonts.oswald(
-                              fontSize: 28, fontWeight: FontWeight.normal),
+                              textStyle: const TextStyle(color: Color(0xFF75AB98)),
+                              fontSize: 45.00,
+                              fontWeight: FontWeight.w500),
                         ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Color(0xFF696969),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        child: Card(
+                          // ignore: prefer_const_constructors
+                          child: TextFormField(
+                            cursorColor: Color(0xFF75AB98),
+                            decoration: const InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                              border: InputBorder.none,
+                              prefixIcon: Align(
+                                widthFactor: 1.0,
+                                heightFactor: 1.0,
+                                child: FaIcon(
+                                  FontAwesomeIcons.solidUser,
+                                  color: Color(0xFF696969),
+                                ),
+                              ),
+                              labelText: 'Email',
+                              labelStyle: TextStyle(
+                                color: Color(0xFF696969),
+                                fontSize: 20,
+                              ),
+                            ),
+                            style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                            validator: (value) {
+                              EmailFieldValidator.validate(value!);
+                            },
+                            controller: TextEditingController(text: user.getEmail),
+                            onChanged: (val) {
+                              user.email = val;
+                            },
+                          ),
+                          color: const Color.fromARGB(255, 255, 255, 255),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    child: ElevatedButton.icon(
-                      icon: Image.asset(
-                        "images/google_logo.png",
-                        width: 32,
-                      ),
-                      label: Text(
-                        'Log in with Google',
-                        style: GoogleFonts.roboto(
-                            fontSize: 20.00, fontWeight: FontWeight.w300),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        primary: Colors.white,
-                        onPrimary: Colors.black,
-                        minimumSize: Size(double.infinity, 50),
-                      ),
-                      onPressed: () async {
-
-                        final provider = await Provider.of<GoogleSignInProvider>(
-                            context,
-                            listen: false);
-                        await provider.signOutWithGoogle(); // apparently needed for login options dialog to show up
-                        final isloggedInWithGoogle = await  provider.loginWithGoogle();
-                        log("kommer jag hit???");
-                        bool isLoggedInWithGoogle = false;
-                        await provider.loginWithGoogle().then((value) {
-
-                         isLoggedInWithGoogle = value;
-                        } );
-                        log("isLoggedInWithGoogle: "+ isLoggedInWithGoogle.toString());
-                        if (isLoggedInWithGoogle){
-                          registerUser(
-                            provider.user.email,
-                            provider.user.displayName!,
-                            "google",
-                          );
-
-                          // user details to be sent to navbar
-                          user.email = provider.user.email.toString();
-                          print("user.email is " + user.getEmail + ".");
-                          user.userName = provider.user.displayName.toString();
-                          user.password = "google";
-                          user.profilePicture = await provider.user.photoUrl;
-                          if (user.profilePicture == null)
-                            user.profilePicture = 'images/profile_coffee.jpg';
-
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => NavBar(user: user)));
-
-                        }
-
-                        // user.email = provider.user.email;
-                        // user.password = "google";
-
-                        // user details to be saved in database
-
-
-                      },
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Forgotten password/username?",
-                      style: GoogleFonts.roboto(
-                          textStyle: const TextStyle(
-                              color: Color(0xFF871801), letterSpacing: .5),
-                          fontSize: 15.00,
-                          fontWeight: FontWeight.w300),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(100, 0, 100, 0),
-                    child: Container(
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SignUp(),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                        child: Card(
+                          child: TextFormField(
+                            cursorColor: Color(0xFF75AB98),
+                            obscureText: true,
+                            decoration: const InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                              border: InputBorder.none,
+                              prefixIcon: Align(
+                                widthFactor: 1.0,
+                                heightFactor: 1.0,
+                                child: FaIcon(
+                                  FontAwesomeIcons.lock,
+                                  color: Color(0xFF696969),
+                                ),
+                              ),
+                              labelText: 'Password',
+                              labelStyle: TextStyle(
+                                color: Color(0xFF696969),
+                                fontSize: 20,
+                              ),
                             ),
-                          );
-                        },
-                        child: Text(
-                          'SIGN UP',
-                          style: GoogleFonts.oswald(
-                              fontSize: 28.00, fontWeight: FontWeight.normal),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          primary: Color(0xFF75AB98),
+                            style: GoogleFonts.roboto(fontWeight: FontWeight.w300),
+                            validator: (value) {
+                              PasswordFieldValidator.validate(value!);
+                            },
+                            controller:
+                                TextEditingController(text: user.getPassword),
+                            onChanged: (val) {
+                              user.password = val;
+                            },
+                          ),
+                          color: const Color.fromARGB(255, 255, 255, 255),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        child: Container(
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // save();
+
+                              login(user.getEmail, user.getPassword).then((value) {
+
+                                if (value.trim() != ""){
+                                  final snackBar =
+                                  SnackBar(content: Text(value));
+
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+
+
+                              });
+
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => const NavBar(),
+                              //   ),
+                              // );
+                            },
+                            child: Text(
+                              'LOG IN',
+                              style: GoogleFonts.oswald(
+                                  fontSize: 28, fontWeight: FontWeight.normal),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Color(0xFF696969),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        child: ElevatedButton.icon(
+                          icon: Image.asset(
+                            "images/google_logo.png",
+                            width: 32,
+                          ),
+                          label: Text(
+                            'Log in with Google',
+                            style: GoogleFonts.roboto(
+                                fontSize: 20.00, fontWeight: FontWeight.w300),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            primary: Colors.white,
+                            onPrimary: Colors.black,
+                            minimumSize: Size(double.infinity, 50),
+                          ),
+                          onPressed: () async {
+
+                            final provider = Provider.of<GoogleSignInProvider>(
+                                context,
+                                listen: false);
+                            await provider.signOutWithGoogle(); // apparently needed for login options dialog to show up
+                            final isloggedInWithGoogle = await  provider.loginWithGoogle();
+                            log("kommer jag hit???");
+                            bool isLoggedInWithGoogle = false;
+                            await provider.loginWithGoogle().then((value) {
+
+                             isLoggedInWithGoogle = value;
+                            } );
+                            log("isLoggedInWithGoogle: "+ isLoggedInWithGoogle.toString());
+                            if (isLoggedInWithGoogle){
+                              registerUser(
+                                provider.user.email,
+                                provider.user.displayName!,
+                                "google",
+                              );
+
+                              // user details to be sent to navbar
+                              user.email = provider.user.email.toString();
+                              print("user.email is " + user.getEmail + ".");
+                              user.userName = provider.user.displayName.toString();
+                              user.password = "google";
+
+                              // trying to get google photo, to replace default photo.
+                              NetworkImage temp = await NetworkImage(provider.user.photoUrl!);
+                              if (temp != null || provider.user.photoUrl?.trim() == "") {
+                                user.profilePicture = temp;
+                              }
+
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => NavBar(user: user)));
+
+                            }
+
+                            // user.email = provider.user.email;
+                            // user.password = "google";
+
+                            // user details to be saved in database
+
+
+                          },
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Forgotten password/username?",
+                          style: GoogleFonts.roboto(
+                              textStyle: const TextStyle(
+                                  color: Color(0xFF871801), letterSpacing: .5),
+                              fontSize: 15.00,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(100, 0, 100, 0),
+                        child: Container(
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignUp(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'SIGN UP',
+                              style: GoogleFonts.oswald(
+                                  fontSize: 28.00, fontWeight: FontWeight.normal),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Color(0xFF75AB98),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              }
             ),
           ),
         ),
