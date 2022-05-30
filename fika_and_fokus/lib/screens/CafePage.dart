@@ -134,7 +134,7 @@ class _CafePageState extends State<CafePage> {
                               thickness: 1,
                               color: Color(0xFF696969)),
                             Text(
-                              price!,
+                              _changePriceStringToDollarSign(),
                               style: GoogleFonts.roboto(
                                 fontSize: 25,
                                 color: Colors.white,
@@ -326,5 +326,17 @@ class _CafePageState extends State<CafePage> {
           offset: const Offset(2, 3))
       ]
     );
+  }
+
+  String _changePriceStringToDollarSign() {
+    switch (widget.cafeItem.price) {
+      case "0":
+        return '\$';
+      case "1":
+        return '\$\$';
+      case "2":
+        return '\$\$\$';
+    }
+    return widget.cafeItem.price;
   }
 }
