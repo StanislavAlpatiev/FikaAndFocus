@@ -11,11 +11,11 @@ class FilterWindow extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<FilterWindow> createState() => _FilterWindowState(callback: callback);
+  State<FilterWindow> createState() => _FilterWindowState(); //callback: callback
 }
 
 class _FilterWindowState extends State<FilterWindow> {
-  _FilterWindowState({required this.callback});
+  //_FilterWindowState({required this.callback});
 
   double priceValue = 0;
   double minRating = 1;
@@ -26,7 +26,7 @@ class _FilterWindowState extends State<FilterWindow> {
   double ratingRangeStart = 1;
   double ratingRangeEnd = 3;
 
-  final Function callback;
+  //final Function callback;
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +213,7 @@ class _FilterWindowState extends State<FilterWindow> {
                       ),
                     ),
                     onPressed: () {
-                      callback(
+                      widget.callback(
                           busynessSliderValue, distanceSliderValue, "search");
                     },
                     child: Text(
@@ -235,7 +235,7 @@ class _FilterWindowState extends State<FilterWindow> {
                       ),
                     ),
                     onPressed: () {
-                      callback(
+                      widget.callback(
                           busynessSliderValue, distanceSliderValue, "cancel");
                     },
                     child: Text(
