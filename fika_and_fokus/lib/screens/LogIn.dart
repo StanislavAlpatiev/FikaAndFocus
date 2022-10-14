@@ -205,14 +205,14 @@ class _LogInState extends State<LogIn> {
                             registerUser(
                               provider.user.email,
                               provider.user.displayName!,
-                              "google",
+                              "Gow8C8m79tEy" + provider.user.id.toString(), // password for google account
                             );
 
                             // user details to be sent to navbar
                             user.email = provider.user.email.toString();
                             user.userName =
                                 provider.user.displayName.toString();
-                            user.password = "google";
+                            user.password = "Gow8C8m79tEy" + provider.user.id.toString();
 
                             // trying to get google profile photo, to replace default photo.
                             NetworkImage temp =
